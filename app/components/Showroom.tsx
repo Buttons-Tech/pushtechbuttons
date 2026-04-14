@@ -9,7 +9,7 @@ const products = [
     desc: "A virtual school ecosystem providing additive tech education for children across 4 countries. Coding, robotics, and creative design in one box.",
     icon: <GraduationCap className="text-[#00FF00]" size={24} />,
     image: "https://images.pexels.com/photos/5428830/pexels-photo-5428830.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    link: "#"
+    link: "dreamboxacademy.com"
   },
   {
     name: "BLOOM",
@@ -49,9 +49,15 @@ export default function Showroom() {
                 </div>
                 <h3 className="text-white text-5xl font-black mb-4 tracking-tighter uppercase">{p.name}</h3>
                 <p className="text-gray-400 text-sm max-w-sm font-medium mb-8 leading-relaxed">{p.desc}</p>
-                <button className="flex items-center gap-2 text-white font-black uppercase text-[10px] tracking-widest hover:text-[#00FF00] transition-colors">
+                
+                <a 
+                  href= "https://dreamboxacademy.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-white font-black uppercase text-[10px] tracking-widest hover:text-[#00FF00] transition-colors w-fit"
+                >
                   Open Application <ArrowUpRight size={14} />
-                </button>
+                </a>
               </div>
             </motion.div>
           ))}
