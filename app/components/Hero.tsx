@@ -1,44 +1,53 @@
 "use client";
 import { motion } from "framer-motion";
+import { ShieldAlert, Zap, Utensils, Droplets, Car } from "lucide-react";
+
+const emergencies = [
+  { name: "Security", icon: <ShieldAlert color="#FF0000" />, link: "/emergency/security" },
+  { name: "Gas Refill", icon: <Droplets color="#00FF00" />, link: "/services/gas" },
+  { name: "Fast Food", icon: <Utensils color="#FFA500" />, link: "/services/food" },
+  { name: "Car Wash", icon: <Car color="#00BFFF" />, link: "/services/carwash" },
+];
 
 export default function Hero() {
   return (
-    <section className="relative h-[90vh] w-full flex items-center justify-center bg-black overflow-hidden">
-      {/* Visual Anchor: Lekki-Ikoyi Link Bridge at Night */}
-      <div className="absolute inset-0 z-0">
-        <img 
-          src="https://images.unsplash.com/photo-1618828665011-0abd973f7bb8?q=80&w=2000" 
-          className="w-full h-full object-cover opacity-40 grayscale"
-          alt="Modern Lagos Infrastructure"
-        />
-        {/* The Fade Overlay to ensure text readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black" />
-      </div>
-
-      <div className="relative z-10 text-center px-6 max-w-5xl">
-        <motion.h1 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-5xl md:text-[110px] font-black text-white tracking-tighter uppercase leading-[0.85] mb-8"
-        >
-          Push the <br /><span className="text-[#00FF00]">Button.</span>
-        </motion.h1>
+    <section className="bg-black text-white min-h-screen">
+      {/* Cinematic Hero */}
+      <div className="relative h-[70vh] flex flex-col items-center justify-center text-center px-6 border-b border-white/5">
+        <div className="absolute inset-0 opacity-30 grayscale">
+            <img src="https://images.pexels.com/photos/373543/pexels-photo-373543.jpeg?auto=compress&cs=tinysrgb&w=1200" className="w-full h-full object-cover" alt="Lagos Night" />
+        </div>
         
-        <p className="text-gray-400 text-sm md:text-xl font-medium tracking-wide max-w-2xl mx-auto mb-10 leading-relaxed">
-          Buttons Technology LTD is accelerating African commerce. 
-          Your 24-hour digital storefront is one click away.
-        </p>
-
-        <button className="bg-[#00FF00] text-black px-12 py-5 rounded-full font-black uppercase text-[11px] tracking-[0.2em] active:scale-90 transition-transform hover:bg-white transition-colors duration-300">
-          Deploy Your Store
-        </button>
+        <div className="relative z-10">
+          <h1 className="text-6xl md:text-[120px] font-black uppercase tracking-tighter leading-none mb-6">
+            24-HOUR <br /><span className="text-[#00FF00]">DIGITAL STORE</span>
+          </h1>
+          <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto font-medium mb-10">
+            Push a button. Get a solution. Connecting local needs to verified Lagos vendors in real-time.
+          </p>
+        </div>
       </div>
-      
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
-        <span className="text-[10px] text-gray-600 uppercase tracking-widest">Scroll</span>
-        <div className="w-[1px] h-12 bg-gradient-to-b from-[#00FF00] to-transparent" />
+
+      {/* Emergency & Quick Needs Row */}
+      <div className="max-w-7xl mx-auto -mt-16 relative z-20 px-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {emergencies.map((item, i) => (
+            <motion.button
+              key={i}
+              whileTap={{ scale: 0.95 }}
+              className="bg-[#0a0a0a] border border-white/10 p-8 rounded-[32px] flex flex-col items-center gap-4 hover:border-[#00FF00] transition-all group"
+            >
+              <div className="p-4 bg-white/5 rounded-full group-hover:bg-[#00FF00]/10 transition-colors">
+                {item.icon}
+              </div>
+              <span className="text-[10px] font-black uppercase tracking-widest text-gray-400 group-hover:text-white">
+                {item.name}
+              </span>
+            </motion.button>
+          ))}
+        </div>
       </div>
     </section>
   );
 }
+

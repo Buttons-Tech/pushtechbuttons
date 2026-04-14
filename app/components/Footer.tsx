@@ -1,33 +1,33 @@
+"use client";
+
 export default function Footer() {
   return (
-    <footer className="bg-background py-20 border-t border-white/5 px-6">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12">
+    <footer className="bg-black py-20 px-6 border-t border-white/5">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-12">
+        
         <div>
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-5 h-5 bg-primary rounded-full" />
-            <span className="text-white font-bold tracking-tighter uppercase">Buttons Technology LTD</span>
+          <h2 className="text-white text-4xl font-black tracking-tighter mb-4">PUSHTECHBUTTONS<span className="text-[#00FF00]">.</span></h2>
+          <p className="text-gray-600 text-[10px] font-black uppercase tracking-[0.4em]">Managed by Ohakwechi</p>
+          <div className="mt-8 flex gap-6">
+            {["X", "LinkedIn", "GitHub"].map((link) => (
+              <a key={link} href="#" className="text-gray-500 hover:text-white text-[10px] font-black uppercase tracking-widest transition-colors">
+                {link}
+              </a>
+            ))}
           </div>
-          <p className="text-gray-500 text-xs max-w-xs leading-loose">
-            Registered with the Corporate Affairs Commission. 
-            Built on a major road in Lagos. Operating at the speed of thought.
+        </div>
+
+        <div className="text-left md:text-right">
+          <p className="text-gray-600 text-[10px] font-black uppercase tracking-widest mb-2">Lagos Infrastructure</p>
+          <p className="text-white/40 text-[10px] font-medium leading-relaxed max-w-[200px]">
+            Lekki | Igando | VI<br />
+            24-Hour Digital Store Availability
+          </p>
+          <p className="text-gray-800 text-[9px] font-black uppercase tracking-widest mt-12">
+            © 2026 Buttons Technology LTD
           </p>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-12">
-          <div className="flex flex-col gap-3">
-            <span className="text-white text-[10px] font-bold uppercase tracking-widest">Connect</span>
-            <a href="#" className="text-gray-500 text-xs hover:text-primary transition-colors">WhatsApp</a>
-            <a href="#" className="text-gray-500 text-xs hover:text-primary transition-colors">LinkedIn</a>
-          </div>
-          <div className="flex flex-col gap-3">
-            <span className="text-white text-[10px] font-bold uppercase tracking-widest">Legal</span>
-            <a href="#" className="text-gray-500 text-xs hover:text-primary transition-colors">LTD Status</a>
-            <a href="#" className="text-gray-500 text-xs hover:text-primary transition-colors">Privacy</a>
-          </div>
-        </div>
-      </div>
-      <div className="max-w-7xl mx-auto mt-20 pt-8 border-t border-white/5 flex justify-between">
-        <span className="text-gray-600 text-[10px] uppercase">© 2026 Buttons Tech</span>
-        <span className="text-gray-600 text-[10px] uppercase tracking-widest">Lagos, Nigeria</span>
+        
       </div>
     </footer>
   );
