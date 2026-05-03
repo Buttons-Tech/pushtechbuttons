@@ -25,7 +25,7 @@ export default function Hero({ onOpenStory }: { onOpenStory: () => void }) {
             animate={{ y: 0, opacity: 1 }}
             className="text-6xl md:text-[120px] font-black uppercase tracking-tighter leading-none mb-6"
           >
-            24-HOUR <br /><span className="text-[#00FF00]">DIGITAL STORE</span>
+            24-HOUR <br /><span className="text-[#00FF00]">DIGITAL VILLAGE</span>
           </motion.h1>
           <motion.p 
             initial={{ y: 20, opacity: 0 }}
