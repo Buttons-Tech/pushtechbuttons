@@ -24,8 +24,8 @@ export const Hero = () => {
           </div>
           
           <h1 className="text-5xl lg:text-7xl font-bold text-buttons-dark leading-[1.1] mb-6">
-            Lagos is Hard. <br />
-            <span className="text-buttons-primary italic">Life shouldn't be.</span>
+            Lagos no Hard. <br />
+            <span className="text-buttons-primary italic">Na you no use BUTTONS</span>
           </h1>
           
           <p className="text-lg text-gray-600 mb-8 max-w-lg leading-relaxed">
