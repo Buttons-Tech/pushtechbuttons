@@ -29,8 +29,8 @@ export const Hero = () => {
           </h1>
           
           <p className="text-lg text-gray-600 mb-8 max-w-lg leading-relaxed">
-            Buttons is the executive assistant for the busy Nigerian professional. 
-            From jollof to laundry, one tap clears your mental desk.
+            Push Buttons | Make Things Happen <br /> 
+            Connecting your needs to local businesses, empowering builders, and transforming the way Lagos gets things done.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4">
