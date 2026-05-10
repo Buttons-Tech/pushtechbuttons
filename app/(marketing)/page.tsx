@@ -1,6 +1,7 @@
 // src/app/(marketing)/page.tsx
 
 import { Hero } from "../components/marketing/Hero";
+import { ServicesGrid } from "../components/marketing/ServicesGrid";
 // import { BusinessSpotlight } from "@/components/marketing/BusinessSpotlight";
 // import { ServicesGrid } from "@/components/marketing/ServicesGrid";
 // import { TalentSection } from "@/components/marketing/TalentSection";
@@ -10,6 +11,7 @@ export default function LandingPage() {
     <main className="min-h-screen">
       {/* 1. The "Command Center" Hero Section */}
       <Hero />
+      <ServicesGrid/>
 
       {/* 2. The "Buttons" Ecosystem (Services) */}
       {/* <ServicesGrid /> */}
