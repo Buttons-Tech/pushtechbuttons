@@ -7,23 +7,27 @@ import Link from "next/link";
 
 export const Hero = () => {
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-buttons-surface px-6 py-20" style={{
-        backgroundImage: "url('/illustrations/pattern.png')",
-        backgroundRepeat: "repeat",
-        backgroundSize: "800px",
-        backgroundPosition: "center",
-        // This ensures the pattern is subtle against your background color
-        backgroundBlendMode: "overlay", 
-        // opacity: 0.2
-
-      }}>
+    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-buttons-surface px-6 py-20">
       
-      {/* Background Decorative Pattern (African-Inspired) */}
+      {/* 1. SEAMLESS PATTERN LAYER (Fixed for iPhone/Safari) */}
+      <div 
+        className="absolute inset-0 pointer-events-none z-0"
+        style={{
+          backgroundImage: "url('/illustrations/pattern.png')",
+          backgroundRepeat: "repeat",
+          backgroundSize: "800px",
+          backgroundPosition: "center",
+          mixBlendMode: "overlay", 
+          opacity: 0.1 
+        }}
+      />
+      
+      {/* 2. OPTIONAL: Secondary Decorative Pattern */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-african-pattern bg-repeat z-0" />
       
       <div className="container mx-auto relative z-10 grid lg:grid-cols-2 gap-12 items-center">
         
-        {/* LEFT SIDE: OVERHAULED TO MATCH THE BANNER */}
+        {/* LEFT SIDE: BILLBOARD BRANDING */}
         <div className="flex flex-col items-start">
           <motion.div 
             initial={{ opacity: 0, x: -50 }}
@@ -37,31 +41,32 @@ export const Hero = () => {
             </div>
             
             {/* Heavy Impact Headline */}
-            <h1 className="text-[64px] md:text-[90px] font-[900] leading-[0.85] text-black tracking-tighter uppercase mb-2">
+            <h1 className="text-[64px] md:text-[100px] font-[900] leading-[0.85] text-black tracking-tighter uppercase mb-2">
               MAKE THINGS <br />
               <span className="text-buttons-primary">HAPPEN.</span>
             </h1>
 
             {/* The Badge Section */}
             <div className="relative mt-6 mb-12 flex items-center">
-              {/*  Arrow */}
+              {/* Arrow with Aspect Ratio Fix */}
               <div className="absolute -left-16 -top-4 hidden lg:block">
-
                 <Image 
-                src="/illustrations/arrow2.png" // Path to the uploaded arrow
-                alt="Pointing to Buttons"
-                width={80} // Approx size from billboard
-                height={50}
-                className="rotate-[-15deg] brightness-0" // Subtle angle from the billboard
-              />
-                
+                  src="/illustrations/arrow2.png" 
+                  alt="Pointing to Buttons"
+                  width={80} 
+                  height={50} 
+                  style={{
+                    width: 'auto', // Force the width
+    height: 'auto'
+                  }}
+                  className="rotate-[-15deg] brightness-0" 
+                />
               </div>
               
               <span className="text-3xl md:text-4xl font-serif italic font-medium mr-6 text-black">
                 with
               </span>
               
-              {/* Orange BUTTONS Badge Wrapper for TS Safety */}
               <motion.div 
                 whileHover={{ scale: 1.05 }}
                 className="relative"
@@ -96,7 +101,7 @@ export const Hero = () => {
           </motion.div>
         </div>
 
-        {/* RIGHT SIDE: KEPT EXACTLY AS IT WAS */}
+        {/* RIGHT SIDE: INTERACTIVE ILLUSTRATION */}
         <motion.div 
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
