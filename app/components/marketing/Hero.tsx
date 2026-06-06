@@ -92,7 +92,7 @@ export const Hero = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/get-started" className="group relative px-10 py-5 bg-black text-white rounded-full font-bold overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-xl hover:shadow-buttons-glow">
+              <Link href="https://forms.gle/MGMgkuyu6hJEJSjcA" className="group relative px-10 py-5 bg-black text-white rounded-full font-bold overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-xl hover:shadow-buttons-glow">
                 <span className="relative z-10 flex items-center gap-2">
                   Get Started <MoveRight className="group-hover:translate-x-1 transition-transform" />
                 </span>
