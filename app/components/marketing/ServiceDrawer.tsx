@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ShoppingBag, Clock, Star } from "lucide-react";
-
+import { X, ShoppingBag, Clock, Star } from "lucide-react"
 // DATA WITH REAL IMAGE CONTEXT
 const DATA: any = {
   Food: {
