@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { MoveRight, Zap } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import ButtonStrip from "./ButtonStrip";
 
 export const Hero = () => {
   return (
@@ -18,7 +19,7 @@ export const Hero = () => {
           backgroundSize: "800px",
           backgroundPosition: "center",
           mixBlendMode: "overlay", 
-          opacity: 0.1 
+          opacity: 0.3 
         }}
       />
       
@@ -35,60 +36,23 @@ export const Hero = () => {
             transition={{ duration: 0.6 }}
           >
             {/* The Campaign Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-buttons-primary/10 text-buttons-primary font-medium text-sm mb-8">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-buttons-primary/10 text-gray-500 font-medium text-sm mb-8 mt-4 md:mt-0">
               <Zap size={16} />
               <span>The Campaign: Make Things Happen</span>
             </div>
             
             {/* Heavy Impact Headline */}
-            <h1 className="text-[64px] md:text-[100px] font-[900] leading-[0.85] text-black tracking-tighter uppercase mb-2">
-              MAKE THINGS <br />
-              <span className="text-buttons-primary">HAPPEN.</span>
+            <h1 className="text-[60px] md:text-[80px] font-black leading-[0.85] text-black tracking-tighter uppercase mb-2">
+              What can we<br />
+              <span className="text-buttons-primary">Get you?</span>
             </h1>
 
             {/* The Badge Section */}
-            <div className="relative mt-6 mb-12 flex items-center">
-              {/* Arrow with Aspect Ratio Fix */}
-              <div className="absolute -left-16 -top-4 hidden lg:block">
-                <Image 
-                  src="/illustrations/arrow2.png" 
-                  alt="Pointing to Buttons"
-                  width={80} 
-                  height={50} 
-                  style={{
-                    width: 'auto', // Force the width
-    height: 'auto'
-                  }}
-                  className="rotate-[-15deg] brightness-0" 
-                />
-              </div>
-              
-              <span className="text-3xl md:text-4xl font-serif italic font-medium mr-6 text-black">
-                with
-              </span>
-              
-              <motion.div 
-                whileHover={{ scale: 1.05 }}
-                className="relative"
-              >
-                <div className="bg-buttons-accent px-8 md:px-10 py-3 md:py-4 rounded-[25px] -rotate-2 shadow-2xl">
-                  <span className="text-white text-4xl md:text-6xl font-[900] italic uppercase tracking-tighter">
-                    BUTTONS
-                  </span>
-                  
-                  {/* Clicker Icon */}
-                  <div className="absolute -right-4 -bottom-4">
-                    <div className="w-10 h-10 md:w-12 md:h-12 bg-black rounded-full border-4 border-white flex items-center justify-center shadow-lg">
-                      <div className="w-3 h-3 bg-buttons-accent rounded-sm rotate-45" />
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            </div>
+           
 
             <p className="text-lg md:text-xl text-gray-600 mb-10 max-w-lg leading-relaxed font-medium">
-             <strong>Push Buttons | Make Things Happen</strong> <br /> 
-              The remote control for your community. Everything you need, just one press away.
+             <strong>Food | Gas | Laundry | Groceries</strong> <br /> 
+              Everything you need, just one press away.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
@@ -99,6 +63,7 @@ export const Hero = () => {
               </Link>
             </div>
           </motion.div>
+         
         </div>
 
         {/* RIGHT SIDE: INTERACTIVE ILLUSTRATION */}
@@ -109,14 +74,17 @@ export const Hero = () => {
           className="relative flex justify-center items-center"
         >
           <div className="relative w-full aspect-square max-w-[500px]">
-             <div className="absolute inset-0 bg-gradient-to-tr from-buttons-primary to-buttons-accent rounded-3xl rotate-3 opacity-10 animate-pulse" />
+             <div className="absolute inset-0 bg-linear-to-tr from-buttons-primary to-buttons-accent rounded-3xl rotate-3 opacity-10 animate-pulse" />
              <div className="absolute inset-0 bg-white/40 backdrop-blur-3xl rounded-3xl -rotate-3 border border-white/20" />
              
              <FloatingButton icon="🍲" label="Food" delay={0} top="10%" left="10%" />
              <FloatingButton icon="🧺" label="Laundry" delay={0.2} top="50%" left="-5%" />
              <FloatingButton icon="✂️" label="Salon" delay={0.4} bottom="15%" right="10%" />
           </div>
+          <img src="/images/tab1.png" className="h-100 absolute" alt="" />
         </motion.div>
+
+       
       </div>
     </section>
   );

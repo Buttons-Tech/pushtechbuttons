@@ -20,10 +20,10 @@ export const TalentAcademy = () => {
             </div>
             <div>
               <h3 className="text-white font-black uppercase tracking-tighter text-xl md:text-2xl">
-                Buttons Talent Academy <span className="text-buttons-accent">1.0</span>
+                Built by NYSC Corpers <span className="text-buttons-accent">& the Click Team</span>
               </h3>
               <p className="text-gray-400 text-xs font-bold uppercase tracking-widest">
-                NYSC & Graduate Engineering Track • Lagos, Nigeria
+                Join the next Batch • Lagos, Nigeria
               </p>
             </div>
           </div>
@@ -69,14 +69,14 @@ export const TalentAcademy = () => {
                 </h2>
                 
                 <p className="text-gray-600 font-medium mb-8 leading-relaxed">
-                  Join the elite cohort of Nigerian developers and designers building the future of Buttons. This isn't just a course—it's your entry into the Buttons internal product teams.
+                  Join the elite cohort of NYSC developers and designers building the future of Africa. This isn't just a course—it's your entry into the world of <span className="font-bold">Urban Technology.</span>
                 </p>
 
                 <div className="grid sm:grid-cols-2 gap-4 mb-10">
-                  <ModalFeature text="MERN Stack & Python Dev" />
-                  <ModalFeature text="Internal Internship Path" />
-                  <ModalFeature text="Product Management Basics" />
-                  <ModalFeature text="Industry-Standard Portfolio" />
+                  <ModalFeature text="UI-UX Designs" />
+                  <ModalFeature text="Software Development" />
+                  <ModalFeature text="Product Management" />
+                  <ModalFeature text="Backend Development" />
                 </div>
 
                 <div className="bg-gray-50 p-6 rounded-3xl flex items-center justify-between border border-gray-100">
@@ -89,6 +89,7 @@ export const TalentAcademy = () => {
                   </button>
                 </div>
               </div>
+              <span className="ml-[10rem] -mt-20 text-buttons-primary">I alrealdy have 3 years of experience</span>
             </motion.div>
           </div>
         )}
