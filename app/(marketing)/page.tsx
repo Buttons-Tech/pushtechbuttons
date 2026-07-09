@@ -3,6 +3,7 @@
 import Dreambox from "../components/business/Dreambox";
 import Nysc from "../components/business/Nysc";
 import Rove from "../components/business/Rove";
+import EstateApp from "../components/marketing/EstateApp";
 
 // import { Hero } from "../components/marketing/Hero";
 import { PartnerStrip } from "../components/marketing/PartnerStrip";
@@ -19,18 +20,18 @@ export default function LandingPage() {
     <main className="min-h-screen ">
       {/* 1. The "Command Center" Hero Section */}
       {/* <Hero /> */}
-      <UpdateStrip />
+      {/* <UpdateStrip /> */}
       {/* 2. The "Buttons" Ecosystem (Services) */}
       {/* <Hero/> */}
-      <ServicesGrid />
+      {/* <ServicesGrid /> */}
 
-      <PartnerStrip/>
+      {/* <PartnerStrip/> */}
       
 
       {/* ROVE */}
-      <Rove />
-      <Nysc />
-      <Dreambox />
+      {/* <Rove /> */}
+      {/* <Nysc /> */}
+      {/* <Dreambox /> */}
 
       {/* Who are we? */}
 
@@ -42,6 +43,11 @@ export default function LandingPage() {
       {/* <TalentAcademy /> */}
 
       {/*  */}
+
+
+      {/* NEW APP */}
+      <EstateApp />
+
     </main>
   );
 }
