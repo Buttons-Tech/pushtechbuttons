@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --background: #ffffff;
+    --foreground: #000000;
+    --card: #f4f4f4;
+    --primary: #008000; /* Darker green for light mode visibility */
+  }
+
+  .dark {
+    --background: #000000;
+    --foreground: #ffffff;
+    --card: #0a0a0a;
+    
+    --primary: 255 75% 54%; /* This is the HSL for your Purple */
+    --primary-foreground: 0 0% 100%;
+    --radius: 0.75rem; /* Rounded corners for that modern feel */
+  }
+}
+
+@theme {
+  --color-buttons-primary: #FFBF00;
+  --color-buttons-accent: #FF8C00;
+  --color-buttons-dark: #1A1A1A;
+  --color-buttons-surface: #F9F6FF;
+  --image-african-pattern: url('/illustrations/pattern.png');
+  
+  --shadow-buttons-glow: 0 10px 40px -10px rgba(93, 63, 211, 0.5);
+  --shadow-accent-glow: 0 0 20px 5px rgba(255, 140, 0, 0.3);
+}
+
+
+
+@layer utilities {
+  .shadow-glow {
+    box-shadow: var(--shadow-buttons-glow);
+  }
+}
+
+@utility shadow-glow-accent {
+  box-shadow: var(--shadow-accent-glow);
+}
+
+.bg-african-pattern {
+  background-color: transparent;
+  background-image:  radial-gradient(#5D3FD3 0.5px, transparent 0.5px), radial-gradient(#5D3FD3 0.5px, transparent 0.5px);
+  background-size: 20px 20px;
+  background-position: 0 0,10px 10px;
+  opacity: 0.05; /* Keeps it professional and subtle */
+}
+@utility bg-hero-pattern {
+  /* Set the base color (the surface color you liked) */
+  background-color: #F9F6FF; 
+  /* Overlay the pattern */
+  background-image: url('/illustrations/pattern.svg');
+  background-repeat: repeat;
+  background-size: 600px;
+  /* Use 'multiply' or 'overlay' to blend it subtly without a separate div */
+  background-blend-mode: multiply;
+}
+
+
+@utility bg-afro-pattern {
+  background-color: var(--color-buttons-primary);
+  background-image: var(--image-afro-pattern);
+  background-repeat: repeat;
+  background-size: 800px; /* Adjust based on the SVG scale */
+  opacity: 0.03; /* Keep it subtle like the banner */
+  background-blend-mode: multiply;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
