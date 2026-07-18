@@ -139,8 +139,38 @@ export default function FoodTraySelector() {
   //   }, 3000);
   // };
 
+  // const handleCheckout = () => {
+  //   // 1. WhatsApp Configuration (Nigerian format without '+' or spaces)
+  //   const phoneNumber = "2348095769296"; 
+
+  //   // 2. Format individual items from the tray details
+  //   const itemsText = trayDetails.itemsList
+  //     .map(({ item, quantity }) => `• ${item?.icon} *${item?.name}* (x${quantity}) - ₦${((item?.price || 0) * quantity).toLocaleString()}`)
+  //     .join("\n");
+
+  //   // 3. Construct the clean message structure
+  //   const message = `*🍳 New Order from Bigger Bites Kitchen*\n\n` +
+  //                   `*Tray Overview:*\n${itemsText}\n\n` +
+  //                   `*Total Amount:* ₦${trayDetails.totalPrice.toLocaleString()}`;
+
+  //   // 4. Safely encode URL entities
+  //   const encodedMessage = encodeURIComponent(message);
+  //   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+  //   // 5. Trigger existing visual confirmations and clear the state
+  //   setOrderPlaced(true);
+  //   setTimeout(() => {
+  //     setOrderPlaced(false);
+  //     setTray({});
+  //   }, 3000);
+
+  //   // 6. Direct seamlessly to WhatsApp on the same page
+  //   window.location.href = whatsappUrl;
+  // };
+
+
   const handleCheckout = () => {
-    // 1. WhatsApp Configuration (Nigerian format without '+' or spaces)
+    // 1. WhatsApp Configuration
     const phoneNumber = "2348095769296"; 
 
     // 2. Format individual items from the tray details
@@ -148,10 +178,12 @@ export default function FoodTraySelector() {
       .map(({ item, quantity }) => `• ${item?.icon} *${item?.name}* (x${quantity}) - ₦${((item?.price || 0) * quantity).toLocaleString()}`)
       .join("\n");
 
-    // 3. Construct the clean message structure
-    const message = `*🍳 New Order from Bigger Bites Kitchen*\n\n` +
+    // 3. Construct the clean message structure including the new details
+    const message = `*🍳 New Order via Buttns App*\n\n` +
                     `*Tray Overview:*\n${itemsText}\n\n` +
-                    `*Total Amount:* ₦${trayDetails.totalPrice.toLocaleString()}`;
+                    `*Total Amount:* ₦${trayDetails.totalPrice.toLocaleString()}\n\n` +
+                    `*📍 Delivery Address:*\n` +
+                    `The Cave, Ija. No 36 Adebisi Emily Idayat Estate, Ija Bustop, Isuti Road, Egan, Lagos.`;
 
     // 4. Safely encode URL entities
     const encodedMessage = encodeURIComponent(message);
@@ -167,7 +199,6 @@ export default function FoodTraySelector() {
     // 6. Direct seamlessly to WhatsApp on the same page
     window.location.href = whatsappUrl;
   };
-
   return (
     <div className="max-w-md mx-auto bg-slate-50 min-h-screen pb-40 font-sans text-slate-800 antialiased selection:bg-emerald-100">
       
