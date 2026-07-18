@@ -14,47 +14,70 @@ import {
   Trash2 
 } from "lucide-react";
 
-// Mock Data for Bigger Bites Kitchen
+// Updated categories to match local eating habits precisely
+type FoodCategory = "rice" | "swallows" | "proteins" | "snacks" | "drinks";
+
 interface FoodItem {
   id: string;
   name: string;
-  category: "mains" | "proteins" | "sides" | "drinks";
+  category: FoodCategory;
   price: number;
-  icon: string; // Emoji fallback for highly reliable, zero-asset instant loading
+  icon: string; // High-performance emoji representation
   popular?: boolean;
 }
 
+// Complete local menu matrix for Bigger Bites Kitchen
 const FOOD_MENU: FoodItem[] = [
-  { id: "m1", name: "Jollof Rice", category: "mains", price: 1500, icon: "🍛", popular: true },
-  { id: "m2", name: "Fried Rice", category: "mains", price: 1600, icon: "🍲" },
-  { id: "m3", name: "White Rice & Stew", category: "mains", price: 1400, icon: "🍚" },
+  // Rice Category
+  { id: "r1", name: "Jollof Rice", category: "rice", price: 1500, icon: "🍛", popular: true },
+  { id: "r2", name: "Fried Rice", category: "rice", price: 1600, icon: "🍲" },
+  { id: "r3", name: "White Rice & Stew", category: "rice", price: 1400, icon: "🍚" },
+
+  // Swallows Category (Main + Soup pairings)
+  { id: "sw1", name: "Amala (with Ewedu & Gbegiri)", category: "swallows", price: 1800, icon: "🤎", popular: true },
+  { id: "sw2", name: "Pounded Yam (with Egusi Soup)", category: "swallows", price: 2000, icon: "🤍" },
+  { id: "sw3", name: "Eba (with Okra Soup)", category: "swallows", price: 1500, icon: "💛" },
+
+  // Proteins (Can be paired with Rice or Swallows)
   { id: "p1", name: "Grilled Chicken", category: "proteins", price: 1800, icon: "🍗", popular: true },
   { id: "p2", name: "Fried Fish", category: "proteins", price: 1500, icon: "🐟" },
   { id: "p3", name: "Peppered Beef", category: "proteins", price: 1200, icon: "🥩" },
-  { id: "s1", name: "Plantain (Dodo)", category: "sides", price: 600, icon: "🍌", popular: true },
-  { id: "s2", name: "Moin Moin", category: "sides", price: 800, icon: "🫔" },
-  { id: "s3", name: "Coleslaw", category: "sides", price: 500, icon: "🥗" },
+
+  // Snacks Category
+  { id: "sn1", name: "Spiced Meat Pie", category: "snacks", price: 800, icon: "🥧", popular: true },
+  { id: "sn2", name: "Puff Puff (Portion)", category: "snacks", price: 600, icon: "🟢" },
+  { id: "sn3", name: "Sausage Roll", category: "snacks", price: 700, icon: "🥖" },
+
+  // Drinks Category
   { id: "d1", name: "Chilled Chapman", category: "drinks", price: 1000, icon: "🍹" },
   { id: "d2", name: "Bottled Water", category: "drinks", price: 400, icon: "💧" },
 ];
 
-// OPay styled direct, one-tap meal packages
+// OPay styled direct, one-tap meal packages (combining swallows & snacks)
 const QUICK_COMBOS = [
   {
     id: "c1",
     name: "Classic Jollof Combo",
-    description: "Jollof Rice + Grilled Chicken + Plantain",
-    items: ["m1", "p1", "s1"],
+    description: "Jollof Rice + Grilled Chicken + Chilled Chapman",
+    items: ["r1", "p1", "d1"],
     badge: "Most Popular",
-    price: 3900,
+    price: 4300,
   },
   {
     id: "c2",
-    name: "Light Lunch Tray",
-    description: "White Rice + Peppered Beef + Coleslaw",
-    items: ["m3", "p3", "s3"],
+    name: "Bestseller Amala Tray",
+    description: "Amala + Peppered Beef + Chilled Chapman",
+    items: ["sw1", "p3", "d1"],
+    badge: "Local Favorite",
+    price: 4000,
+  },
+  {
+    id: "c3",
+    name: "Snack & Drink Tray",
+    description: "Meat Pie + Puff Puff + Chilled Chapman",
+    items: ["sn1", "sn2", "d1"],
     badge: "Quick Bite",
-    price: 3100,
+    price: 2400,
   }
 ];
 
@@ -120,7 +143,7 @@ export default function FoodTraySelector() {
     <div className="max-w-md mx-auto bg-slate-50 min-h-screen pb-40 font-sans text-slate-800 antialiased selection:bg-emerald-100">
       
       {/* Header Widget - Simple, branding focused, clear OPay-style green accents */}
-      <header className="bg-emerald-600 text-white p-5 rounded-b-3xl shadow-md sticky top-0 z-10">
+      <header className="bg-amber-500 text-white p-5 rounded-b-3xl shadow-md sticky top-0 z-10">
         <div className="flex justify-between items-center">
           <div>
             <p className="text-xs opacity-90 tracking-wider font-semibold uppercase">Ordering From</p>
@@ -128,16 +151,16 @@ export default function FoodTraySelector() {
               Bigger Bites Kitchen <span className="text-base">🍳</span>
             </h1>
           </div>
-          <div className="bg-emerald-500/50 px-3 py-1.5 rounded-full flex items-center gap-1 text-xs font-semibold">
+          <div className="bg-lime-500/50 px-3 py-1.5 rounded-full flex items-center gap-1 text-xs font-semibold">
             <Clock className="w-3.5 h-3.5" />
-            <span>15-25 mins</span>
+            <span>15 mins</span>
           </div>
         </div>
 
         {/* Dynamic Tray Quick Status */}
-        <div className="mt-4 bg-white/10 rounded-2xl p-3 flex justify-between items-center text-sm backdrop-blur-sm">
+        <div className="mt-4 bg-white/20 rounded-2xl p-3 flex justify-between items-center text-sm backdrop-blur-sm">
           <div className="flex items-center gap-2">
-            <ShoppingBag className="w-5 h-5 text-emerald-200" />
+            <ShoppingBag className="w-5 h-5 text-amber-200" />
             <span>{trayDetails.totalItemsCount} items on your tray</span>
           </div>
           <span className="font-bold text-base">
@@ -178,16 +201,16 @@ export default function FoodTraySelector() {
           </div>
         </section>
 
-        {/* 2. Super App Styled Filter Badges */}
+        {/* 2. Super App Styled Filter Badges - Optimized for efficient navigation */}
         <section>
           <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
-            {["all", "mains", "proteins", "sides", "drinks"].map((cat) => (
+            {["all", "rice", "swallows", "proteins", "snacks", "drinks"].map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
                 className={`px-4 py-2 rounded-full text-xs font-bold transition capitalize shrink-0 ${
                   activeCategory === cat
-                    ? "bg-emerald-600 text-white shadow-sm"
+                    ? "bg-lime-600 text-white shadow-sm"
                     : "bg-white text-slate-600 border border-slate-100 hover:bg-slate-50"
                 }`}
               >
@@ -264,7 +287,7 @@ export default function FoodTraySelector() {
         </section>
       </main>
 
-      {/* 4. The Sticky Persistent Food Tray: Single clear focal point at the bottom */}
+      {/* 4. The Sticky Persistent Food Tray */}
       <footer className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t border-slate-100 shadow-[0_-8px_30px_rgba(0,0,0,0.06)] p-4 rounded-t-3xl z-20">
         {trayDetails.totalItemsCount > 0 ? (
           <div className="space-y-4">
@@ -292,7 +315,7 @@ export default function FoodTraySelector() {
               ))}
             </div>
 
-            {/* Ultimate Action Button: Visual, large, completely unambiguous */}
+            {/* Ultimate Action Button */}
             <button
               onClick={handleCheckout}
               disabled={orderPlaced}

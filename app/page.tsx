@@ -1,5 +1,9 @@
 "use client";
 
+
+
+  
+
 import React, { useState } from "react";
 import {
   Utensils,
@@ -23,6 +27,9 @@ import {
   X,
   Home,
 } from "lucide-react";
+import Link from "next/link";
+
+// types
 
 type Category = "Eat" | "Hair" | "Gas" | "Wash";
 type ViewState = "home" | "food" | "power" | "hair" | "gas" | "wash";
@@ -63,6 +70,9 @@ interface CartItem {
 }
 
 export default function EstateApp() {
+
+  
+  // states
   const [currentView, setCurrentView] = useState<ViewState>("home");
   const [globalCart, setGlobalCart] = useState<{ [key: string]: number }>({});
 
@@ -85,6 +95,8 @@ export default function EstateApp() {
     { name: string; price: number }[]
   >([]);
 
+
+  // vendors
   const mockVendors: Vendor[] = [
     {
       id: "1",
@@ -120,6 +132,8 @@ export default function EstateApp() {
     },
   ];
 
+  // combo
+
   const customizablePartyRice: CustomizableMeal = {
     id: "c1",
     name: "Egan Party Rice Combo",
@@ -139,6 +153,8 @@ export default function EstateApp() {
     ],
   };
 
+
+  // hair
   const genericHairItems: ServiceProduct[] = [
     {
       id: "h1",
@@ -155,6 +171,8 @@ export default function EstateApp() {
     },
   ];
 
+
+  // Gas
   const genericGasItems: ServiceProduct[] = [
     {
       id: "g1",
@@ -170,6 +188,8 @@ export default function EstateApp() {
       description: "Compact cylinder refill service including doorstep dropoff",
     },
   ];
+
+  // Wash
 
   const genericWashItems: ServiceProduct[] = [
     {
@@ -188,6 +208,8 @@ export default function EstateApp() {
     },
   ];
 
+  // Tray
+
   const openFoodCustomizer = (meal: CustomizableMeal) => {
     setActiveCustomMeal(meal);
     setChosenVariant(meal.variants[0]);
@@ -196,6 +218,9 @@ export default function EstateApp() {
     setIsCustomizerOpen(true);
   };
 
+
+  // price
+
   const calculateCustomizerPrice = () => {
     if (!activeCustomMeal) return 0;
     const pPrice = chosenProtein ? chosenProtein.price : 0;
@@ -203,6 +228,8 @@ export default function EstateApp() {
     return activeCustomMeal.basePrice + pPrice + ePrice;
   };
 
+
+  // cart
   const addCustomItemToFoodCart = () => {
     if (!activeCustomMeal || !chosenProtein) return;
 
@@ -245,6 +272,9 @@ export default function EstateApp() {
   const getFoodCartTotal = () =>
     foodCart.reduce((s, i) => s + i.pricePerUnit * i.quantity, 0);
   const getFoodCartCount = () => foodCart.reduce((s, i) => s + i.quantity, 0);
+
+
+  // Checkout
 
   const handleWhatsAppFoodCheckout = () => {
     const target = mockVendors.find((v) => v.category === "Eat");
@@ -298,6 +328,8 @@ export default function EstateApp() {
     );
   };
 
+
+  // power
   const handlePowerTokenOrder = (pkg: any) => {
     const adminNumber = "2348000000000";
     const message = `Hello Hub Admin, I want to purchase the *${pkg.name}* (₦${pkg.price.toLocaleString()}) for device charging.\n\nI understand the drop-off window is 7:00 AM and pickup is 7:00 PM.\n\nHouse Number: ${houseNumber || "__________"}`;
@@ -307,9 +339,12 @@ export default function EstateApp() {
     );
   };
 
+
+  // Render
   return (
     <div className="max-w-md mx-auto min-h-screen bg-gray-50 pb-12 font-sans antialiased text-slate-800 relative">
-      {/* ================= VIEW: FOOD VIEW MATRIX ================= */}
+
+      {/* ================= VIEW: FOOD Button ================= */}
       {currentView === "food" && (
         <div className="pb-32">
           <div className="relative h-45 bg-slate-900 text-white">
@@ -457,6 +492,9 @@ export default function EstateApp() {
                 ))}
               </div>
             </div>
+
+
+            {/* Tray */}
 
             {/* CHOICE 2: PROTEIN CHOICE SELECTION SECTION */}
             <div className="space-y-2">
@@ -810,6 +848,9 @@ export default function EstateApp() {
         </div>
       )}
 
+
+      {/* here! */}
+
       {/* ================= VIEW: MAIN INTERFACE HUB HOME PLATFORM ================= */}
       {currentView === "home" && (
         <div>
@@ -840,14 +881,21 @@ export default function EstateApp() {
                   Your best vendors are now online!
                 </span>
               </h1>
+              <Link href="/test" className="w-full">
               <button
-                onClick={() => setCurrentView("food")}
+                // onClick={() => setCurrentView("food")}
+                // onClick={() => window.open("/test", "_self")}
+                // onClick={() => { window.location.href = "/test"; }}
+                
                 className="bg-amber-400 text-black w-full h-[36px] rounded-[24px] mt-4 font-black text-xs shadow-sm"
               >
                 Order Food Now!
               </button>
+            </Link>
+
                <button
-                onClick={() => setCurrentView("food")}
+                // onClick={() => setCurrentView("food")}
+                //  onClick={() => window.open("/test", "_blank")}
                 className="bg-lime-400 text-black w-full h-[36px] rounded-[24px] mt-4 font-black text-xs shadow-sm"
               >
                 Learn More About Buttns
