@@ -892,7 +892,7 @@ export default function EstateApp() {
                 Order Food Now!
               </button>
             </Link>
-
+            <Link href="/portal">
                <button
                 // onClick={() => setCurrentView("food")}
                 //  onClick={() => window.open("/test", "_blank")}
@@ -900,6 +900,8 @@ export default function EstateApp() {
               >
                 Learn More About Buttns
               </button>
+              </Link>
+              
             </div>
           </header>
 
