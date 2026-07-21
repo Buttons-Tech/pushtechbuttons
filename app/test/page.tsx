@@ -1,17 +1,17 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import { 
-  Utensils, 
-  Plus, 
-  Minus, 
-  ShoppingBag, 
-  Sparkles, 
-  Flame, 
-  Clock, 
-  CheckCircle2, 
-  ChevronRight, 
-  Trash2 
+import {
+  Utensils,
+  Plus,
+  Minus,
+  ShoppingBag,
+  Sparkles,
+  Flame,
+  Clock,
+  CheckCircle2,
+  ChevronRight,
+  Trash2,
 } from "lucide-react";
 
 // Updated categories to match local eating habits precisely
@@ -29,28 +29,110 @@ interface FoodItem {
 // Complete local menu matrix for Bigger Bites Kitchen
 const FOOD_MENU: FoodItem[] = [
   // Rice Category
-  { id: "r1", name: "Jollof Rice", category: "rice", price: 1500, icon: "🍛", popular: true },
+  {
+    id: "r1",
+    name: "Jollof Rice",
+    category: "rice",
+    price: 1500,
+    icon: "🍛",
+    popular: true,
+  },
   { id: "r2", name: "Fried Rice", category: "rice", price: 1600, icon: "🍲" },
-  { id: "r3", name: "White Rice & Stew", category: "rice", price: 1400, icon: "🍚" },
+  {
+    id: "r3",
+    name: "White Rice & Stew",
+    category: "rice",
+    price: 1400,
+    icon: "🍚",
+  },
 
   // Swallows Category (Main + Soup pairings)
-  { id: "sw1", name: "Amala (with Ewedu & Gbegiri)", category: "swallows", price: 1800, icon: "🤎", popular: true },
-  { id: "sw2", name: "Pounded Yam (with Egusi Soup)", category: "swallows", price: 2000, icon: "🤍" },
-  { id: "sw3", name: "Eba (with Okra Soup)", category: "swallows", price: 1500, icon: "💛" },
+  {
+    id: "sw1",
+    name: "Amala (with Ewedu & Gbegiri)",
+    category: "swallows",
+    price: 1800,
+    icon: "🤎",
+    popular: true,
+  },
+  {
+    id: "sw2",
+    name: "Pounded Yam (with Egusi Soup)",
+    category: "swallows",
+    price: 2000,
+    icon: "🤍",
+  },
+  {
+    id: "sw3",
+    name: "Eba (with Okra Soup)",
+    category: "swallows",
+    price: 1500,
+    icon: "💛",
+  },
 
   // Proteins (Can be paired with Rice or Swallows)
-  { id: "p1", name: "Grilled Chicken", category: "proteins", price: 1800, icon: "🍗", popular: true },
-  { id: "p2", name: "Fried Fish", category: "proteins", price: 1500, icon: "🐟" },
-  { id: "p3", name: "Peppered Beef", category: "proteins", price: 1200, icon: "🥩" },
+  {
+    id: "p1",
+    name: "Grilled Chicken",
+    category: "proteins",
+    price: 1800,
+    icon: "🍗",
+    popular: true,
+  },
+  {
+    id: "p2",
+    name: "Fried Fish",
+    category: "proteins",
+    price: 1500,
+    icon: "🐟",
+  },
+  {
+    id: "p3",
+    name: "Peppered Beef",
+    category: "proteins",
+    price: 1200,
+    icon: "🥩",
+  },
 
   // Snacks Category
-  { id: "sn1", name: "Spiced Meat Pie", category: "snacks", price: 800, icon: "🥧", popular: true },
-  { id: "sn2", name: "Puff Puff (Portion)", category: "snacks", price: 600, icon: "🟢" },
-  { id: "sn3", name: "Sausage Roll", category: "snacks", price: 700, icon: "🥖" },
+  {
+    id: "sn1",
+    name: "Spiced Meat Pie",
+    category: "snacks",
+    price: 800,
+    icon: "🥧",
+    popular: true,
+  },
+  {
+    id: "sn2",
+    name: "Puff Puff (Portion)",
+    category: "snacks",
+    price: 600,
+    icon: "🟢",
+  },
+  {
+    id: "sn3",
+    name: "Sausage Roll",
+    category: "snacks",
+    price: 700,
+    icon: "🥖",
+  },
 
   // Drinks Category
-  { id: "d1", name: "Chilled Chapman", category: "drinks", price: 1000, icon: "🍹" },
-  { id: "d2", name: "Bottled Water", category: "drinks", price: 400, icon: "💧" },
+  {
+    id: "d1",
+    name: "Chilled Chapman",
+    category: "drinks",
+    price: 1000,
+    icon: "🍹",
+  },
+  {
+    id: "d2",
+    name: "Bottled Water",
+    category: "drinks",
+    price: 400,
+    icon: "💧",
+  },
 ];
 
 // OPay styled direct, one-tap meal packages (combining swallows & snacks)
@@ -78,7 +160,7 @@ const QUICK_COMBOS = [
     items: ["sn1", "sn2", "d1"],
     badge: "Quick Bite",
     price: 2400,
-  }
+  },
 ];
 
 export default function FoodTraySelector() {
@@ -114,14 +196,16 @@ export default function FoodTraySelector() {
   const trayDetails = useMemo(() => {
     let totalItemsCount = 0;
     let totalPrice = 0;
-    const itemsList = Object.entries(tray).map(([id, quantity]) => {
-      const foodItem = FOOD_MENU.find((item) => item.id === id);
-      if (foodItem) {
-        totalItemsCount += quantity;
-        totalPrice += foodItem.price * quantity;
-      }
-      return { item: foodItem, quantity };
-    }).filter(entry => entry.item !== undefined);
+    const itemsList = Object.entries(tray)
+      .map(([id, quantity]) => {
+        const foodItem = FOOD_MENU.find((item) => item.id === id);
+        if (foodItem) {
+          totalItemsCount += quantity;
+          totalPrice += foodItem.price * quantity;
+        }
+        return { item: foodItem, quantity };
+      })
+      .filter((entry) => entry.item !== undefined);
 
     return { totalItemsCount, totalPrice, itemsList };
   }, [tray]);
@@ -141,7 +225,7 @@ export default function FoodTraySelector() {
 
   // const handleCheckout = () => {
   //   // 1. WhatsApp Configuration (Nigerian format without '+' or spaces)
-  //   const phoneNumber = "2348095769296"; 
+  //   const phoneNumber = "2348095769296";
 
   //   // 2. Format individual items from the tray details
   //   const itemsText = trayDetails.itemsList
@@ -168,22 +252,25 @@ export default function FoodTraySelector() {
   //   window.location.href = whatsappUrl;
   // };
 
-
   const handleCheckout = () => {
     // 1. WhatsApp Configuration
-    const phoneNumber = "2348095769296"; 
+    const phoneNumber = "2348095769296";
 
     // 2. Format individual items from the tray details
     const itemsText = trayDetails.itemsList
-      .map(({ item, quantity }) => `• ${item?.icon} *${item?.name}* (x${quantity}) - ₦${((item?.price || 0) * quantity).toLocaleString()}`)
+      .map(
+        ({ item, quantity }) =>
+          `• ${item?.icon} *${item?.name}* (x${quantity}) - ₦${((item?.price || 0) * quantity).toLocaleString()}`,
+      )
       .join("\n");
 
     // 3. Construct the clean message structure including the new details
-    const message = `*🍳 New Order via Buttns App*\n\n` +
-                    `*Tray Overview:*\n${itemsText}\n\n` +
-                    `*Total Amount:* ₦${trayDetails.totalPrice.toLocaleString()}\n\n` +
-                    `*📍 Delivery Address:*\n` +
-                    `The Cave, Ija. No 36 Adebisi Emily Idayat Estate, Ija Bustop, Isuti Road, Egan, Lagos.`;
+    const message =
+      `*🍳 New Order via Buttns App*\n\n` +
+      `*Tray Overview:*\n${itemsText}\n\n` +
+      `*Total Amount:* ₦${trayDetails.totalPrice.toLocaleString()}\n\n` +
+      `*📍 Delivery Address:*\n` +
+      `The Cave, Ija. No 36 Adebisi Emily Idayat Estate, Ija Bustop, Isuti Road, Egan, Lagos.`;
 
     // 4. Safely encode URL entities
     const encodedMessage = encodeURIComponent(message);
@@ -201,12 +288,13 @@ export default function FoodTraySelector() {
   };
   return (
     <div className="max-w-md mx-auto bg-slate-50 min-h-screen pb-40 font-sans text-slate-800 antialiased selection:bg-emerald-100">
-      
       {/* Header Widget - Simple, branding focused, clear OPay-style green accents */}
       <header className="bg-amber-500 text-white p-5 rounded-b-3xl shadow-md sticky top-0 z-10">
         <div className="flex justify-between items-center">
           <div>
-            <p className="text-xs opacity-90 tracking-wider font-semibold uppercase">Ordering From</p>
+            <p className="text-xs opacity-90 tracking-wider font-semibold uppercase">
+              Ordering From
+            </p>
             <h1 className="text-xl font-bold flex items-center gap-1.5">
               Bigger Bites Kitchen <span className="text-base">🍳</span>
             </h1>
@@ -230,12 +318,13 @@ export default function FoodTraySelector() {
       </header>
 
       <main className="p-4 space-y-6">
-        
         {/* 1. Quick Combos Row: Zero-thinking entry point */}
         <section>
           <div className="flex items-center gap-1 mb-3">
             <Sparkles className="w-4.5 h-4.5 text-amber-500" />
-            <h2 className="text-sm font-bold text-slate-700 uppercase tracking-wide">Instant 1-Tap Trays</h2>
+            <h2 className="text-sm font-bold text-slate-700 uppercase tracking-wide">
+              Instant 1-Tap Trays
+            </h2>
           </div>
           <div className="flex gap-3 overflow-x-auto pb-1 scrollbar-none">
             {QUICK_COMBOS.map((combo) => (
@@ -248,10 +337,16 @@ export default function FoodTraySelector() {
                   <span className="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-0.5">
                     <Flame className="w-3 h-3" /> {combo.badge}
                   </span>
-                  <span className="text-emerald-600 font-bold text-sm">₦{combo.price.toLocaleString()}</span>
+                  <span className="text-emerald-600 font-bold text-sm">
+                    ₦{combo.price.toLocaleString()}
+                  </span>
                 </div>
-                <h3 className="font-bold text-slate-900 text-sm">{combo.name}</h3>
-                <p className="text-xs text-slate-500 mt-1 truncate">{combo.description}</p>
+                <h3 className="font-bold text-slate-900 text-sm">
+                  {combo.name}
+                </h3>
+                <p className="text-xs text-slate-500 mt-1 truncate">
+                  {combo.description}
+                </p>
                 <div className="mt-3 text-xs font-semibold text-emerald-600 flex items-center gap-1">
                   <span>Tap to load this tray</span>
                   <ChevronRight className="w-3 h-3" />
@@ -264,25 +359,29 @@ export default function FoodTraySelector() {
         {/* 2. Super App Styled Filter Badges - Optimized for efficient navigation */}
         <section>
           <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
-            {["all", "rice", "swallows", "proteins", "snacks", "drinks"].map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-2 rounded-full text-xs font-bold transition capitalize shrink-0 ${
-                  activeCategory === cat
-                    ? "bg-lime-600 text-white shadow-sm"
-                    : "bg-white text-slate-600 border border-slate-100 hover:bg-slate-50"
-                }`}
-              >
-                {cat === "all" ? "🔥 Full Menu" : cat}
-              </button>
-            ))}
+            {["all", "rice", "swallows", "proteins", "snacks", "drinks"].map(
+              (cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  className={`px-4 py-2 rounded-full text-xs font-bold transition capitalize shrink-0 ${
+                    activeCategory === cat
+                      ? "bg-lime-600 text-white shadow-sm"
+                      : "bg-white text-slate-600 border border-slate-100 hover:bg-slate-50"
+                  }`}
+                >
+                  {cat === "all" ? "🔥 Full Menu" : cat}
+                </button>
+              ),
+            )}
           </div>
         </section>
 
         {/* 3. Grid of Menu Items with bold, instant interaction controls */}
         <section className="space-y-3">
-          <h2 className="text-sm font-bold text-slate-700 uppercase tracking-wide mb-1">Choose Individual Additions</h2>
+          <h2 className="text-sm font-bold text-slate-700 uppercase tracking-wide mb-1">
+            Choose Individual Additions
+          </h2>
           <div className="grid grid-cols-1 gap-2.5">
             {filteredMenu.map((item) => {
               const qty = tray[item.id] || 0;
@@ -290,7 +389,9 @@ export default function FoodTraySelector() {
                 <div
                   key={item.id}
                   className={`bg-white p-3 rounded-2xl border transition-all flex items-center justify-between ${
-                    qty > 0 ? "border-emerald-500 bg-emerald-50/20 shadow-sm" : "border-slate-100"
+                    qty > 0
+                      ? "border-emerald-500 bg-emerald-50/20 shadow-sm"
+                      : "border-slate-100"
                   }`}
                 >
                   <div className="flex items-center gap-3">
@@ -300,7 +401,9 @@ export default function FoodTraySelector() {
                     </div>
                     <div>
                       <div className="flex items-center gap-1.5">
-                        <h4 className="font-bold text-slate-900 text-sm">{item.name}</h4>
+                        <h4 className="font-bold text-slate-900 text-sm">
+                          {item.name}
+                        </h4>
                         {item.popular && (
                           <span className="bg-amber-100 text-amber-800 text-[9px] font-bold px-1.5 py-0.5 rounded">
                             Popular
@@ -330,7 +433,9 @@ export default function FoodTraySelector() {
                         >
                           <Minus className="w-4 h-4 stroke-[3]" />
                         </button>
-                        <span className="font-bold text-sm min-w-[12px] text-center">{qty}</span>
+                        <span className="font-bold text-sm min-w-[12px] text-center">
+                          {qty}
+                        </span>
                         <button
                           onClick={() => updateQuantity(item.id, 1)}
                           className="hover:opacity-80 active:scale-90"
@@ -354,19 +459,23 @@ export default function FoodTraySelector() {
             {/* Expanded items preview inline to eliminate secondary screen verification */}
             <div className="flex justify-between items-center text-xs text-slate-500 font-medium">
               <span>Tray Overview</span>
-              <button 
-                onClick={clearTray} 
+              <button
+                onClick={clearTray}
                 className="text-red-500 flex items-center gap-1 hover:text-red-600"
               >
                 <Trash2 className="w-3.5 h-3.5" /> Clear Tray
               </button>
             </div>
-            
+
             <div className="max-h-24 overflow-y-auto space-y-1.5 pr-1">
               {trayDetails.itemsList.map(({ item, quantity }) => (
-                <div key={item?.id} className="flex justify-between items-center text-xs bg-slate-50 p-2 rounded-lg">
+                <div
+                  key={item?.id}
+                  className="flex justify-between items-center text-xs bg-slate-50 p-2 rounded-lg"
+                >
                   <span className="font-semibold text-slate-800">
-                    {item?.icon} {item?.name} <span className="text-slate-400">x{quantity}</span>
+                    {item?.icon} {item?.name}{" "}
+                    <span className="text-slate-400">x{quantity}</span>
                   </span>
                   <span className="font-bold text-slate-700">
                     ₦{((item?.price || 0) * quantity).toLocaleString()}
@@ -380,12 +489,15 @@ export default function FoodTraySelector() {
               onClick={handleCheckout}
               disabled={orderPlaced}
               className={`w-full py-4 rounded-2xl font-bold text-white shadow-md flex justify-between items-center px-6 transition active:scale-[0.99] ${
-                orderPlaced ? "bg-emerald-500" : "bg-emerald-600 hover:bg-emerald-700"
+                orderPlaced
+                  ? "bg-emerald-500"
+                  : "bg-emerald-600 hover:bg-emerald-700"
               }`}
             >
               {orderPlaced ? (
                 <span className="flex items-center gap-2 mx-auto justify-center">
-                  <CheckCircle2 className="w-5 h-5 animate-bounce" /> Order Sent to Kitchen!
+                  <CheckCircle2 className="w-5 h-5 animate-bounce" /> Order Sent
+                  to Kitchen!
                 </span>
               ) : (
                 <>
@@ -402,7 +514,9 @@ export default function FoodTraySelector() {
           </div>
         ) : (
           <div className="text-center py-4 text-slate-400 text-xs font-semibold flex flex-col items-center gap-1">
-            <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-lg mb-1">🧺</div>
+            <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-lg mb-1">
+              🧺
+            </div>
             <span>Your tray is empty. Tap items above to start packing.</span>
           </div>
         )}
