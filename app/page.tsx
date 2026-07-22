@@ -1,9 +1,5 @@
 "use client";
 
-
-
-  
-
 import React, { useState } from "react";
 import {
   Utensils,
@@ -72,8 +68,6 @@ interface CartItem {
 }
 
 export default function EstateApp() {
-
-  
   // states
   const [currentView, setCurrentView] = useState<ViewState>("home");
   const [globalCart, setGlobalCart] = useState<{ [key: string]: number }>({});
@@ -96,7 +90,6 @@ export default function EstateApp() {
   const [chosenExtras, setChosenExtras] = useState<
     { name: string; price: number }[]
   >([]);
-
 
   // vendors
   const mockVendors: Vendor[] = [
@@ -155,7 +148,6 @@ export default function EstateApp() {
     ],
   };
 
-
   // hair
   const genericHairItems: ServiceProduct[] = [
     {
@@ -172,7 +164,6 @@ export default function EstateApp() {
       description: "Gentle and nice styles cut for kids",
     },
   ];
-
 
   // Gas
   const genericGasItems: ServiceProduct[] = [
@@ -220,7 +211,6 @@ export default function EstateApp() {
     setIsCustomizerOpen(true);
   };
 
-
   // price
 
   const calculateCustomizerPrice = () => {
@@ -229,7 +219,6 @@ export default function EstateApp() {
     const ePrice = chosenExtras.reduce((s, e) => s + e.price, 0);
     return activeCustomMeal.basePrice + pPrice + ePrice;
   };
-
 
   // cart
   const addCustomItemToFoodCart = () => {
@@ -274,7 +263,6 @@ export default function EstateApp() {
   const getFoodCartTotal = () =>
     foodCart.reduce((s, i) => s + i.pricePerUnit * i.quantity, 0);
   const getFoodCartCount = () => foodCart.reduce((s, i) => s + i.quantity, 0);
-
 
   // Checkout
 
@@ -330,7 +318,6 @@ export default function EstateApp() {
     );
   };
 
-
   // power
   const handlePowerTokenOrder = (pkg: any) => {
     const adminNumber = "2348000000000";
@@ -341,11 +328,9 @@ export default function EstateApp() {
     );
   };
 
-
   // Render
   return (
     <div className="max-w-md mx-auto min-h-screen bg-gray-50 pb-12 font-sans antialiased text-slate-800 relative">
-
       {/* ================= VIEW: FOOD Button ================= */}
       {currentView === "food" && (
         <div className="pb-32">
@@ -494,7 +479,6 @@ export default function EstateApp() {
                 ))}
               </div>
             </div>
-
 
             {/* Tray */}
 
@@ -850,7 +834,6 @@ export default function EstateApp() {
         </div>
       )}
 
-
       {/* here! */}
 
       {/* ================= VIEW: MAIN INTERFACE HUB HOME PLATFORM ================= */}
@@ -884,26 +867,25 @@ export default function EstateApp() {
                 </span>
               </h1>
               <Link href="/test" className="w-full">
-              <button
-                // onClick={() => setCurrentView("food")}
-                // onClick={() => window.open("/test", "_self")}
-                // onClick={() => { window.location.href = "/test"; }}
-                
-                className="bg-amber-400 text-black w-full h-[36px] rounded-[24px] mt-4 font-black text-xs shadow-sm"
-              >
-                Order Food Now!
-              </button>
-            </Link>
-            <Link href="/portal">
-               <button
-                // onClick={() => setCurrentView("food")}
-                //  onClick={() => window.open("/test", "_blank")}
-                className="bg-lime-400 text-black w-full h-[36px] rounded-[24px] mt-4 font-black text-xs shadow-sm"
-              >
-                Learn More About Buttns
-              </button>
+                <button
+                  // onClick={() => setCurrentView("food")}
+                  // onClick={() => window.open("/test", "_self")}
+                  // onClick={() => { window.location.href = "/test"; }}
+
+                  className="bg-amber-400 text-black w-full h-[36px] rounded-[24px] mt-4 font-black text-xs shadow-sm"
+                >
+                  Order Food Now!
+                </button>
               </Link>
-              
+              <Link href="/portal">
+                <button
+                  // onClick={() => setCurrentView("food")}
+                  //  onClick={() => window.open("/test", "_blank")}
+                  className="bg-lime-400 text-black w-full h-[36px] rounded-[24px] mt-4 font-black text-xs shadow-sm"
+                >
+                  Learn More About Buttns
+                </button>
+              </Link>
             </div>
           </header>
 
@@ -956,8 +938,7 @@ export default function EstateApp() {
               </div>
             </section>
 
-
-{/* All Vendors  */}
+            {/* All Vendors  */}
             <section className="space-y-3">
               <h3 className="text-sm font-bold uppercase tracking-wider text-slate-500">
                 All Vendors
@@ -1006,7 +987,7 @@ export default function EstateApp() {
               </div>
             </section>
 
-{/* Estate Services */}
+            {/* Estate Services */}
             <section className="space-y-3">
               <h3 className="text-sm font-bold uppercase tracking-wider text-slate-500">
                 Estate Services
@@ -1050,12 +1031,54 @@ export default function EstateApp() {
                   </div>
                   <ArrowRight className="w-4 h-4 text-slate-300 group-hover:translate-x-0.5 transition-transform" />
                 </div>
+                <Link href="/rently">
+                  <div
+                    // onClick={() => alert("Security pass framework active")}
+                    className="p-4 flex items-center justify-between hover:bg-slate-50/50 cursor-pointer group"
+                  >
+                    <div className="flex items-center gap-4">
+                    <div className="p-2.5 bg-slate-50 rounded-xl text-emerald-600">
+                      <ShieldCheck className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h4 className="text-xs font-bold text-slate-800">
+                        Estate Houses
+                      </h4>
+                      <p className="text-[11px] text-slate-400 mt-0.5">
+                        Generate visitor access codes instantly
+                      </p>
+                    </div>
+                  </div>
+                  <ArrowRight className="w-4 h-4 text-slate-300 group-hover:translate-x-0.5 transition-transform" />
+                </div>
+              </Link>
+              <Link href="/auto-repair">
+                  <div
+                    // onClick={() => alert("Security pass framework active")}
+                    className="p-4 flex items-center justify-between hover:bg-slate-50/50 cursor-pointer group"
+                  >
+                    <div className="flex items-center gap-4">
+                    <div className="p-2.5 bg-slate-50 rounded-xl text-emerald-600">
+                      <ShieldCheck className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h4 className="text-xs font-bold text-slate-800">
+                        Auto Repair
+                      </h4>
+                      <p className="text-[11px] text-slate-400 mt-0.5">
+                        Generate visitor access codes instantly
+                      </p>
+                    </div>
+                  </div>
+                  <ArrowRight className="w-4 h-4 text-slate-300 group-hover:translate-x-0.5 transition-transform" />
+                </div>
+              </Link>
               </div>
             </section>
           </main>
 
           {/* <RoveDelivery/> */}
-          <EstateServices/>
+          
         </div>
       )}
     </div>
