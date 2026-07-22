@@ -28,6 +28,8 @@ import {
   Home,
 } from "lucide-react";
 import Link from "next/link";
+import RoveDelivery from "./components/business/RoveDelivery";
+import EstateServices from "./components/business/EstateServices";
 
 // types
 
@@ -905,6 +907,8 @@ export default function EstateApp() {
             </div>
           </header>
 
+          {/* Your Buttons   */}
+
           <main className="px-4 -mt-14 relative z-20 space-y-6">
             <section className="bg-white rounded-2xl p-5 shadow-sm border border-slate-100">
               <p className="text-[11px] text-slate-400 font-bold mb-3 uppercase tracking-wider">
@@ -952,6 +956,8 @@ export default function EstateApp() {
               </div>
             </section>
 
+
+{/* All Vendors  */}
             <section className="space-y-3">
               <h3 className="text-sm font-bold uppercase tracking-wider text-slate-500">
                 All Vendors
@@ -1000,6 +1006,7 @@ export default function EstateApp() {
               </div>
             </section>
 
+{/* Estate Services */}
             <section className="space-y-3">
               <h3 className="text-sm font-bold uppercase tracking-wider text-slate-500">
                 Estate Services
@@ -1046,6 +1053,9 @@ export default function EstateApp() {
               </div>
             </section>
           </main>
+
+          {/* <RoveDelivery/> */}
+          <EstateServices/>
         </div>
       )}
     </div>
