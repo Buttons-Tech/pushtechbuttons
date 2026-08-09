@@ -134,15 +134,15 @@ const QUICK_COMBOS = [
   {
     id: "c1",
     name: "Classic Jollof Combo",
-    description: "Jollof Rice + Grilled Chicken + Chilled Chapman",
+    description: "Jollof Rice + Grilled Chicken + Tigernut Drink",
     items: ["r1", "p1", "d1"],
     badge: "Most Popular",
     price: 4300,
   },
   {
     id: "c2",
-    name: "Bestseller Amala Tray",
-    description: "Amala + Peppered Beef + Chilled Chapman",
+    name: "Bestseller Fufu Tray",
+    description: "Fufu + Peppered Beef + Tigernut Drink",
     items: ["sw1", "p3", "d1"],
     badge: "Local Favorite",
     price: 4000,
@@ -150,7 +150,7 @@ const QUICK_COMBOS = [
   {
     id: "c3",
     name: "Snack & Drink Tray",
-    description: "Meat Pie + Puff Puff + Chilled Chapman",
+    description: "Chicken & Chips + Sharwama + Tigernut Drink",
     items: ["sn1", "sn2", "d1"],
     badge: "Quick Bite",
     price: 2400,
