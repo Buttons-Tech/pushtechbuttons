@@ -1,214 +1,553 @@
-'use client';
-import React, { useState, useEffect } from 'react';
-import { Wallet, Bike, Utensils, CheckCircle, ArrowRight, Zap } from 'lucide-react';
+"use client";
 
-// Strict Type Definitions for the Buttons Architecture
-interface UserProfile {
-  id: string;
+import React, { useState, useEffect, useMemo, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
+import Image from "next/image";
+
+// --- Type Definitions ---
+export interface FoodItem {
+  _id?: string;
+  id?: string;
   name: string;
-  walletBalance: number;
-  deliveryAddress: string;
-  phone: string;
-}
-
-interface VendorProduct {
-  id: string;
-  vendorName: string;
-  mealName: string;
+  category:
+    | "Swallow"
+    | "Rice & Spaghetti"
+    | "Proteins"
+    | "Sides"
+    | "Drinks"
+    | "Snacks"
+    | string;
   price: number;
-  deliveryFee: number;
-  estimatedMinutes: number;
+  description: string;
+  image: string;
 }
 
-type OrderStatus = 'IDLE' | 'PROCESSING' | 'CONFIRMED' | 'DISPATCH_ASSIGNED' | 'OUT_FOR_DELIVERY' | 'COMPLETED' | 'ERROR';
+export interface TrayItem {
+  item: FoodItem;
+  quantity: number;
+}
 
-export default function FoodButtonSuperApp() {
-  // 1. App State Management
-  const [status, setStatus] = useState<OrderStatus>('IDLE');
-  const [errorMessage, setErrorMessage] = useState<string>('');
-  
-  // Mocking the loaded state from our indigenous user profile & onboarded vendor
-  const [user, setUser] = useState<UserProfile>({
-    id: "usr_harrison40",
-    name: "Harrison",
-    walletBalance: 7500, // Pre-funded wallet capital
-    deliveryAddress: "Lekki Phase 1, Orchid Road, Facility B",
-    phone: "+2348123456789"
-  });
+const API_URL = "https://kitchen-server-d763.onrender.com/food";
+const KITCHEN_WHATSAPP_NUMBER = "2348000000000";
 
-  const [activeMeal, setActiveMeal] = useState<VendorProduct>({
-    id: "prod_bigger_bite_01",
-    vendorName: "Bigger Bite",
-    mealName: "Signature Chicken & Fried Rice Combo",
-    price: 3500,
-    deliveryFee: 700,
-    estimatedMinutes: 22
-  });
+const CATEGORIES = [
+  "All",
+  "Swallow",
+  "Rice & Spaghetti",
+  "Proteins",
+  "Sides",
+  "Drinks",
+  "Snacks",
+] as const;
 
-  const totalCost = activeMeal.price + activeMeal.deliveryFee;
+// Inner component wrapped in Suspense for Next.js query parameter safety
+function FoodMenuContent() {
+  const searchParams = useSearchParams();
+  const initialCategory = searchParams.get("category") || "All";
 
-  // 2. The Instant-Execution Loop (The "One-Tap" Promise)
-  const handleOneTapOrder = async () => {
-    if (user.walletBalance < totalCost) {
-      setErrorMessage("Insufficient wallet balance. Please top up your Buttons Wallet.");
-      setStatus('ERROR');
-      return;
-    }
+  // --- State ---
+  const [menuItems, setMenuItems] = useState<FoodItem[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
-    setStatus('PROCESSING');
+  const [selectedCategory, setSelectedCategory] =
+    useState<string>(initialCategory);
+  const [tray, setTray] = useState<TrayItem[]>([]);
+  const [isTrayOpen, setIsTrayOpen] = useState<boolean>(false);
+  const [tableNumber, setTableNumber] = useState<string>(
+    searchParams.get("table") || "",
+  );
+  const [customerName, setCustomerName] = useState<string>("");
+  const [notes, setNotes] = useState<string>("");
+  const [isProcessing, setIsProcessing] = useState<boolean>(false);
 
+  // Fetch items on mount
+  useEffect(() => {
+    fetchMenuItems();
+  }, []);
+
+  const fetchMenuItems = async (): Promise<void> => {
     try {
-      // Simulate direct API network call to our future NestJS backend gateway
-      const response = await new Promise((resolve) => setTimeout(resolve, 1500));
-      
-      // Optimistically deduct the wallet balance immediately in UI state
-      setUser(prev => ({
-        ...prev,
-        walletBalance: prev.walletBalance - totalCost
-      }));
-      
-      setStatus('CONFIRMED');
-    } catch (err) {
-      setErrorMessage("Network sync timed out. Retrying local system routing.");
-      setStatus('ERROR');
+      setIsLoading(true);
+      setError(null);
+      const res = await fetch(API_URL);
+
+      if (!res.ok) {
+        throw new Error(`Server returned status: ${res.status}`);
+      }
+
+      const data: FoodItem[] = await res.json();
+      setMenuItems(data);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Failed to fetch food items");
+      }
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  // 3. Automated Logistics Tracking Simulator (For Monday Demonstration)
-  useEffect(() => {
-    if (status === 'CONFIRMED') {
-      const timer = setTimeout(() => setStatus('DISPATCH_ASSIGNED'), 3000);
-      return () => clearTimeout(timer);
+  // Safe helper to grab unique item ID from MongoDB or standard ID
+  const getItemId = (item: FoodItem): string => {
+    return item._id || item.id || item.name;
+  };
+
+  // Helper function to guarantee a valid image URL string
+  const getValidImageUrl = (url?: string | null): string => {
+    if (!url || typeof url !== "string" || url.trim() === "") {
+      // Fallback default food image
+      return "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80";
     }
-    if (status === 'DISPATCH_ASSIGNED') {
-      const timer = setTimeout(() => setStatus('OUT_FOR_DELIVERY'), 4000);
-      return () => clearTimeout(timer);
+    return url;
+  };
+  // Filter Items
+  const filteredItems = useMemo(() => {
+    if (selectedCategory === "All") return menuItems;
+    return menuItems.filter((item) => item.category === selectedCategory);
+  }, [selectedCategory, menuItems]);
+
+  // Tray Totals
+  const totalItemsCount = useMemo(() => {
+    return tray.reduce((acc, curr) => acc + curr.quantity, 0);
+  }, [tray]);
+
+  const totalPrice = useMemo(() => {
+    return tray.reduce((acc, curr) => acc + curr.item.price * curr.quantity, 0);
+  }, [tray]);
+
+  // Tray Controls
+  const addToTray = (item: FoodItem): void => {
+    const targetId = getItemId(item);
+    setTray((prev) => {
+      const existing = prev.find((t) => getItemId(t.item) === targetId);
+      if (existing) {
+        return prev.map((t) =>
+          getItemId(t.item) === targetId
+            ? { ...t, quantity: t.quantity + 1 }
+            : t,
+        );
+      }
+      return [...prev, { item, quantity: 1 }];
+    });
+  };
+
+  const removeFromTray = (itemId: string): void => {
+    setTray((prev) =>
+      prev
+        .map((t) =>
+          getItemId(t.item) === itemId ? { ...t, quantity: t.quantity - 1 } : t,
+        )
+        .filter((t) => t.quantity > 0),
+    );
+  };
+
+  const getItemQuantity = (itemId: string): number => {
+    return tray.find((t) => getItemId(t.item) === itemId)?.quantity || 0;
+  };
+
+  // WhatsApp Order Dispatch
+  const sendOrderToWhatsApp = (paymentRef: string): void => {
+    const orderItemsText = tray
+      .map(
+        (t) =>
+          `• ${t.quantity}x ${t.item.name} - ₦${(t.item.price * t.quantity).toLocaleString()}`,
+      )
+      .join("\n");
+
+    const message =
+      `🚨 *NEW TABLE ORDER* 🚨\n\n` +
+      `📍 *Table Number:* ${tableNumber}\n` +
+      `👤 *Customer Name:* ${customerName}\n` +
+      `💳 *Payment Status:* PAID via OPay\n` +
+      `🔖 *Ref:* ${paymentRef}\n\n` +
+      `📋 *ORDER SUMMARY:*\n${orderItemsText}\n\n` +
+      `💰 *Total Paid:* ₦${totalPrice.toLocaleString()}\n` +
+      (notes ? `📝 *Notes:* ${notes}\n` : "") +
+      `\n⏰ *Time:* ${new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`;
+
+    window.open(
+      `https://wa.me/${KITCHEN_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`,
+      "_blank",
+    );
+  };
+
+  // OPay Checkout
+  const handleCheckout = async (
+    e: React.FormEvent<HTMLFormElement>,
+  ): Promise<void> => {
+    e.preventDefault();
+    if (!tableNumber || !customerName) {
+      alert("Please fill in your Table Number and Name.");
+      return;
     }
-    if (status === 'OUT_FOR_DELIVERY') {
-      const timer = setTimeout(() => setStatus('COMPLETED'), 5000);
-      return () => clearTimeout(timer);
+
+    setIsProcessing(true);
+    const orderRef = `OPAY-${Date.now().toString().slice(-6)}`;
+
+    try {
+      const res = await fetch("/api/opay", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          amount: totalPrice,
+          reference: orderRef,
+          customerName,
+          tableNumber,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (data.code === "00000") {
+        sendOrderToWhatsApp(orderRef);
+        if (data.data?.cashierUrl) {
+          window.location.href = data.data.cashierUrl;
+        }
+      } else {
+        alert("Could not initialize payment. Please try again.");
+      }
+    } catch (err: unknown) {
+      console.error(err);
+      alert("Checkout failed. Please check your connection.");
+    } finally {
+      setIsProcessing(false);
     }
-  }, [status]);
+  };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col items-center justify-between p-4 font-sans">
-      
-      {/* Upper Status Bar Layer */}
-      <header className="w-full max-w-md bg-white border border-slate-100 rounded-2xl p-4 shadow-sm flex justify-between items-center">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-white font-bold">
-            {user.name[0]}
+    <div className="min-h-screen bg-slate-50 text-slate-900 pb-28 font-sans">
+      {/* Header */}
+      <header className="sticky top-0 z-20 bg-emerald-700 text-white shadow-md">
+        <div className="max-w-3xl mx-auto px-4 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => window.history.back()}
+              className="text-xs bg-emerald-800 hover:bg-emerald-900 px-2.5 py-1 rounded-lg font-semibold"
+            >
+              ← Back
+            </button>
+            <div>
+              <h1 className="text-lg font-extrabold tracking-tight">
+                Food Menu
+              </h1>
+              <p className="text-[10px] text-emerald-100">
+                Select items on your tray
+              </p>
+            </div>
           </div>
-          <div>
-            <h3 className="font-bold text-sm">Welcome, {user.name}</h3>
-            <p className="text-xs text-slate-400 truncate max-w-[180px]">{user.deliveryAddress}</p>
-          </div>
+          <button
+            onClick={() => fetchMenuItems()}
+            className="text-[10px] bg-emerald-800 hover:bg-emerald-900 text-emerald-100 px-2.5 py-1 rounded-full font-medium"
+          >
+            🔄 Refresh
+          </button>
         </div>
-        
-        <div className="flex items-center gap-2 bg-emerald-50 text-emerald-700 px-3 py-1.5 rounded-full border border-emerald-100">
-          <Wallet size={16} />
-          <span className="font-mono font-bold text-sm">₦{user.walletBalance.toLocaleString()}</span>
+
+        {/* Categories Bar */}
+        <div className="flex overflow-x-auto gap-2 px-4 py-2.5 bg-emerald-800 no-scrollbar">
+          {CATEGORIES.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setSelectedCategory(cat)}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
+                selectedCategory === cat
+                  ? "bg-amber-400 text-emerald-950 shadow-sm"
+                  : "bg-emerald-700/60 text-white hover:bg-emerald-700"
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
         </div>
       </header>
 
-      {/* Main Micro-App Interface */}
-      <main className="w-full max-w-md flex-1 flex flex-col items-center justify-center py-8">
-        
-        {status === 'IDLE' && (
-          <div className="w-full text-center space-y-8 animate-fade-in">
-            <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm space-y-4">
-              <div className="flex justify-between items-center text-xs font-semibold text-slate-400 uppercase tracking-wider">
-                <span>Pinned Favorite Meal</span>
-                <span className="text-orange-600 bg-orange-50 px-2 py-0.5 rounded-md">Active</span>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="p-3 bg-orange-50 text-orange-600 rounded-xl">
-                  <Utensils size={24} />
-                </div>
-                <div className="text-left">
-                  <h4 className="font-bold text-slate-800">{activeMeal.mealName}</h4>
-                  <p className="text-sm text-slate-500">{activeMeal.vendorName} • {activeMeal.estimatedMinutes} mins delivery</p>
-                </div>
-              </div>
-              <div className="border-t border-slate-100 pt-3 flex justify-between text-sm font-medium text-slate-600">
-                <span>Meal: ₦{activeMeal.price.toLocaleString()} + Delivery: ₦{activeMeal.deliveryFee}</span>
-                <span className="font-bold text-slate-900">Total: ₦{totalCost}</span>
-              </div>
-            </div>
+      {/* Main Container */}
+      <main className="max-w-3xl mx-auto px-4 py-4">
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-base font-bold text-slate-800">
+            {selectedCategory}
+          </h2>
+          <span className="text-xs text-slate-500">
+            {filteredItems.length} items
+          </span>
+        </div>
 
-            {/* The One-Tap Core Interactive Component */}
-            <div className="flex flex-col items-center space-y-4">
-              <button
-                onClick={handleOneTapOrder}
-                className="w-56 h-56 rounded-full bg-gradient-to-tr from-orange-600 to-red-500 text-white font-black text-2xl shadow-xl hover:shadow-orange-200 hover:scale-105 active:scale-95 transition-all duration-200 flex flex-col items-center justify-center border-8 border-white outline outline-2 outline-orange-600/20 group relative overflow-hidden"
-              >
-                <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <Zap size={40} className="mb-2 animate-pulse" />
-                <span>TAP TO FEED</span>
-              </button>
-              <p className="text-xs font-semibold tracking-widest uppercase text-slate-400">No Cart. No Confirmation. One Tap.</p>
-            </div>
+        {/* Loading */}
+        {isLoading && (
+          <div className="text-center py-12">
+            <div className="inline-block animate-spin rounded-full h-8 w-8 border-4 border-emerald-600 border-t-transparent"></div>
+            <p className="text-xs text-slate-500 mt-2">Loading menu items...</p>
           </div>
         )}
 
-        {/* Real-time Tracking & Process States */}
-        {status !== 'IDLE' && status !== 'ERROR' && (
-          <div className="w-full bg-white border border-slate-100 rounded-2xl p-6 shadow-sm space-y-6">
-            <div className="text-center space-y-1">
-              <h2 className="text-xl font-black text-slate-900">
-                {status === 'PROCESSING' && "Routing Transaction..."}
-                {status === 'CONFIRMED' && "Order Accepted!"}
-                {status === 'DISPATCH_ASSIGNED' && "Linx Rider Assigned"}
-                {status === 'OUT_FOR_DELIVERY' && "Food is En Route"}
-                {status === 'COMPLETED' && "Task Done!"}
-              </h2>
-              <p className="text-sm text-slate-500">
-                {status === 'PROCESSING' && "Securing wallet ledger tokens..."}
-                {status === 'CONFIRMED' && `${activeMeal.vendorName} is preparing your food right now.`}
-                {status === 'DISPATCH_ASSIGNED' && "Linx dispatch agent is arriving at the kitchen point."}
-                {status === 'OUT_FOR_DELIVERY' && "Your driver is sprinting to your location."}
-                {status === 'COMPLETED' && "Enjoy your meal, Harrison. Transaction closed successfully."}
-              </p>
-            </div>
-
-            {/* Visual Pipeline/Tracking Graph */}
-            <div className="relative flex justify-between items-center w-full px-4 py-2">
-              <div className="absolute top-1/2 left-0 right-0 h-1 bg-slate-100 -translate-y-1/2 z-0" />
-              <div 
-                className="absolute top-1/2 left-0 h-1 bg-orange-600 -translate-y-1/2 z-0 transition-all duration-500" 
-                style={{
-                  width: status === 'PROCESSING' ? '10%' : status === 'CONFIRMED' ? '30%' : status === 'DISPATCH_ASSIGNED' ? '60%' : status === 'OUT_FOR_DELIVERY' ? '85%' : '100%'
-                }}
-              />
-              
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center z-10 text-xs font-bold ${status !== 'PROCESSING' ? 'bg-orange-600 text-white' : 'bg-slate-200 text-slate-500'}`}><Utensils size={14}/></div>
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center z-10 text-xs font-bold ${status === 'DISPATCH_ASSIGNED' || status === 'OUT_FOR_DELIVERY' || status === 'COMPLETED' ? 'bg-orange-600 text-white' : 'bg-slate-200 text-slate-500'}`}><Bike size={14}/></div>
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center z-10 text-xs font-bold ${status === 'COMPLETED' ? 'bg-emerald-600 text-white' : 'bg-slate-200 text-slate-500'}`}><CheckCircle size={14}/></div>
-            </div>
-          </div>
-        )}
-
-        {/* Error Handling State View */}
-        {status === 'ERROR' && (
-          <div className="w-full bg-red-50 border border-red-100 rounded-2xl p-6 text-center space-y-4">
-            <h3 className="font-bold text-red-800">Transaction Aborted</h3>
-            <p className="text-sm text-red-600">{errorMessage}</p>
-            <button 
-              onClick={() => setStatus('IDLE')} 
-              className="px-4 py-2 bg-white border border-red-200 rounded-xl text-xs font-bold text-red-700 hover:bg-slate-50 transition"
+        {/* Error */}
+        {error && !isLoading && (
+          <div className="bg-rose-50 border border-rose-200 p-4 rounded-2xl text-center my-6">
+            <p className="text-xs text-rose-700 font-semibold">{error}</p>
+            <button
+              onClick={() => fetchMenuItems()}
+              className="mt-2 text-xs bg-rose-600 text-white px-3 py-1 rounded-lg font-bold"
             >
-              Return to Control Panel
+              Retry
             </button>
+          </div>
+        )}
+
+        {/* Food Items */}
+        {!isLoading && !error && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {filteredItems.map((food) => {
+              const itemId = getItemId(food);
+              const qty = getItemQuantity(itemId);
+
+              return (
+                <div
+                  key={itemId}
+                  className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden flex flex-row h-32 hover:shadow-md transition-shadow"
+                >
+                  {/* <div className="relative w-32 h-full flex-shrink-0 bg-slate-100">
+                    <img
+                      src={food.image}
+                      alt={food.name}
+                      className="w-full h-full object-cover"
+                    />
+                    <Image
+                      src={food.image}
+                      alt={food.name}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover"
+                      priority
+                    />
+                  </div> */}
+                  <div className="relative w-32 h-full flex-shrink-0 bg-slate-100 overflow-hidden">
+                    {food.image ? (
+                      <img
+                        src={getValidImageUrl(food.image)}
+                        alt={food.name || "Food item"}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          // Fallback if the image URL fails or throws a 404
+                          const target = e.target as HTMLImageElement;
+                          target.onerror = null; // Prevent infinite fallback loops
+                          target.src =
+                            "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80";
+                        }}
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-slate-200 flex items-center justify-center text-slate-400 text-xs">
+                        No Image
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="p-3 flex flex-col justify-between flex-1 min-w-0">
+                    <div>
+                      <h3 className="font-bold text-sm text-slate-900 truncate">
+                        {food.name}
+                      </h3>
+                      <p className="text-xs text-slate-500 line-clamp-2 mt-0.5">
+                        {food.description}
+                      </p>
+                    </div>
+
+                    <div className="flex items-center justify-between mt-2">
+                      <span className="font-extrabold text-sm text-emerald-700">
+                        ₦{food.price.toLocaleString()}
+                      </span>
+
+                      {qty === 0 ? (
+                        <button
+                          onClick={() => addToTray(food)}
+                          className="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1 rounded-xl text-xs font-semibold shadow-sm transition-transform active:scale-95"
+                        >
+                          + Add
+                        </button>
+                      ) : (
+                        <div className="flex items-center gap-2 bg-slate-100 rounded-xl p-1 border border-slate-200">
+                          <button
+                            onClick={() => removeFromTray(itemId)}
+                            className="w-6 h-6 bg-white rounded-lg flex items-center justify-center font-bold text-slate-700 text-xs shadow-xs"
+                          >
+                            -
+                          </button>
+                          <span className="text-xs font-bold text-slate-800">
+                            {qty}
+                          </span>
+                          <button
+                            onClick={() => addToTray(food)}
+                            className="w-6 h-6 bg-emerald-600 rounded-lg flex items-center justify-center font-bold text-white text-xs shadow-xs"
+                          >
+                            +
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         )}
       </main>
 
-      {/* Footer Branding Component */}
-      <footer className="w-full text-center pb-2 text-xs font-bold tracking-widest text-slate-300 uppercase flex items-center justify-center gap-1">
-        <span>Buttons Technology</span>
-        <ArrowRight size={12} className="text-slate-300" />
-        <span className="text-slate-400">Press Progress</span>
-      </footer>
+      {/* Floating Tray Footer */}
+      {totalItemsCount > 0 && (
+        <div className="fixed bottom-0 inset-x-0 bg-white border-t border-slate-200 p-3 z-30 shadow-2xl">
+          <div className="max-w-3xl mx-auto flex items-center justify-between">
+            <div>
+              <p className="text-xs text-slate-500">
+                Tray Total ({totalItemsCount} items)
+              </p>
+              <p className="text-lg font-black text-emerald-700">
+                ₦{totalPrice.toLocaleString()}
+              </p>
+            </div>
+
+            <button
+              onClick={() => setIsTrayOpen(true)}
+              className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2.5 rounded-2xl shadow-lg text-sm transition-transform active:scale-95"
+            >
+              Checkout Tray ➔
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Checkout Drawer */}
+      {isTrayOpen && (
+        <div className="fixed inset-0 bg-black/60 z-50 flex justify-end flex-col sm:justify-center items-center p-0 sm:p-4 backdrop-blur-xs">
+          <div className="bg-white w-full max-w-md rounded-t-3xl sm:rounded-3xl max-h-[90vh] flex flex-col overflow-hidden">
+            <div className="p-4 bg-emerald-700 text-white flex items-center justify-between">
+              <div>
+                <h3 className="font-bold text-base">Your Food Tray</h3>
+                <p className="text-xs text-emerald-100">
+                  Review before sending to kitchen
+                </p>
+              </div>
+              <button
+                onClick={() => setIsTrayOpen(false)}
+                className="w-8 h-8 rounded-full bg-emerald-800 text-white flex items-center justify-center font-bold text-sm"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="p-4 overflow-y-auto flex-1 space-y-4">
+              <div className="space-y-2">
+                {tray.map(({ item, quantity }) => {
+                  const id = getItemId(item);
+                  return (
+                    <div
+                      key={id}
+                      className="flex items-center justify-between py-1.5 border-b border-slate-100"
+                    >
+                      <div>
+                        <p className="text-xs font-bold text-slate-800">
+                          {item.name}
+                        </p>
+                        <p className="text-xs text-slate-500">
+                          ₦{item.price.toLocaleString()} x {quantity}
+                        </p>
+                      </div>
+                      <span className="text-xs font-extrabold text-emerald-700">
+                        ₦{(item.price * quantity).toLocaleString()}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <form
+                id="checkout-form"
+                onSubmit={handleCheckout}
+                className="space-y-3 pt-2"
+              >
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-600 mb-1">
+                      Table No. *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. T-04"
+                      value={tableNumber}
+                      onChange={(e) => setTableNumber(e.target.value)}
+                      className="w-full px-3 py-2 text-xs border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-600 mb-1">
+                      Your Name *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. Alex"
+                      value={customerName}
+                      onChange={(e) => setCustomerName(e.target.value)}
+                      className="w-full px-3 py-2 text-xs border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-slate-600 mb-1">
+                    Special Notes
+                  </label>
+                  <textarea
+                    rows={2}
+                    placeholder="e.g. Extra pepper..."
+                    value={notes}
+                    onChange={(e) => setNotes(e.target.value)}
+                    className="w-full px-3 py-2 text-xs border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none resize-none"
+                  />
+                </div>
+
+                <div className="bg-slate-50 p-3 rounded-2xl border border-slate-200 mt-4">
+                  <div className="flex justify-between text-sm font-extrabold text-slate-900">
+                    <span>Total Amount</span>
+                    <span className="text-emerald-700">
+                      ₦{totalPrice.toLocaleString()}
+                    </span>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <div className="p-4 bg-slate-50 border-t border-slate-200">
+              <button
+                type="submit"
+                form="checkout-form"
+                disabled={isProcessing}
+                className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-2xl shadow-lg text-sm flex items-center justify-center gap-2 transition-all disabled:opacity-50"
+              >
+                {isProcessing
+                  ? "Processing Payment..."
+                  : `Pay ₦${totalPrice.toLocaleString()} with OPay`}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
+  );
+}
+
+// Main Page Component wrapped in Next.js Suspense Boundary
+export default function FoodPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="p-8 text-center text-xs text-slate-500">
+          Loading page...
+        </div>
+      }
+    >
+      <FoodMenuContent />
+    </Suspense>
   );
 }

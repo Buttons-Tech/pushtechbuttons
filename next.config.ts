@@ -14,6 +14,19 @@ const nextConfig: NextConfig = {
         hostname: 'fakerestaurantapi.runasp.net',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'kitchen-server-d763.onrender.com',
+      },
     ],
   },
   // ... your other config like the metadataBase we added earlier
