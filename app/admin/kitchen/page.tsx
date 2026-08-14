@@ -1,5 +1,6 @@
 "use client";
 
+import { log } from "console";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 
@@ -27,7 +28,7 @@ interface FoodItem {
   category: string;
   price: number;
   description: string;
-  image: string;
+  imageUrl: string;
 }
 
 export default function KitchenAdminPage() {
@@ -42,7 +43,7 @@ export default function KitchenAdminPage() {
     category: "Swallow",
     price: 0,
     description: "",
-    image: "",
+    imageUrl: "",
   });
 
   // Helper function to guarantee a valid image URL string
@@ -53,6 +54,7 @@ export default function KitchenAdminPage() {
     }
     return url;
   };
+
   // Fetch items on mount
   useEffect(() => {
     fetchFoodItems();
@@ -94,7 +96,7 @@ export default function KitchenAdminPage() {
 
       const data = await res.json();
       if (data.secure_url) {
-        setFormData((prev) => ({ ...prev, image: data.secure_url }));
+        setFormData((prev) => ({ ...prev, imageUrl: data.secure_url }));
       } else {
         alert("Image upload failed. Check Cloudinary settings.");
       }
@@ -109,7 +111,7 @@ export default function KitchenAdminPage() {
   // Create or Update Food
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.image) {
+    if (!formData.imageUrl || formData.imageUrl.trim() === "") {
       alert("Please upload an image before submitting.");
       return;
     }
@@ -160,7 +162,7 @@ export default function KitchenAdminPage() {
       category: item.category,
       price: item.price,
       description: item.description,
-      image: item.image,
+      imageUrl: item.imageUrl,
     });
   };
 
@@ -171,7 +173,7 @@ export default function KitchenAdminPage() {
       category: "Swallow",
       price: 0,
       description: "",
-      image: "",
+      imageUrl: "",
     });
   };
 
@@ -287,10 +289,10 @@ export default function KitchenAdminPage() {
                 )}
 
                 {/* Form Preview */}
-                {formData.image && formData.image.trim() !== "" ? (
+                {formData.imageUrl && formData.imageUrl.trim() !== "" ? (
                   <div className="mt-2 relative w-full h-32 rounded-xl overflow-hidden border border-slate-200">
                     <img
-                      src={getValidImageUrl(formData.image)}
+                      src={getValidImageUrl(formData.imageUrl)}
                       alt="Preview"
                       className="w-full h-full object-cover"
                     />
@@ -343,42 +345,41 @@ export default function KitchenAdminPage() {
                       key={itemId}
                       className="border border-slate-200 rounded-2xl p-3 flex flex-col justify-between space-y-3 bg-slate-50/50 hover:bg-white transition-colors"
                     >
-                      <div className="flex items-center gap-3">
-                        {/* <Image
+                      <div className="bg-white rounded-2xl shadow-sm border border-slate-100 flex flex-row h-32 overflow-hidden">
+                        {/* Explicit w-32 and h-32 prevents Tailwind height collapse */}
+                        <div className="w-32 h-32 flex-shrink-0 bg-slate-200 relative">
+                          <img
+                            src={
+                              food.imageUrl
+                            }
+                            alt={food.name || "Food item"}
+                            className="w-full h-full object-cover"
+                            crossOrigin="anonymous"
+                            referrerPolicy="no-referrer"
+                            onError={(e) => {
+                              const target = e.target as HTMLImageElement;
+                              target.onerror = null;
+                              target.src =
+                                "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80";
+                            }}
+                          />
+                        </div>
 
-                          src={food.image}
-                          alt={food.name}
-                          width={64}
-                          height={64}
-                          className="w-16 h-16 rounded-xl object-cover bg-slate-200"
-                        /> */}
-                        {/* Inventory List Item */}
-                        <img
-                          src={getValidImageUrl(food.image)}
-                          alt={food.name}
-                          className="w-16 h-16 rounded-xl object-cover bg-slate-200"
-                          onError={(e) => {
-                            const target = e.target as HTMLImageElement;
-                            target.onerror = null;
-                            target.src =
-                              "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80";
-                          }}
-                        />
-                        {/* <img
-                          src={food.image}
-                          alt={food.name}
-                          className="w-16 h-16 rounded-xl object-cover bg-slate-200"
-                        /> */}
-                        <div className="min-w-0 flex-1">
-                          <span className="text-[10px] font-bold bg-slate-200 text-slate-700 px-2 py-0.5 rounded-md">
-                            {food.category}
-                          </span>
-                          <h3 className="font-bold text-xs text-slate-900 truncate mt-1">
-                            {food.name}
-                          </h3>
-                          <p className="text-xs font-extrabold text-emerald-700">
-                            ₦{food.price.toLocaleString()}
-                          </p>
+                        {/* Card Details */}
+                        <div className="p-3 flex flex-col justify-between flex-1 min-w-0">
+                          <div>
+                            <h3 className="font-bold text-sm text-slate-900 truncate">
+                              {food.name}
+                            </h3>
+                            <p className="text-xs text-slate-500 line-clamp-2 mt-0.5">
+                              {food.description}
+                            </p>
+                          </div>
+                          <div className="flex items-center justify-between">
+                            <span className="font-extrabold text-sm text-emerald-700">
+                              ₦{food.price?.toLocaleString()}
+                            </span>
+                          </div>
                         </div>
                       </div>
 

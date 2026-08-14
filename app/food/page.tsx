@@ -19,7 +19,7 @@ export interface FoodItem {
     | string;
   price: number;
   description: string;
-  image: string;
+  imageUrl: string;
 }
 
 export interface TrayItem {
@@ -323,9 +323,9 @@ function FoodMenuContent() {
                     />
                   </div> */}
                   <div className="relative w-32 h-full flex-shrink-0 bg-slate-100 overflow-hidden">
-                    {food.image ? (
+                    {food.imageUrl ? (
                       <img
-                        src={getValidImageUrl(food.image)}
+                        src={getValidImageUrl(food.imageUrl)}
                         alt={food.name || "Food item"}
                         className="w-full h-full object-cover"
                         onError={(e) => {
