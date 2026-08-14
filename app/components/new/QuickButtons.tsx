@@ -1,12 +1,13 @@
 // src/components/QuickButtons.tsx
 import { Utensils, Shirt, Scissors, LayoutGrid } from 'lucide-react';
+import Link from 'next/link';
 
 export function QuickButtons() {
   const services = [
-    { title: 'Food & Drinks', desc: 'Order local bites', icon: Utensils },
-    { title: 'Wear & Wash', desc: 'Laundry & Fits', icon: Shirt },
-    { title: 'Hair & Style', desc: 'Salons & Barbers', icon: Scissors },
-    { title: 'More', desc: 'Explore hubs', icon: LayoutGrid },
+    { title: 'Food & Drinks', desc: 'Order local bites', icon: Utensils, link: '/food' },
+    { title: 'Wear & Wash', desc: 'Laundry & Fits', icon: Shirt, link: '/wear' },
+    { title: 'Hair & Style', desc: 'Salons & Barbers', icon: Scissors, link: '/hair' },
+    { title: 'More', desc: 'Explore hubs', icon: LayoutGrid, link: '/more' },
   ];
   return (
     <div className="space-y-3">
@@ -17,6 +18,7 @@ export function QuickButtons() {
         {services.map((service, index) => {
           const IconComponent = service.icon;
           return (
+            <Link href={service.link} key={index}>
             <button
               key={index}
               className="flex items-center gap-3 p-4 bg-white border border-gray-100 rounded-2xl shadow-sm hover:border-amber-200 transition-all active:scale-95 text-left group"
@@ -29,6 +31,7 @@ export function QuickButtons() {
                 <p className="text-[11px] text-gray-400 mt-0.5">{service.desc}</p>
               </div>
             </button>
+</Link>
           );
           })}
       </div>
