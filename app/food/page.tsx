@@ -20,8 +20,8 @@ export interface TrayItem {
 }
 
 const API_URL = 'https://kitchen-server-d763.onrender.com/food';
-const KITCHEN_WHATSAPP_NUMBER = '2348095769296';
-const MONIEPOINT_ACCOUNT = '8271570508';
+const KITCHEN_WHATSAPP_NUMBER = '2348024379875';
+const MONIEPOINT_ACCOUNT = '5048601610';
 const MONIEPOINT_BANK = 'Moniepoint Microfinance Bank';
 const DISPATCH_FEE = 500;
 
@@ -201,7 +201,7 @@ function FoodMenuContent() {
               ← Back
             </button>
             <div>
-              <h1 className="text-lg font-extrabold tracking-tight">Food Menu</h1>
+              <h1 className="text-lg font-extrabold tracking-tight">Global Taste Restaurant</h1>
               <p className="text-[10px] text-emerald-100">Select items for your order</p>
             </div>
           </div>
