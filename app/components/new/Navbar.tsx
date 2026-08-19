@@ -12,7 +12,7 @@ export function Navbar() {
           Coming Soon
         </span>
       </div>
-      <p className="text-gray-500 font-medium text-sm tracking-wide">connecting villages</p>
+      <p className="text-gray-500 font-medium text-sm tracking-wide">digitizing communities</p>
     </header>
   );
 }
