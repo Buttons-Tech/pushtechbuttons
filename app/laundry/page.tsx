@@ -3,51 +3,49 @@
 import React, { useState, useEffect, useMemo, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 
-// --- Type Definitions ---
 export interface WearItem {
   _id?: string;
   id?: string;
   name: string;
-  category: 'laundry' | 'outfit'; // Distinguishes laundry service from ready-to-wear items
-  type: string;
-  price: number; // Wash price OR purchase price
+  category: string;
+  price: number;
   description: string;
   image: string;
-  sizes?: string[]; // For quick outfits e.g. ["M", "L", "XL"]
 }
 
 export interface SelectedWearItem {
   item: WearItem;
   quantity: number;
-  selectedSize?: string;
-  serviceType?: 'Wash & Iron' | 'Iron Only' | 'Dry Clean'; // For laundry items
 }
 
-const API_URL = 'https://kitchen-server-d763.onrender.com/laundry'; // Backend endpoint
+const API_URL = 'https://kitchen-server-d763.onrender.com/laundry';
 const LAUNDRY_WHATSAPP_NUMBER = '2348000000000';
 const MONIEPOINT_ACCOUNT = '8271570508';
 const MONIEPOINT_BANK = 'Moniepoint Microfinance Bank';
-const PICKUP_DELIVERY_FEE = 1000; // Isuti area pickup & delivery fee
+const PICKUP_DELIVERY_FEE = 1000;
 
-const TABS = [
-  { key: 'laundry', label: '🧺 Laundry & Ironing' },
-  { key: 'outfit', label: '👕 Quick Outfits' },
+const CATEGORIES = [
+  'All',
+  'Wash & Iron',
+  'Dry Cleaning',
+  'Ironing Only',
+  'Quick Outfits',
 ] as const;
 
 function WearWashContent() {
   const searchParams = useSearchParams();
-  const initialTab = (searchParams.get('tab') as 'laundry' | 'outfit') || 'laundry';
+  const initialCategory = searchParams.get('category') || 'All';
 
   // --- State ---
-  const [activeTab, setActiveTab] = useState<'laundry' | 'outfit'>(initialTab);
   const [catalogItems, setCatalogItems] = useState<WearItem[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
+  const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory);
   const [cart, setCart] = useState<SelectedWearItem[]>([]);
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
 
-  // --- Booking / Checkout Form State ---
+  // --- Fulfillment State ---
   const [fulfillmentType, setFulfillmentType] = useState<'pickup' | 'dropoff'>('pickup');
   const [pickupDate, setPickupDate] = useState<string>('');
   const [pickupAddress, setPickupAddress] = useState<string>('');
@@ -71,7 +69,7 @@ function WearWashContent() {
       const data: WearItem[] = await res.json();
       setCatalogItems(data);
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'Failed to fetch items');
+      setError(err instanceof Error ? err.message : 'Failed to fetch laundry items');
     } finally {
       setIsLoading(false);
     }
@@ -79,9 +77,12 @@ function WearWashContent() {
 
   const getItemId = (item: WearItem): string => item._id || item.id || item.name;
 
-  const displayedItems = useMemo(() => {
-    return catalogItems.filter((i) => i.category === activeTab);
-  }, [activeTab, catalogItems]);
+  const filteredItems = useMemo(() => {
+    if (selectedCategory === 'All') return catalogItems;
+    return catalogItems.filter(
+      (item) => item.category?.toLowerCase() === selectedCategory.toLowerCase()
+    );
+  }, [selectedCategory, catalogItems]);
 
   const totalItemCount = useMemo(() => {
     return cart.reduce((acc, curr) => acc + curr.quantity, 0);
@@ -95,39 +96,29 @@ function WearWashContent() {
     return subtotalPrice + (fulfillmentType === 'pickup' ? PICKUP_DELIVERY_FEE : 0);
   }, [subtotalPrice, fulfillmentType]);
 
-  const addToCart = (item: WearItem, selectedSize?: string): void => {
+  const addToCart = (item: WearItem): void => {
     const targetId = getItemId(item);
     setCart((prev) => {
-      const existing = prev.find(
-        (c) => getItemId(c.item) === targetId && c.selectedSize === selectedSize
-      );
+      const existing = prev.find((c) => getItemId(c.item) === targetId);
       if (existing) {
         return prev.map((c) =>
-          getItemId(c.item) === targetId && c.selectedSize === selectedSize
-            ? { ...c, quantity: c.quantity + 1 }
-            : c
+          getItemId(c.item) === targetId ? { ...c, quantity: c.quantity + 1 } : c
         );
       }
-      return [...prev, { item, quantity: 1, selectedSize }];
+      return [...prev, { item, quantity: 1 }];
     });
   };
 
-  const removeFromCart = (itemId: string, selectedSize?: string): void => {
+  const removeFromCart = (itemId: string): void => {
     setCart((prev) =>
       prev
-        .map((c) =>
-          getItemId(c.item) === itemId && c.selectedSize === selectedSize
-            ? { ...c, quantity: c.quantity - 1 }
-            : c
-        )
+        .map((c) => (getItemId(c.item) === itemId ? { ...c, quantity: c.quantity - 1 } : c))
         .filter((c) => c.quantity > 0)
     );
   };
 
   const getItemQuantity = (itemId: string): number => {
-    return cart
-      .filter((c) => getItemId(c.item) === itemId)
-      .reduce((sum, c) => sum + c.quantity, 0);
+    return cart.find((c) => getItemId(c.item) === itemId)?.quantity || 0;
   };
 
   const handleCopyAccount = () => {
@@ -151,7 +142,7 @@ function WearWashContent() {
     }
 
     if (fulfillmentType === 'pickup' && (!pickupAddress || !pickupDate)) {
-      alert('Please select a pickup date and enter your Isuti address.');
+      alert('Please enter your pickup date and address.');
       return;
     }
 
@@ -164,12 +155,7 @@ function WearWashContent() {
 
     try {
       const itemsText = cart
-        .map(
-          (c) =>
-            `• ${c.quantity}x ${c.item.name}${c.selectedSize ? ` (Size: ${c.selectedSize})` : ''} - ₦${(
-              c.item.price * c.quantity
-            ).toLocaleString()}`
-        )
+        .map((c) => `• ${c.quantity}x ${c.item.name} - ₦${(c.item.price * c.quantity).toLocaleString()}`)
         .join('\n');
 
       const orderRef = `WASH-${Date.now().toString().slice(-6)}`;
@@ -180,16 +166,14 @@ function WearWashContent() {
         `👤 *Name:* ${customerName}\n` +
         `📞 *Phone:* ${customerPhone}\n` +
         (fulfillmentType === 'pickup'
-          ? `📅 *Pickup Date:* ${pickupDate}\n🏠 *Address (Isuti):* ${pickupAddress}\n`
+          ? `📅 *Pickup Date:* ${pickupDate}\n🏠 *Address:* ${pickupAddress}\n`
           : `🏪 *Mode:* Customer Drop-Off at Laundry Hub\n`) +
-        `\n🛒 *ITEMS REQUESTED:*\n${itemsText}\n\n` +
-        `💵 *Items Subtotal:* ₦${subtotalPrice.toLocaleString()}\n` +
-        (fulfillmentType === 'pickup'
-          ? `🚚 *Isuti Pickup & Delivery Fee:* ₦${PICKUP_DELIVERY_FEE.toLocaleString()}\n`
-          : '') +
+        `\n🛒 *ITEMS & SERVICES:*\n${itemsText}\n\n` +
+        `💵 *Subtotal:* ₦${subtotalPrice.toLocaleString()}\n` +
+        (fulfillmentType === 'pickup' ? `🚚 *Pickup & Delivery Fee:* ₦${PICKUP_DELIVERY_FEE.toLocaleString()}\n` : '') +
         `💰 *TOTAL PAID:* ₦${finalTotalPrice.toLocaleString()}\n` +
         `🏦 *Payment Method:* Bank Transfer (Moniepoint)\n` +
-        (notes ? `📝 *Special Notes:* ${notes}\n` : '') +
+        (notes ? `📝 *Special Instructions:* ${notes}\n` : '') +
         `\n📌 *Note:* Payment receipt attached/uploaded.`;
 
       window.open(`https://wa.me/${LAUNDRY_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
@@ -203,7 +187,7 @@ function WearWashContent() {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 pb-28 font-sans">
-      {/* Top Header */}
+      {/* Header */}
       <header className="sticky top-0 z-20 bg-slate-900 text-white shadow-md">
         <div className="max-w-3xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -226,31 +210,29 @@ function WearWashContent() {
           </button>
         </div>
 
-        {/* Tab Switcher */}
-        <div className="grid grid-cols-2 max-w-3xl mx-auto px-4 py-2 bg-slate-800 gap-2">
-          {TABS.map((tab) => (
+        {/* Categories Bar */}
+        <div className="flex overflow-x-auto gap-2 px-4 py-2.5 bg-slate-800 no-scrollbar">
+          {CATEGORIES.map((cat) => (
             <button
-              key={tab.key}
-              onClick={() => setActiveTab(tab.key)}
-              className={`py-2 rounded-xl text-xs font-bold transition-all ${
-                activeTab === tab.key
+              key={cat}
+              onClick={() => setSelectedCategory(cat)}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
+                selectedCategory === cat
                   ? 'bg-amber-400 text-slate-950 shadow-sm'
-                  : 'bg-slate-700 text-slate-200 hover:bg-slate-600'
+                  : 'bg-slate-700 text-white hover:bg-slate-600'
               }`}
             >
-              {tab.label}
+              {cat}
             </button>
           ))}
         </div>
       </header>
 
-      {/* Main Content Catalog */}
+      {/* Main Catalog */}
       <main className="max-w-3xl mx-auto px-4 py-4">
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-base font-bold text-slate-800">
-            {activeTab === 'laundry' ? 'Wash & Dry Cleaning Rates' : 'Ready-to-Wear Outfits'}
-          </h2>
-          <span className="text-xs text-slate-500">{displayedItems.length} options</span>
+          <h2 className="text-base font-bold text-slate-800">{selectedCategory}</h2>
+          <span className="text-xs text-slate-500">{filteredItems.length} options</span>
         </div>
 
         {isLoading && (
@@ -274,7 +256,7 @@ function WearWashContent() {
 
         {!isLoading && !error && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {displayedItems.map((item) => {
+            {filteredItems.map((item) => {
               const itemId = getItemId(item);
               const qty = getItemQuantity(itemId);
               const rawImg = item.image || (item as any).imageUrl;
@@ -314,12 +296,11 @@ function WearWashContent() {
                     <div className="flex items-center justify-between mt-2">
                       <span className="font-extrabold text-sm text-slate-900">
                         ₦{item.price?.toLocaleString()}
-                        {item.category === 'laundry' && <span className="text-[10px] font-normal text-slate-500"> /pc</span>}
                       </span>
 
                       {qty === 0 ? (
                         <button
-                          onClick={() => addToCart(item, item.sizes ? item.sizes[0] : undefined)}
+                          onClick={() => addToCart(item)}
                           className="bg-slate-900 hover:bg-slate-800 text-white px-3 py-1 rounded-xl text-xs font-semibold shadow-sm transition-transform active:scale-95"
                         >
                           + Add
@@ -334,7 +315,7 @@ function WearWashContent() {
                           </button>
                           <span className="text-xs font-bold text-slate-800">{qty}</span>
                           <button
-                            onClick={() => addToCart(item, item.sizes ? item.sizes[0] : undefined)}
+                            onClick={() => addToCart(item)}
                             className="w-6 h-6 bg-slate-900 rounded-lg flex items-center justify-center font-bold text-white text-xs shadow-xs"
                           >
                             +
@@ -390,22 +371,18 @@ function WearWashContent() {
 
             <div className="p-4 overflow-y-auto flex-1 space-y-4">
               
-              {/* Cart Summary */}
+              {/* Summary */}
               <div className="bg-slate-50 p-3 rounded-2xl border border-slate-200 space-y-2">
                 <p className="text-xs font-bold text-slate-700 uppercase tracking-wider">Requested Items</p>
-                {cart.map(({ item, quantity, selectedSize }) => (
+                {cart.map(({ item, quantity }) => (
                   <div key={getItemId(item)} className="flex justify-between text-xs">
-                    <span className="text-slate-800">
-                      {quantity}x {item.name} {selectedSize ? `(${selectedSize})` : ''}
-                    </span>
-                    <span className="font-semibold text-slate-900">
-                      ₦{(item.price * quantity).toLocaleString()}
-                    </span>
+                    <span className="text-slate-800">{quantity}x {item.name}</span>
+                    <span className="font-semibold text-slate-900">₦{(item.price * quantity).toLocaleString()}</span>
                   </div>
                 ))}
               </div>
 
-              {/* Fulfillment Toggle */}
+              {/* Fulfillment Switcher */}
               <div>
                 <label className="block text-xs font-bold text-slate-700 mb-1.5">Delivery Option</label>
                 <div className="grid grid-cols-2 gap-2 bg-slate-100 p-1 rounded-2xl border border-slate-200">
@@ -434,7 +411,6 @@ function WearWashContent() {
                 </div>
               </div>
 
-              {/* Form */}
               <form id="wear-wash-form" onSubmit={handleCompleteOrder} className="space-y-3">
                 <div className="grid grid-cols-2 gap-2">
                   <div>
@@ -474,11 +450,11 @@ function WearWashContent() {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-slate-600 mb-1">Isuti Pickup Address *</label>
+                      <label className="block text-xs font-semibold text-slate-600 mb-1">Pickup Address *</label>
                       <input
                         type="text"
                         required
-                        placeholder="House No., Street Name in Isuti"
+                        placeholder="House No., Street Name"
                         value={pickupAddress}
                         onChange={(e) => setPickupAddress(e.target.value)}
                         className="w-full px-3 py-2 text-xs border border-slate-300 rounded-xl focus:ring-2 focus:ring-slate-900 outline-none"
@@ -488,10 +464,10 @@ function WearWashContent() {
                 )}
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-600 mb-1">Stain / Washing Instructions</label>
+                  <label className="block text-xs font-semibold text-slate-600 mb-1">Special Instructions / Sizes</label>
                   <input
                     type="text"
-                    placeholder="e.g. Gentle wash, starch shirt collar..."
+                    placeholder="e.g. Starch collar, size L for outfit..."
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
                     className="w-full px-3 py-2 text-xs border border-slate-300 rounded-xl focus:ring-2 focus:ring-slate-900 outline-none"
