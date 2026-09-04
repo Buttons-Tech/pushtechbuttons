@@ -1,12 +1,12 @@
-import React from 'react'
-import EstateServices from '../components/business/EstateServices'
+import React from "react";
+import EstateServices from "../../components/business/EstateServices";
 
 const page = () => {
   return (
     <>
-    <EstateServices/>
+      <EstateServices />
     </>
-  )
-}
+  );
+};
 
-export default page
+export default page;

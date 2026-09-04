@@ -1,7 +1,7 @@
 // src/app/(marketing)/layout.tsx
 
-import { Navbar } from "@/app/components/shared/Navbar";
-import { Footer } from "@/app/components/shared/Footer";
+import { Navbar } from "@/components/shared/Navbar";
+import { Footer } from "@/components/shared/Footer";
 
 export default function MarketingLayout({
   children,
@@ -11,9 +11,7 @@ export default function MarketingLayout({
   return (
     <div className="flex flex-col min-h-screen">
       {/* <Navbar /> */}
-      <div className="flex-grow">
-        {children}
-      </div>
+      <div className="flex-grow">{children}</div>
       {/* <Footer /> */}
     </div>
   );
