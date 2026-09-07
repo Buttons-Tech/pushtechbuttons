@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useSession, signIn } from 'next-auth/react';
 import { Menu, Sparkles } from 'lucide-react';
 import NavMenuDrawer from './NavMenuDrawer';
+import Image from 'next/image';
 
 export default function Header() {
   const { data: session, status } = useSession();
@@ -20,7 +21,14 @@ export default function Header() {
           {/* Logo */}
           <a href="/" className="flex items-center gap-1 group">
             <span className="text-xl font-black text-white tracking-tight group-hover:text-amber-500 transition-colors">
-              Buttns<span className="text-amber-500">.</span>
+              {/* Buttns<span className="text-amber-500">.</span> */}
+              <Image 
+              src="/brand/push.png"
+              width={120}
+              height={30}
+              alt='push'
+              className=' w-50'
+              />
             </span>
           </a>
 

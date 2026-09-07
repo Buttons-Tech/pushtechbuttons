@@ -21,8 +21,8 @@ export interface TrayItem {
 
 const API_URL = 'https://kitchen-server-d763.onrender.com/food';
 const KITCHEN_WHATSAPP_NUMBER = '2348024379875';
-const MONIEPOINT_ACCOUNT = '5048601610';
-const MONIEPOINT_BANK = 'Moniepoint Microfinance Bank';
+const MONIEPOINT_ACCOUNT = '2043436716';
+const MONIEPOINT_BANK = 'First Bank PLC';
 const DISPATCH_FEE = 500;
 
 const CATEGORIES = [

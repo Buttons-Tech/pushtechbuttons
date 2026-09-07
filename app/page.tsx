@@ -8,6 +8,7 @@ import PartnerStrip from '@/components/PartnerStrip';
 import EstateUtilitiesGrid from '@/components/EstateUtilitiesGrid';
 import BottomNavbar from '@/components/BottomNavbar';
 import CommunityTickerBar from '@/components/CommunityTickerBar';
+import VendorStorefronts from '@/components/VendorStorefronts';
 
 export default function HomePage() {
   return (
@@ -21,12 +22,14 @@ export default function HomePage() {
       <div className="relative z-10">
         <Header />
 
-        <main className="max-w-md mx-auto px-4 pt-4 space-y-5">
-          {/* 1. Sliding Hero Banners */}
-          <HeroBannerCarousel />
 
           {/* Community Ticker Bar */}
           <CommunityTickerBar />
+
+
+        <main className="max-w-md mx-auto px-4 pt-4 space-y-5">
+          {/* 1. Sliding Hero Banners */}
+          <HeroBannerCarousel />
 
           {/* 2. Core 4 Buttns Grid */}
           <CoreButtonsGrid />
@@ -36,6 +39,8 @@ export default function HomePage() {
 
           {/* 4. Vital Estate Services */}
           <EstateUtilitiesGrid />
+
+          <VendorStorefronts />
         </main>
 
         <BottomNavbar />
