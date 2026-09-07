@@ -9,6 +9,8 @@ import EstateUtilitiesGrid from '@/components/EstateUtilitiesGrid';
 import BottomNavbar from '@/components/BottomNavbar';
 import CommunityTickerBar from '@/components/CommunityTickerBar';
 import VendorStorefronts from '@/components/VendorStorefronts';
+import SecuritySection from '@/components/SecuritySection';
+import ClickTeamSection from '@/components/ClickTeamSection';
 
 export default function HomePage() {
   return (
@@ -41,6 +43,14 @@ export default function HomePage() {
           <EstateUtilitiesGrid />
 
           <VendorStorefronts />
+
+          {/* Estate Security Section */}
+<section className="bg-white p-4 rounded-3xl border border-gray-200/80 shadow-sm">
+  <SecuritySection />
+</section>
+
+{/* The Click Team Section */}
+<ClickTeamSection />
         </main>
 
         <BottomNavbar />
