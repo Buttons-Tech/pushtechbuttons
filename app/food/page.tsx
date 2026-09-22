@@ -203,7 +203,7 @@ function FoodMenuContent() {
               ← Back
             </button>
             <div>
-              <h1 className="text-lg font-extrabold tracking-tight">Global Taste Restaurant</h1>
+              <h1 className="text-lg font-extrabold tracking-tight">Bigger Bites Restaurant</h1>
               <p className="text-[10px] text-emerald-100">Select items for your order</p>
             </div>
           </div>
