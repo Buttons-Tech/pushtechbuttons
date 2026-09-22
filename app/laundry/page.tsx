@@ -19,7 +19,7 @@ export interface SelectedWearItem {
 }
 
 const API_URL = 'https://kitchen-server-d763.onrender.com/laundry';
-const LAUNDRY_WHATSAPP_NUMBER = '2348000000000';
+const LAUNDRY_WHATSAPP_NUMBER = '2349033811883';
 const MONIEPOINT_ACCOUNT = '8271570508';
 const MONIEPOINT_BANK = 'Moniepoint Microfinance Bank';
 const PICKUP_DELIVERY_FEE = 1000;
@@ -172,7 +172,7 @@ function WearWashContent() {
         `💵 *Subtotal:* ₦${subtotalPrice.toLocaleString()}\n` +
         (fulfillmentType === 'pickup' ? `🚚 *Pickup & Delivery Fee:* ₦${PICKUP_DELIVERY_FEE.toLocaleString()}\n` : '') +
         `💰 *TOTAL PAID:* ₦${finalTotalPrice.toLocaleString()}\n` +
-        `🏦 *Payment Method:* Bank Transfer (Moniepoint)\n` +
+        `🏦 *Payment Method:* Bank Transfer (PAATEE by First Bank Ltd)\n` +
         (notes ? `📝 *Special Instructions:* ${notes}\n` : '') +
         `\n📌 *Note:* Payment receipt attached/uploaded.`;
 

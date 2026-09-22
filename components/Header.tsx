@@ -15,19 +15,19 @@ export default function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 bg-black text-white px-4 py-3 shadow-md border-b border-zinc-800">
+      <header className="sticky top-0 z-40 bg-[#c1ff72] text-white px-4 py-3 shadow-md border-b border-zinc-800">
         <div className="max-w-md mx-auto flex items-center justify-between">
           
           {/* Logo */}
-          <a href="/" className="flex items-center gap-1 group">
+          <a href="/" className="flex h-1 items-center gap-1 group">
             <span className="text-xl font-black text-white tracking-tight group-hover:text-amber-500 transition-colors">
               {/* Buttns<span className="text-amber-500">.</span> */}
               <Image 
-              src="/brand/push.png"
-              width={120}
-              height={30}
+              src="/brand/buttns.png"
+              width={150}
+              height={100}
               alt='push'
-              className=' w-50'
+              className=''
               />
             </span>
           </a>
@@ -61,7 +61,7 @@ export default function Header() {
             {/* Menu Trigger */}
             <button
               onClick={() => setIsMenuOpen(true)}
-              className="p-1.5 text-gray-300 hover:text-amber-500 hover:bg-zinc-900 rounded-xl transition"
+              className="p-1.5 text-gray-800 hover:text-amber-500 hover:bg-zinc-900 rounded-xl transition"
               aria-label="Open Navigation Menu"
             >
               <Menu className="w-6 h-6" />

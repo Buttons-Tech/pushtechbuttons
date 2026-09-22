@@ -18,7 +18,7 @@ export default function ClickTeamSection() {
           </h2>
         </div>
         <span className="text-[10px] font-bold text-purple-700 bg-purple-100 px-2 py-0.5 rounded-full">
-          Estate Tech Force
+          Egan Tech Force
         </span>
       </div>
 
@@ -67,7 +67,7 @@ export default function ClickTeamSection() {
 
         {/* 3. High-Contrast Call to Action */}
         <a
-          href="/click-team/join"
+          href="/click-team/join" 
           className="flex items-center justify-between w-full bg-purple-700 hover:bg-purple-800 active:scale-[0.98] text-white p-3 rounded-2xl transition-all shadow-md shadow-purple-600/20"
         >
           <div className="flex items-center gap-2">

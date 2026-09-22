@@ -22,7 +22,7 @@ export interface TrayItem {
 const API_URL = 'https://kitchen-server-d763.onrender.com/green';
 const KITCHEN_WHATSAPP_NUMBER = '2349033811883';
 const MONIEPOINT_ACCOUNT = '2043436716';
-const MONIEPOINT_BANK = 'First Bank';
+const MONIEPOINT_BANK = 'PAATEE by First Bank Ltd';
 const DISPATCH_FEE = 500;
 
 const CATEGORIES = [
@@ -477,7 +477,7 @@ function FoodMenuContent() {
                       Bank Transfer Details
                     </span>
                     <span className="text-[10px] bg-amber-200 text-amber-900 font-extrabold px-2 py-0.5 rounded-full">
-                      Moniepoint
+                      PAATEE by First Bank Ltd
                     </span>
                   </div>
 

@@ -14,7 +14,7 @@ const CORE_BUTTONS = [
     theme: {
       border: "border-emerald-500/50 hover:border-emerald-500",
       bg: "bg-emerald-950/20",
-      badge: "bg-emerald-500 text-black",
+      badge: "bg-orange-400 text-black",
       glow: "group-hover:shadow-emerald-500/20",
     }
   },

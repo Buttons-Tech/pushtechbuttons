@@ -21,9 +21,9 @@ export interface SelectedService {
 }
 
 const API_URL = 'https://kitchen-server-d763.onrender.com/hair'; // or your hair backend endpoint
-const SALON_WHATSAPP_NUMBER = '2348000000000';
-const MONIEPOINT_ACCOUNT = '8271570508';
-const MONIEPOINT_BANK = 'Moniepoint Microfinance Bank';
+const SALON_WHATSAPP_NUMBER = '2349033811883';
+const MONIEPOINT_ACCOUNT = '2043436716';
+const MONIEPOINT_BANK = 'First Bank Ltd';
 const HOME_SERVICE_FEE = 1500; // Transportation/travel fee for Isuti area
 
 const CATEGORIES = [
@@ -176,7 +176,7 @@ function HairMenuContent() {
         `💵 *Service Subtotal:* ₦${subtotalPrice.toLocaleString()}\n` +
         (bookingType === 'home' ? `🏠 *Home Service Travel Fee (Isuti):* ₦${HOME_SERVICE_FEE.toLocaleString()}\n` : '') +
         `💰 *TOTAL PAID:* ₦${finalTotalPrice.toLocaleString()}\n` +
-        `🏦 *Payment Method:* Bank Transfer (Moniepoint)\n` +
+        `🏦 *Payment Method:* Bank Transfer (PAATEE by First Bank Ltd)\n` +
         (notes ? `📝 *Notes:* ${notes}\n` : '') +
         `\n📌 *Note:* Payment receipt attached/uploaded.`;
 
@@ -518,7 +518,7 @@ function HairMenuContent() {
                       Bank Transfer Details
                     </span>
                     <span className="text-[10px] bg-amber-200 text-amber-900 font-extrabold px-2 py-0.5 rounded-full">
-                      Moniepoint
+                      PAATEE by First Bank Ltd
                     </span>
                   </div>
 

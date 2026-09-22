@@ -20,10 +20,12 @@ export interface TrayItem {
 }
 
 const API_URL = 'https://kitchen-server-d763.onrender.com/food';
-const KITCHEN_WHATSAPP_NUMBER = '2348024379875';
+const KITCHEN_WHATSAPP_NUMBER = '2349033811883';
 const MONIEPOINT_ACCOUNT = '2043436716';
 const MONIEPOINT_BANK = 'First Bank PLC';
 const DISPATCH_FEE = 500;
+
+
 
 const CATEGORIES = [
   'All',
@@ -174,7 +176,7 @@ function FoodMenuContent() {
         `💵 *Subtotal:* ₦${subtotalPrice.toLocaleString()}\n` +
         (orderType === 'delivery' ? `🚚 *Dispatch Fee (Isuti):* ₦${DISPATCH_FEE.toLocaleString()}\n` : '') +
         `💰 *TOTAL PAID:* ₦${finalTotalPrice.toLocaleString()}\n` +
-        `🏦 *Payment Method:* Bank Transfer (Moniepoint)\n` +
+        `🏦 *Payment Method:* Bank Transfer (PAATEE by First Bank Ltd)\n` +
         (notes ? `📝 *Notes:* ${notes}\n` : '') +
         `\n📌 *Note:* Payment receipt attached/uploaded.`;
 
@@ -444,7 +446,7 @@ function FoodMenuContent() {
                   </div>
                 </div>
 
-                {/* Delivery Address (Replaces Table Number) */}
+                {/* Delivery Address */}
                 {orderType === 'delivery' && (
                   <div>
                     <label className="block text-xs font-semibold text-slate-600 mb-1">
@@ -479,7 +481,7 @@ function FoodMenuContent() {
                       Bank Transfer Details
                     </span>
                     <span className="text-[10px] bg-amber-200 text-amber-900 font-extrabold px-2 py-0.5 rounded-full">
-                      Moniepoint
+                      PAATEE by First Bank Ltd
                     </span>
                   </div>
 
