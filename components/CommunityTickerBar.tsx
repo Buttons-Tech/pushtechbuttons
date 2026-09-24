@@ -23,7 +23,7 @@ const TICKER_ITEMS = [
     icon: Flame,
     colorClass: "text-orange-400 font-bold",
     label: "GAS PRICE",
-    value: "Cooking Gas @ ₦1,250 / kg",
+    value: "Cooking Gas @ ₦1,340 / kg",
   },
 ];
 

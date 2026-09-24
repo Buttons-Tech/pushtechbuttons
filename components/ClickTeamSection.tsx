@@ -4,7 +4,7 @@ import React from 'react';
 import { Sparkles, ArrowRight, Code2, Users, Briefcase } from 'lucide-react';
 
 // Replace with your exact Cloudinary team photo link
-const CLICK_TEAM_IMAGE = "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1000&q=80";
+const CLICK_TEAM_IMAGE = "/images/click.jpeg";
 
 export default function ClickTeamSection() {
   return (

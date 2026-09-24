@@ -11,6 +11,10 @@ import CommunityTickerBar from '@/components/CommunityTickerBar';
 import VendorStorefronts from '@/components/VendorStorefronts';
 import SecuritySection from '@/components/SecuritySection';
 import ClickTeamSection from '@/components/ClickTeamSection';
+import InvestorsPartnersSection from '@/components/InvestorsPartnersSection';
+import ZiigDeliverySection from '@/components/ZiigDeliverySection';
+import PortalsSection from '@/components/PortalsSection';
+import VendorPricingSection from '@/components/VendorPricingSection';
 
 export default function HomePage() {
   return (
@@ -35,6 +39,7 @@ export default function HomePage() {
 
           {/* 2. Core 4 Buttns Grid */}
           <CoreButtonsGrid />
+          <ZiigDeliverySection />
 
           {/* 3. Partners Marquee */}
           <PartnerStrip />
@@ -43,6 +48,7 @@ export default function HomePage() {
           <EstateUtilitiesGrid />
 
           <VendorStorefronts />
+          {/* <VendorPricingSection /> */}
 
           {/* Estate Security Section */}
 <section className="bg-white p-4 rounded-3xl border border-gray-200/80 shadow-sm">
@@ -51,6 +57,9 @@ export default function HomePage() {
 
 {/* The Click Team Section */}
 <ClickTeamSection />
+          <InvestorsPartnersSection />
+         
+
         </main>
 
         <BottomNavbar />
