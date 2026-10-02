@@ -1,19 +1,19 @@
 "use client";
 
-import React, { useState } from 'react';
-import { 
-  TrendingUp, 
-  Briefcase, 
-  Smartphone, 
-  Building2, 
-  Truck, 
-  Layout, 
-  Code2, 
-  Megaphone, 
-  ArrowRight, 
-  Download, 
-  DollarSign 
-} from 'lucide-react';
+import React, { useState } from "react";
+import {
+  TrendingUp,
+  Briefcase,
+  Smartphone,
+  Building2,
+  Truck,
+  Layout,
+  Code2,
+  Megaphone,
+  ArrowRight,
+  Download,
+  DollarSign,
+} from "lucide-react";
 
 // Replace with your exact Cloudinary ecosystem asset link
 const ECOSYSTEM_HERO_IMAGE = "/images/invest.jpeg";
@@ -65,6 +65,10 @@ const BUTTNS_PILLARS = [
 
 export default function InvestorsPartnersSection() {
   const [showFundModal, setShowFundModal] = useState(false);
+  const [isClicked, setIsCLicked] = useState(false);
+  const handleHide = () => {
+    setIsCLicked((prev) => !prev);
+  };
 
   return (
     <section className="space-y-3">
@@ -83,7 +87,6 @@ export default function InvestorsPartnersSection() {
 
       {/* Main Container */}
       <div className="bg-white rounded-3xl border border-gray-200 p-3.5 shadow-sm space-y-3.5">
-        
         {/* 1. Unobstructed Hero Visual */}
         <div className="relative w-full h-44 rounded-2xl overflow-hidden bg-gray-100 border border-gray-200">
           <img
@@ -106,16 +109,36 @@ export default function InvestorsPartnersSection() {
               Back the 6 Pillars Powering Buttns
             </h3>
             <p className="text-[11px] font-medium text-gray-600 leading-relaxed mt-0.5">
-              Your investments and contributions directly fund the expansion of the Buttns brand, technology, physical hubs, and logistics network.
+              Your investments and contributions directly fund the expansion of
+              the Buttns brand, technology, physical hubs, and logistics
+              network.
             </p>
           </div>
 
+          <button
+            onClick={handleHide}
+            className="bg-purple-200 text-purple-800 font-bold px-3 border border-purple-500 rounded-xl hover:bg-purple-800 hover:text-white"
+          >
+            {isClicked ? (
+              <div>
+                <span>Hide </span>
+              </div>
+            ) : (
+              <div>
+                <span> Read More</span>
+              </div>
+            )}
+          </button>
+
           {/* 6 Pillars Grid */}
-          <div className="grid grid-cols-2 gap-2 pt-1">
+
+          {
+            isClicked ? 
+<div className="grid grid-cols-2 gap-2 pt-1">
             {BUTTNS_PILLARS.map((pillar) => {
               const Icon = pillar.icon;
               return (
-                <div 
+                <div
                   key={pillar.id}
                   className={`p-2 rounded-xl border ${pillar.color} space-y-0.5`}
                 >
@@ -132,6 +155,14 @@ export default function InvestorsPartnersSection() {
               );
             })}
           </div>
+          :
+           <div>
+                <span>... </span>
+              </div>
+          }
+          
+
+
         </div>
 
         {/* 3. Action Buttons */}
@@ -155,7 +186,6 @@ export default function InvestorsPartnersSection() {
             <span>Back Buttns</span>
           </button>
         </div>
-
       </div>
 
       {/* Fund / Partner Modal */}
@@ -168,11 +198,15 @@ export default function InvestorsPartnersSection() {
                   ₦
                 </div>
                 <div>
-                  <h3 className="text-sm font-black text-gray-900">Fund Buttns Growth</h3>
-                  <p className="text-[10px] text-gray-500 font-bold">Select an investment or sponsorship route</p>
+                  <h3 className="text-sm font-black text-gray-900">
+                    Fund Buttns Growth
+                  </h3>
+                  <p className="text-[10px] text-gray-500 font-bold">
+                    Select an investment or sponsorship route
+                  </p>
                 </div>
               </div>
-              <button 
+              <button
                 onClick={() => setShowFundModal(false)}
                 className="w-7 h-7 rounded-full bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-xs"
               >
@@ -189,8 +223,12 @@ export default function InvestorsPartnersSection() {
                 className="flex items-center justify-between p-3 rounded-2xl border border-purple-200 bg-purple-50/50 hover:bg-purple-50 transition-colors group"
               >
                 <div>
-                  <p className="text-xs font-black text-purple-950">Ecosystem Development Support</p>
-                  <p className="text-[10px] text-purple-700 font-medium">Fund The Cave hub, Ziig logistics & Portals signage</p>
+                  <p className="text-xs font-black text-purple-950">
+                    Ecosystem Development Support
+                  </p>
+                  <p className="text-[10px] text-purple-700 font-medium">
+                    Fund The Cave hub, Ziig logistics & Portals signage
+                  </p>
                 </div>
                 <ArrowRight className="w-4 h-4 text-purple-600 group-hover:translate-x-0.5 transition-transform" />
               </a>
@@ -203,8 +241,12 @@ export default function InvestorsPartnersSection() {
                 className="flex items-center justify-between p-3 rounded-2xl border border-amber-200 bg-amber-50/50 hover:bg-amber-50 transition-colors group"
               >
                 <div>
-                  <p className="text-xs font-black text-amber-950">Portals & Ads Sponsorship</p>
-                  <p className="text-[10px] text-amber-700 font-medium">Sponsor physical billboards & digital ad networks</p>
+                  <p className="text-xs font-black text-amber-950">
+                    Portals & Ads Sponsorship
+                  </p>
+                  <p className="text-[10px] text-amber-700 font-medium">
+                    Sponsor physical billboards & digital ad networks
+                  </p>
                 </div>
                 <ArrowRight className="w-4 h-4 text-amber-600 group-hover:translate-x-0.5 transition-transform" />
               </a>
@@ -215,8 +257,12 @@ export default function InvestorsPartnersSection() {
                 className="flex items-center justify-between p-3 rounded-2xl border border-zinc-200 bg-zinc-950 text-white hover:bg-zinc-900 transition-colors group"
               >
                 <div>
-                  <p className="text-xs font-black text-white">Equity & Angel Investor Desk</p>
-                  <p className="text-[10px] text-gray-300 font-medium">Pre-seed equity, convertible notes & founder call</p>
+                  <p className="text-xs font-black text-white">
+                    Equity & Angel Investor Desk
+                  </p>
+                  <p className="text-[10px] text-gray-300 font-medium">
+                    Pre-seed equity, convertible notes & founder call
+                  </p>
                 </div>
                 <ArrowRight className="w-4 h-4 text-amber-400 group-hover:translate-x-0.5 transition-transform" />
               </a>

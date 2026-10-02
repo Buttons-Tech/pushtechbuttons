@@ -7,9 +7,9 @@ import { ArrowUpRight, Sparkles } from 'lucide-react';
 const CORE_BUTTONS = [
   {
     id: "food",
-    title: "Food & Drinks",
-    startingPrice: "From ₦1,200",
-    imageUrl: "https://res.cloudinary.com/dps2cgpx8/image/upload/v1788551658/food_fqbow6.jpg", 
+    title: "EAT",
+    startingPrice: "< ₦1,200",
+    imageUrl: "/food/eat.jpg", 
     href: "/food",
     theme: {
       border: "border-emerald-500/50 hover:border-emerald-500",
@@ -20,9 +20,9 @@ const CORE_BUTTONS = [
   },
   {
     id: "hair",
-    title: "Hair & Style",
-    startingPrice: "From ₦2,500",
-    imageUrl: "https://res.cloudinary.com/dps2cgpx8/image/upload/v1788551396/c7deb95e2b7073cf17ceaecb0962a2c0_wswd6r.jpg",
+    title: "HAIR",
+    startingPrice: "< ₦1,500",
+    imageUrl: "/hair/hair11.jpg",
     href: "/hair",
     theme: {
       border: "border-purple-500/50 hover:border-purple-500",
@@ -33,28 +33,28 @@ const CORE_BUTTONS = [
   },
   {
     id: "laundry",
-    title: "Wear & Wash",
-    startingPrice: "From ₦800",
-    imageUrl: "https://res.cloudinary.com/dps2cgpx8/image/upload/v1788551439/fc893686fc041d282103d516abea6846_mzap7p.jpg",
+    title: "WASH",
+    startingPrice: "< ₦1,200",
+    imageUrl: "/wash/shirt.jpg",
     href: "/laundry",
-    theme: {
-      border: "border-amber-500/50 hover:border-amber-500",
-      bg: "bg-amber-950/20",
-      badge: "bg-amber-500 text-black",
-      glow: "group-hover:shadow-amber-500/20",
-    }
-  },
-  {
-    id: "utilities",
-    title: "Estate Utilities",
-    startingPrice: "From ₦3,000",
-    imageUrl: "https://res.cloudinary.com/dps2cgpx8/image/upload/v1788551396/6154d875b7dc5ff6c70074396c07d77d_a6freq.jpg",
-    href: "/utilities",
     theme: {
       border: "border-blue-500/50 hover:border-blue-500",
       bg: "bg-blue-950/20",
       badge: "bg-blue-500 text-white",
       glow: "group-hover:shadow-blue-500/20",
+    }
+  },
+  {
+    id: "utilities",
+    title: "MORE",
+    startingPrice: "< ₦3,000",
+    imageUrl: "https://res.cloudinary.com/dps2cgpx8/image/upload/v1788551396/6154d875b7dc5ff6c70074396c07d77d_a6freq.jpg",
+    href: "/gas",
+    theme: {
+      border: "border-red-500/50 hover:border-red-500",
+      bg: "bg-red-950/20",
+      badge: "bg-red-500 text-white",
+      glow: "group-hover:shadow-red-500/20",
     }
   },
 ];
@@ -67,7 +67,7 @@ export default function CoreButtonsGrid() {
         <div className="flex items-center gap-1.5">
           <Sparkles className="w-4 h-4 text-amber-500" />
           <h2 className="text-sm font-black text-gray-900 tracking-tight uppercase">
-            Core Buttns
+            Your Buttns
           </h2>
         </div>
         <span className="text-[10px] text-gray-500 font-bold">Tap to access</span>

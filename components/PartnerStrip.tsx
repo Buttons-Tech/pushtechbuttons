@@ -20,6 +20,10 @@ const PARTNERS = [
     name: "Alimosho Local Government",
     imageUrl: "https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg",
   },
+  {
+    name: "MTN",
+    imageUrl: "https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg",
+  },
 ];
 
 export default function PartnerStrip() {
@@ -36,7 +40,7 @@ export default function PartnerStrip() {
 
         <div className="flex items-center gap-2 px-4 mb-1.5">
           <span className="text-[9px] font-black uppercase text-amber-500 tracking-widest">
-            Key Ecosystem Partners
+            Key Partners
           </span>
         </div>
 

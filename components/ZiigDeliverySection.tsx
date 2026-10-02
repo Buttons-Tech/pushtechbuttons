@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 
 // Replace with your exact Cloudinary Ziig rider photo
-const ZIIG_HERO_IMAGE = "https://images.unsplash.com/photo-1617347454431-f49d7ff5c3b1?auto=format&fit=crop&w=1000&q=80";
+const ZIIG_HERO_IMAGE = "/images/zigg.jpeg";
 
 export default function ZiigDeliverySection() {
   const [showDispatchModal, setShowDispatchModal] = useState(false);
@@ -30,7 +30,7 @@ export default function ZiigDeliverySection() {
         </div>
         <span className="text-[10px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full flex items-center gap-1">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-          Active in Estate
+          Active in Egan
         </span>
       </div>
 
@@ -64,7 +64,7 @@ export default function ZiigDeliverySection() {
             </h3>
           </div>
           <p className="text-[11px] font-medium text-gray-600 leading-relaxed">
-            Need packages picked up at the gate, groceries brought from local vendors, or inter-estate dispatches? Ziig runners are verified and stationed inside the estate.
+            Need packages picked up at the gate, groceries brought from local vendors, or inter-estate dispatches? Ziig runners are verified and stationed around Egan.
           </p>
 
           <div className="grid grid-cols-3 gap-2 pt-1">
@@ -133,7 +133,7 @@ export default function ZiigDeliverySection() {
             <div className="space-y-2.5">
               {/* Option 1: WhatsApp Instant Booking */}
               <a
-                href="https://wa.me/2348012345678?text=Hello%20Ziig%20Logistics,%20I%20need%20a%20runner%20for%20a%20pickup%20in%20the%20estate."
+                href="https://wa.me/2349033811883?text=Hello%20Ziig%20Logistics,%20I%20need%20a%20runner%20for%20a%20pickup%20in%20the%20estate."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-between p-3.5 rounded-2xl border border-emerald-200 bg-emerald-50/50 hover:bg-emerald-50 transition-colors group"
@@ -147,7 +147,7 @@ export default function ZiigDeliverySection() {
 
               {/* Option 2: Direct Call */}
               <a
-                href="tel:+2348012345678"
+                href="tel:+2349033811883"
                 className="flex items-center justify-between p-3.5 rounded-2xl border border-zinc-200 bg-zinc-950 text-white hover:bg-zinc-900 transition-colors group"
               >
                 <div>

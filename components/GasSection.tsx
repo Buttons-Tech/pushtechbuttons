@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 
 // Replace with your exact Cloudinary Gas Station / Depot visual asset
-const GAS_HERO_IMAGE = "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1000&q=80";
+const GAS_HERO_IMAGE = "/brand/gas_refill.jpg";
 
 interface CylinderOption {
   id: string;
@@ -43,7 +43,7 @@ interface AccessoryOption {
 const ACCESSORIES: AccessoryOption[] = [
   { id: "hose", name: "High-Pressure Gas Hose (2m)", price: 2500 },
   { id: "regulator", name: "Safety Gas Regulator", price: 4500 },
-  { id: "clamp", name: "Stainless Steel Hose Clamps (Pair)", price: 1000 },
+  { id: "clamp", name: "New Gas cylinder (12.5kg)", price: 20000 },
 ];
 
 export default function GasSection() {
@@ -74,12 +74,12 @@ export default function GasSection() {
         <div className="flex items-center gap-1.5">
           <Flame className="w-4 h-4 text-orange-500 fill-orange-500" />
           <h2 className="text-sm font-black text-gray-900 tracking-tight uppercase">
-            Ziig Gas Express
+            MG Gas Express
           </h2>
         </div>
         <span className="text-[10px] font-bold text-orange-800 bg-orange-100 px-2 py-0.5 rounded-full flex items-center gap-1">
           <span className="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse" />
-          Depot Active
+          Egan Active
         </span>
       </div>
 
@@ -291,7 +291,7 @@ export default function GasSection() {
             <div className="space-y-2.5">
               {/* Option 1: Instant WhatsApp Dispatch */}
               <a
-                href={`https://wa.me/2348012345678?text=Hello%20Ziig%20Gas,%20I%20want%20to%20order%20a%20gas%20refill:%20${encodeURIComponent(selectedCylinder.size)}%20(Qty:%20${quantity}).%20Total:%20₦${grandTotal.toLocaleString()}.`}
+                href={`https://wa.me/2349033811883?text=Hello%20Ziig%20Gas,%20I%20want%20to%20order%20a%20gas%20refill:%20${encodeURIComponent(selectedCylinder.size)}%20(Qty:%20${quantity}).%20Total:%20₦${grandTotal.toLocaleString()}.`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-between p-3.5 rounded-2xl border border-emerald-200 bg-emerald-50/50 hover:bg-emerald-50 transition-colors group"

@@ -15,6 +15,10 @@ import InvestorsPartnersSection from '@/components/InvestorsPartnersSection';
 import ZiigDeliverySection from '@/components/ZiigDeliverySection';
 import PortalsSection from '@/components/PortalsSection';
 import VendorPricingSection from '@/components/VendorPricingSection';
+import Footer from '@/components/Footer';
+import ButtnsTab from '@/components/ButtnsTab';
+// import {Footer} from '@/components/shared/Footer';
+
 
 export default function HomePage() {
   return (
@@ -39,7 +43,7 @@ export default function HomePage() {
 
           {/* 2. Core 4 Buttns Grid */}
           <CoreButtonsGrid />
-          <ZiigDeliverySection />
+         
 
           {/* 3. Partners Marquee */}
           <PartnerStrip />
@@ -47,9 +51,12 @@ export default function HomePage() {
           {/* 4. Vital Estate Services */}
           <EstateUtilitiesGrid />
 
-          <VendorStorefronts />
-          {/* <VendorPricingSection /> */}
+          <ButtnsTab/>
 
+          <VendorStorefronts />
+
+          <VendorPricingSection />
+ <ZiigDeliverySection />
           {/* Estate Security Section */}
 <section className="bg-white p-4 rounded-3xl border border-gray-200/80 shadow-sm">
   <SecuritySection />
@@ -58,6 +65,8 @@ export default function HomePage() {
 {/* The Click Team Section */}
 <ClickTeamSection />
           <InvestorsPartnersSection />
+          <Footer/>
+          {/* <Footer/> */}
          
 
         </main>

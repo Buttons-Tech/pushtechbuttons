@@ -43,23 +43,23 @@ export default function ClickTeamSection() {
         {/* 2. Clear Description & Talent Breakdown */}
         <div className="space-y-2">
           <p className="text-xs font-semibold text-gray-700 leading-relaxed">
-            Powered by a hybrid taskforce of active <strong className="text-purple-700 font-extrabold">NYSC Corpers</strong> and skilled <strong className="text-amber-600 font-extrabold">indigenous tech talents</strong> maintaining estate operations, digital services, and resident support.
+            Powered by a hybrid taskforce of active <strong className="text-purple-700 font-extrabold">NYSC Corpers</strong> and skilled <strong className="text-amber-600 font-extrabold">local tech talents</strong> maintaining the Buttns App, monitoring dispatches, and offering customer support.
           </p>
 
           <div className="grid grid-cols-2 gap-2 pt-1">
             <div className="flex items-center gap-2 p-2 rounded-xl bg-purple-50 border border-purple-100">
               <Briefcase className="w-4 h-4 text-purple-600 shrink-0" />
               <div>
-                <p className="text-[10px] font-black uppercase text-purple-950">NYSC Corps</p>
-                <p className="text-[9px] text-purple-700 font-medium">Primary Assignment</p>
+                <p className="text-[10px] font-black uppercase text-purple-950">The CAVE</p>
+                <p className="text-[9px] text-purple-700 font-medium">1, Buttns Street, Ija, Egan, Lagos</p>
               </div>
             </div>
 
             <div className="flex items-center gap-2 p-2 rounded-xl bg-amber-50 border border-amber-100">
               <Users className="w-4 h-4 text-amber-600 shrink-0" />
               <div>
-                <p className="text-[10px] font-black uppercase text-amber-950">Local Techs</p>
-                <p className="text-[9px] text-amber-700 font-medium">Devs & Technicians</p>
+                <p className="text-[10px] font-black uppercase text-amber-950">CYBERVERSE</p>
+                <p className="text-[9px] text-amber-700 font-medium">2 Loftybrum street, orchid, Lekki 11, Lagos</p>
               </div>
             </div>
           </div>
