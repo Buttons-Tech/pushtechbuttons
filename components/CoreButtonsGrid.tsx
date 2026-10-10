@@ -7,40 +7,40 @@ import { ArrowUpRight, Sparkles } from 'lucide-react';
 const CORE_BUTTONS = [
   {
     id: "food",
-    title: "EAT",
+    title: "Chop Food",
     startingPrice: "< ₦1,200",
     imageUrl: "/food/eat.jpg", 
     href: "/food",
     theme: {
-      border: "border-emerald-500/50 hover:border-emerald-500",
-      bg: "bg-emerald-950/20",
-      badge: "bg-orange-400 text-black",
-      glow: "group-hover:shadow-emerald-500/20",
+      border: "border-lime-300/50 hover:border-amber-300",
+      bg: "bg-amber-950/20",
+      badge: "bg-amber-300 text-amber-800",
+      glow: "group-hover:shadow-amber-500/20",
     }
   },
   {
     id: "hair",
-    title: "HAIR",
+    title: "Style Yourself",
     startingPrice: "< ₦1,500",
     imageUrl: "/hair/hair11.jpg",
     href: "/hair",
     theme: {
       border: "border-purple-500/50 hover:border-purple-500",
       bg: "bg-purple-950/20",
-      badge: "bg-purple-500 text-white",
+      badge: "bg-purple-300 text-purple-800",
       glow: "group-hover:shadow-purple-500/20",
     }
   },
   {
     id: "laundry",
-    title: "WASH",
+    title: "Wash Anything",
     startingPrice: "< ₦1,200",
     imageUrl: "/wash/shirt.jpg",
     href: "/laundry",
     theme: {
       border: "border-blue-500/50 hover:border-blue-500",
       bg: "bg-blue-950/20",
-      badge: "bg-blue-500 text-white",
+      badge: "bg-blue-300 text-blue-800",
       glow: "group-hover:shadow-blue-500/20",
     }
   },
@@ -51,10 +51,10 @@ const CORE_BUTTONS = [
     imageUrl: "https://res.cloudinary.com/dps2cgpx8/image/upload/v1788551396/6154d875b7dc5ff6c70074396c07d77d_a6freq.jpg",
     href: "/gas",
     theme: {
-      border: "border-red-500/50 hover:border-red-500",
-      bg: "bg-red-950/20",
-      badge: "bg-red-500 text-white",
-      glow: "group-hover:shadow-red-500/20",
+      border: "border-amber-500/50 hover:border-amber-800",
+      bg: "bg-amber-950/20",
+      badge: "bg-white text-amber-800",
+      glow: "group-hover:shadow-amber-800/20",
     }
   },
 ];
@@ -67,7 +67,7 @@ export default function CoreButtonsGrid() {
         <div className="flex items-center gap-1.5">
           <Sparkles className="w-4 h-4 text-amber-500" />
           <h2 className="text-sm font-black text-gray-900 tracking-tight uppercase">
-            Your Buttns
+            Egan Lagos Nigeria
           </h2>
         </div>
         <span className="text-[10px] text-gray-500 font-bold">Tap to access</span>
@@ -79,7 +79,7 @@ export default function CoreButtonsGrid() {
           <a
             key={item.id}
             href={item.href}
-            className={`group flex flex-col justify-between overflow-hidden rounded-3xl bg-zinc-950 border-2 ${item.theme.border} p-2.5 shadow-lg transition-all duration-300 active:scale-95 ${item.theme.glow}`}
+            className={`group flex flex-col justify-between overflow-hidden rounded-3xl bg-[#023b26] border-2 ${item.theme.border} p-2.5 shadow-lg transition-all duration-300 active:scale-95 ${item.theme.glow}`}
           >
             {/* 1. Unobstructed Image Showcase */}
             <div className="relative w-full h-32 rounded-2xl overflow-hidden bg-zinc-900 border border-zinc-800">

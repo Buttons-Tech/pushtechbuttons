@@ -1,19 +1,19 @@
 "use client";
 
-import React, { useState } from 'react';
-import { 
-  Flame, 
-  Truck, 
-  Clock, 
-  ShieldCheck, 
-  ArrowRight, 
-  Check, 
-  Plus, 
+import React, { useState } from "react";
+import {
+  Flame,
+  Truck,
+  Clock,
+  ShieldCheck,
+  ArrowRight,
+  Check,
+  Plus,
   Minus,
   Sparkles,
   PhoneCall,
-  RotateCcw
-} from 'lucide-react';
+  RotateCcw,
+} from "lucide-react";
 
 // Replace with your exact Cloudinary Gas Station / Depot visual asset
 const GAS_HERO_IMAGE = "/brand/gas_refill.jpg";
@@ -27,11 +27,37 @@ interface CylinderOption {
 }
 
 const CYLINDER_OPTIONS: CylinderOption[] = [
-  { id: "3kg", size: "3 kg Cylinder", refillPrice: 3800, estTime: "15-20 Mins" },
-  { id: "6kg", size: "6 kg Cylinder", refillPrice: 7500, estTime: "15-20 Mins" },
-  { id: "12kg", size: "12.5 kg Cylinder", refillPrice: 15500, estTime: "20-25 Mins", popular: true },
-  { id: "25kg", size: "25 kg Cylinder", refillPrice: 31000, estTime: "25-30 Mins" },
-  { id: "50kg", size: "50 kg Cylinder", refillPrice: 62000, estTime: "30-40 Mins" },
+  {
+    id: "3kg",
+    size: "3 kg Cylinder",
+    refillPrice: 3800,
+    estTime: "15-20 Mins",
+  },
+  {
+    id: "6kg",
+    size: "6 kg Cylinder",
+    refillPrice: 7500,
+    estTime: "15-20 Mins",
+  },
+  {
+    id: "12kg",
+    size: "12.5 kg Cylinder",
+    refillPrice: 15500,
+    estTime: "20-25 Mins",
+    popular: true,
+  },
+  {
+    id: "25kg",
+    size: "25 kg Cylinder",
+    refillPrice: 31000,
+    estTime: "25-30 Mins",
+  },
+  {
+    id: "50kg",
+    size: "50 kg Cylinder",
+    refillPrice: 62000,
+    estTime: "30-40 Mins",
+  },
 ];
 
 interface AccessoryOption {
@@ -47,7 +73,9 @@ const ACCESSORIES: AccessoryOption[] = [
 ];
 
 export default function GasSection() {
-  const [selectedCylinder, setSelectedCylinder] = useState<CylinderOption>(CYLINDER_OPTIONS[2]);
+  const [selectedCylinder, setSelectedCylinder] = useState<CylinderOption>(
+    CYLINDER_OPTIONS[2],
+  );
   const [quantity, setQuantity] = useState<number>(1);
   const [selectedAccessories, setSelectedAccessories] = useState<string[]>([]);
   const [needsCylinderSwap, setNeedsCylinderSwap] = useState<boolean>(true);
@@ -55,15 +83,16 @@ export default function GasSection() {
 
   const deliveryFee = 800; // Ziig heavy package delivery fee
   const accessoriesTotal = selectedAccessories.reduce((acc, accId) => {
-    const item = ACCESSORIES.find(a => a.id === accId);
+    const item = ACCESSORIES.find((a) => a.id === accId);
     return acc + (item ? item.price : 0);
   }, 0);
 
-  const grandTotal = (selectedCylinder.refillPrice * quantity) + accessoriesTotal + deliveryFee;
+  const grandTotal =
+    selectedCylinder.refillPrice * quantity + accessoriesTotal + deliveryFee;
 
   const toggleAccessory = (id: string) => {
-    setSelectedAccessories(prev => 
-      prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
+    setSelectedAccessories((prev) =>
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
     );
   };
 
@@ -85,7 +114,6 @@ export default function GasSection() {
 
       {/* Main Container */}
       <div className="bg-white rounded-3xl border border-gray-200 p-3.5 shadow-sm space-y-3.5">
-        
         {/* 1. Unobstructed Hero Image */}
         <div className="relative w-full h-40 rounded-2xl overflow-hidden bg-gray-100 border border-gray-200">
           <img
@@ -103,17 +131,25 @@ export default function GasSection() {
           <div className="absolute bottom-2.5 left-2.5 right-2.5 bg-zinc-950/90 backdrop-blur-md p-2 rounded-xl border border-zinc-800 text-white flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Truck className="w-3.5 h-3.5 text-orange-400" />
-              <span className="text-[10px] font-bold text-gray-200">Doorstep Pickup & Return</span>
+              <span className="text-[10px] font-bold text-gray-200">
+                Doorstep Pickup & Return
+              </span>
             </div>
-            <span className="text-[10px] font-black text-orange-400">Under 30 Mins</span>
+            <span className="text-[10px] font-black text-orange-400">
+              Under 30 Mins
+            </span>
           </div>
         </div>
 
         {/* 2. Cylinder Size Selector */}
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <h3 className="text-xs font-black text-gray-900">Select Cylinder Size</h3>
-            <span className="text-[10px] font-bold text-gray-500">Precision Metered Filling</span>
+            <h3 className="text-xs font-black text-gray-900">
+              Select Cylinder Size
+            </h3>
+            <span className="text-[10px] font-bold text-gray-500">
+              Precision Metered Filling
+            </span>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -125,8 +161,8 @@ export default function GasSection() {
                   onClick={() => setSelectedCylinder(cyl)}
                   className={`p-2.5 rounded-2xl border text-left transition-all relative ${
                     isSelected
-                      ? 'bg-orange-50/60 border-orange-400 ring-2 ring-orange-400/20'
-                      : 'bg-white border-gray-200 hover:border-gray-300'
+                      ? "bg-orange-50/60 border-orange-400 ring-2 ring-orange-400/20"
+                      : "bg-white border-gray-200 hover:border-gray-300"
                   }`}
                 >
                   {cyl.popular && (
@@ -151,7 +187,9 @@ export default function GasSection() {
         {/* 3. Quantity & Exchange Type Toggle */}
         <div className="p-3 bg-gray-50 rounded-2xl border border-gray-200 space-y-2.5">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-black text-gray-900">Refill Quantity</span>
+            <span className="text-xs font-black text-gray-900">
+              Refill Quantity
+            </span>
             <div className="flex items-center gap-2 bg-white border border-gray-200 rounded-xl px-2 py-1">
               <button
                 onClick={() => setQuantity(Math.max(1, quantity - 1))}
@@ -159,7 +197,9 @@ export default function GasSection() {
               >
                 <Minus className="w-3 h-3" />
               </button>
-              <span className="text-xs font-black text-gray-900 w-4 text-center">{quantity}</span>
+              <span className="text-xs font-black text-gray-900 w-4 text-center">
+                {quantity}
+              </span>
               <button
                 onClick={() => setQuantity(quantity + 1)}
                 className="w-5 h-5 rounded-lg bg-gray-100 flex items-center justify-center text-gray-700 font-black hover:bg-gray-200"
@@ -172,24 +212,30 @@ export default function GasSection() {
           <div className="flex items-center justify-between border-t border-gray-200/80 pt-2 text-[11px]">
             <div className="flex items-center gap-1.5">
               <RotateCcw className="w-3.5 h-3.5 text-orange-500" />
-              <span className="font-bold text-gray-800">Cylinder Pickup Required</span>
+              <span className="font-bold text-gray-800">
+                Cylinder Pickup Required
+              </span>
             </div>
             <button
               onClick={() => setNeedsCylinderSwap(!needsCylinderSwap)}
               className={`px-2.5 py-1 rounded-xl text-[10px] font-black transition-all ${
                 needsCylinderSwap
-                  ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
-                  : 'bg-gray-200 text-gray-700'
+                  ? "bg-emerald-100 text-emerald-800 border border-emerald-300"
+                  : "bg-gray-200 text-gray-700"
               }`}
             >
-              {needsCylinderSwap ? "Ziig Runner Pick Up Empty" : "Drop Off at Gate Depot"}
+              {needsCylinderSwap
+                ? "Buttns Runner Pick Up Empty"
+                : "Drop Off at Gate Depot"}
             </button>
           </div>
         </div>
 
         {/* 4. Safety Add-ons / Accessories */}
         <div className="space-y-2">
-          <h4 className="text-xs font-black text-gray-900">Safety & Accessories (Optional)</h4>
+          <h4 className="text-xs font-black text-gray-900">
+            Safety & Accessories (Optional)
+          </h4>
           <div className="space-y-1.5">
             {ACCESSORIES.map((acc) => {
               const isChecked = selectedAccessories.includes(acc.id);
@@ -199,19 +245,27 @@ export default function GasSection() {
                   onClick={() => toggleAccessory(acc.id)}
                   className={`p-2.5 rounded-xl border cursor-pointer flex items-center justify-between transition-all ${
                     isChecked
-                      ? 'bg-orange-50/40 border-orange-300'
-                      : 'bg-white border-gray-200 hover:border-gray-300'
+                      ? "bg-orange-50/40 border-orange-300"
+                      : "bg-white border-gray-200 hover:border-gray-300"
                   }`}
                 >
                   <div className="flex items-center gap-2">
-                    <div className={`w-4 h-4 rounded-md border flex items-center justify-center ${
-                      isChecked ? 'bg-orange-500 border-orange-500 text-white' : 'border-gray-300'
-                    }`}>
+                    <div
+                      className={`w-4 h-4 rounded-md border flex items-center justify-center ${
+                        isChecked
+                          ? "bg-orange-500 border-orange-500 text-white"
+                          : "border-gray-300"
+                      }`}
+                    >
                       {isChecked && <Check className="w-3 h-3 stroke-[3]" />}
                     </div>
-                    <span className="text-xs font-bold text-gray-800">{acc.name}</span>
+                    <span className="text-xs font-bold text-gray-800">
+                      {acc.name}
+                    </span>
                   </div>
-                  <span className="text-xs font-black text-gray-900">+₦{acc.price.toLocaleString()}</span>
+                  <span className="text-xs font-black text-gray-900">
+                    +₦{acc.price.toLocaleString()}
+                  </span>
                 </div>
               );
             })}
@@ -222,8 +276,12 @@ export default function GasSection() {
         <div className="p-3 bg-zinc-950 rounded-2xl text-white space-y-2.5">
           <div className="space-y-1 text-[11px] border-b border-zinc-800 pb-2">
             <div className="flex justify-between text-gray-300">
-              <span>{selectedCylinder.size} × {quantity}</span>
-              <span>₦{(selectedCylinder.refillPrice * quantity).toLocaleString()}</span>
+              <span>
+                {selectedCylinder.size} × {quantity}
+              </span>
+              <span>
+                ₦{(selectedCylinder.refillPrice * quantity).toLocaleString()}
+              </span>
             </div>
             {accessoriesTotal > 0 && (
               <div className="flex justify-between text-gray-300">
@@ -232,15 +290,19 @@ export default function GasSection() {
               </div>
             )}
             <div className="flex justify-between text-gray-300">
-              <span>Ziig Heavy Runner Dispatch</span>
+              <span>Buttns Heavy Runner Dispatch</span>
               <span>₦{deliveryFee.toLocaleString()}</span>
             </div>
           </div>
 
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-[10px] text-gray-400 font-medium">Total Refill Fee</p>
-              <p className="text-base font-black text-orange-400">₦{grandTotal.toLocaleString()}</p>
+              <p className="text-[10px] text-gray-400 font-medium">
+                Total Refill Fee
+              </p>
+              <p className="text-base font-black text-orange-400">
+                ₦{grandTotal.toLocaleString()}
+              </p>
             </div>
 
             <button
@@ -252,7 +314,6 @@ export default function GasSection() {
             </button>
           </div>
         </div>
-
       </div>
 
       {/* Dispatch Modal */}
@@ -265,11 +326,15 @@ export default function GasSection() {
                   <Flame className="w-4 h-4 fill-orange-500" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-black text-gray-900">Confirm Gas Order</h3>
-                  <p className="text-[10px] text-gray-500 font-bold">Ziig runner assigned upon dispatch</p>
+                  <h3 className="text-sm font-black text-gray-900">
+                    Confirm Gas Order
+                  </h3>
+                  <p className="text-[10px] text-gray-500 font-bold">
+                    Buttns runner assigned upon dispatch
+                  </p>
                 </div>
               </div>
-              <button 
+              <button
                 onClick={() => setShowDispatchModal(false)}
                 className="w-7 h-7 rounded-full bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-xs"
               >
@@ -280,11 +345,13 @@ export default function GasSection() {
             {/* Order Summary Box */}
             <div className="p-3 bg-orange-50/60 border border-orange-200 rounded-2xl space-y-1 text-xs">
               <div className="flex justify-between font-black text-gray-900">
-                <span>{selectedCylinder.size} ({quantity}x)</span>
+                <span>
+                  {selectedCylinder.size} ({quantity}x)
+                </span>
                 <span>₦{grandTotal.toLocaleString()}</span>
               </div>
               <p className="text-[10px] text-orange-800 font-medium">
-                Includes Ziig door-to-door pickup & precision refill
+                Includes Buttns door-to-door pickup & precision refill
               </p>
             </div>
 
@@ -297,8 +364,12 @@ export default function GasSection() {
                 className="flex items-center justify-between p-3.5 rounded-2xl border border-emerald-200 bg-emerald-50/50 hover:bg-emerald-50 transition-colors group"
               >
                 <div>
-                  <p className="text-xs font-black text-emerald-950">Dispatch via WhatsApp</p>
-                  <p className="text-[10px] text-emerald-700 font-medium">Send house number & pickup time directly</p>
+                  <p className="text-xs font-black text-emerald-950">
+                    Dispatch via WhatsApp
+                  </p>
+                  <p className="text-[10px] text-emerald-700 font-medium">
+                    Send house number & pickup time directly
+                  </p>
                 </div>
                 <ArrowRight className="w-4 h-4 text-emerald-600 group-hover:translate-x-0.5 transition-transform" />
               </a>
@@ -311,8 +382,12 @@ export default function GasSection() {
                 className="flex items-center justify-between p-3.5 rounded-2xl border border-zinc-200 bg-zinc-950 text-white hover:bg-zinc-900 transition-colors group"
               >
                 <div>
-                  <p className="text-xs font-black text-white">Instant Card / USSD Payment</p>
-                  <p className="text-[10px] text-gray-300 font-medium">Pay securely online and auto-generate Ziig ticket</p>
+                  <p className="text-xs font-black text-white">
+                    Instant Card / USSD Payment
+                  </p>
+                  <p className="text-[10px] text-gray-300 font-medium">
+                    Pay securely online and auto-generate Buttns ticket
+                  </p>
                 </div>
                 <ArrowRight className="w-4 h-4 text-orange-400 group-hover:translate-x-0.5 transition-transform" />
               </a>

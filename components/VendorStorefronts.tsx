@@ -5,6 +5,16 @@ import { Store, CheckCircle2, MessageCircle, Video, ShieldCheck } from 'lucide-r
 
 // Replace imageUrls with your exact Cloudinary vendor storefront or product photos
 const VERIFIED_VENDORS = [
+   {
+    id: "ire-pearl",
+    businessName: "Hire-pear Catering Services",
+    ownerName: "@hireh_pearl",
+    category: "food",
+    whatsapp: "+2349080440701",
+    tiktok: "Hirehpearlcateringservices",
+    imageUrl: "/brand/ire_pearl.jpg",
+    badgeColor: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
+  },
   {
     id: "bigger-bites",
     businessName: "Bigger Bites Restaurant",
@@ -65,6 +75,7 @@ const VERIFIED_VENDORS = [
     imageUrl: "/brand/xhi.jpg",
     badgeColor: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
   },
+ 
 ];
 
 export default function VendorStorefronts() {

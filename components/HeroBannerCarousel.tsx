@@ -1,44 +1,54 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
-import { Sparkles, Flame, Gamepad2, ArrowRight, Calendar, MapPin } from 'lucide-react';
+import React, { useState, useEffect, useRef } from "react";
+import {
+  Sparkles,
+  Flame,
+  Gamepad2,
+  ArrowRight,
+  Calendar,
+  MapPin,
+} from "lucide-react";
+import Image from "next/image";
 
 const BANNERS = [
   {
-    id: 'intro-buttns',
-    badge: 'Hello Egan',
+    id: "intro-buttns",
+    badge: "Hello Egan",
     badgeIcon: Sparkles,
-    badgeBg: 'bg-amber-500 text-black',
-    title: 'one Buttns for EVERYTHING.',
-    subtitle: 'Buy Food, Do laundry, Make Hair & refil Gas |  Brought straight to your gate.',
-    ctaText: 'TAP IN!',
-    ctaHref: '#services',
-    bgImage: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80',
-    // overlayGradient: 'from-black via-black/80 to-transparent',
+    badgeBg: "bg-green-300 text-black",
+    title: "Introducing BUTTNS.",
+    subtitle:
+      "Chop Food, Wash anything, Style Yourself & More | Exact Prices | 10 Mins Delivery |",
+    ctaText: "PUSH",
+    ctaHref: "#services",
+    bgImage: "/banner/buttns.webp",
+    overlayGradient: "from-[#030630] via-[#030630] to-green-500",
   },
   {
-    id: 'ija-ember',
-    badge: 'Ija Community',
+    id: "ija-ember",
+    badge: "Spin & Win!",
     badgeIcon: Flame,
-    badgeBg: 'bg-orange-500 text-black',
-    title: 'Welcome to Ember Season, Ija!',
-    subtitle: 'Get ready for smooth intra-estate dispatch, kitchen orders, and hassle-free utility booking this season.',
-    ctaText: 'Order Dispatch',
-    ctaHref: '/dispatch',
-    bgImage: 'https://images.unsplash.com/photo-1526367790999-0150786686a2?auto=format&fit=crop&w=800&q=80',
-    overlayGradient: 'from-black via-zinc-950/90 to-amber-950/30',
+    badgeBg: "bg-amber-500 text-black",
+    title: "WIN Free food, data & recharge!",
+    subtitle: "Push the button and win yourself a spin on the wheel of furtune",
+    ctaText: "SPIN",
+    ctaHref: "/dispatch",
+    bgImage: "/banner/activate.jpeg",
+    overlayGradient: "from-[#5f4704] via-amber-950/90 to-amber-300",
   },
   {
-    id: 'game-of-codes',
-    badge: 'Dec 26 - 28',
+    id: "game-of-codes",
+    badge: "SATURDAYS",
     badgeIcon: Gamepad2,
-    badgeBg: 'bg-emerald-500 text-black',
-    title: 'Egan Got Talent',
-    subtitle: 'The ultimate talent showdown coming to Egan on the last weekend of December. N2M!',
-    ctaText: 'Register / Tap In',
-    ctaHref: '/tournaments/Egan-Got-Talents',
-    bgImage: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80',
-    overlayGradient: 'from-black via-zinc-950/90 to-emerald-950/40',
+    badgeBg: "bg-purple-300 text-black",
+    title: "DreamBox School Club",
+    subtitle:
+      "Join the ultimate tech & talent club in Egan . Create Rockets & Robots!",
+    ctaText: "Launch ",
+    ctaHref: "/tournaments/Egan-Got-Talents",
+    bgImage: "/banner/dreambx.jpg",
+    overlayGradient: "from-[#030630] via-purple-950/90 to-purple-500",
   },
 ];
 
@@ -62,7 +72,11 @@ export default function HeroBannerCarousel() {
     const scrollLeft = container.scrollLeft;
     const width = container.clientWidth;
     const newIndex = Math.round(scrollLeft / width);
-    if (newIndex >= 0 && newIndex < BANNERS.length && newIndex !== currentIndex) {
+    if (
+      newIndex >= 0 &&
+      newIndex < BANNERS.length &&
+      newIndex !== currentIndex
+    ) {
       setCurrentIndex(newIndex);
     }
   };
@@ -73,7 +87,7 @@ export default function HeroBannerCarousel() {
     const width = container.clientWidth;
     container.scrollTo({
       left: index * width,
-      behavior: 'smooth',
+      behavior: "smooth",
     });
     setCurrentIndex(index);
   };
@@ -85,7 +99,7 @@ export default function HeroBannerCarousel() {
         ref={scrollRef}
         onScroll={handleScroll}
         className="flex overflow-x-auto snap-x snap-mandatory scrollbar-none rounded-3xl"
-        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         {BANNERS.map((banner) => {
           const BadgeIcon = banner.badgeIcon;
@@ -100,7 +114,9 @@ export default function HeroBannerCarousel() {
                 className="absolute inset-0 bg-cover bg-center opacity-30 transition-transform duration-700 group-hover:scale-105"
                 style={{ backgroundImage: `url(${banner.bgImage})` }}
               />
-              <div className={`absolute inset-0 bg-gradient-to-r ${banner.overlayGradient}`} />
+              <div
+                className={`absolute inset-0 bg-gradient-to-r ${banner.overlayGradient}`}
+              />
 
               {/* Banner Top Badge */}
               <div className="relative z-10 flex items-center justify-between">
@@ -111,27 +127,38 @@ export default function HeroBannerCarousel() {
                   {banner.badge}
                 </span>
 
-                {banner.id === 'ija-ember' && (
+                {banner.id === "ija-ember" && (
                   <span className="text-[10px] font-bold text-amber-400 flex items-center gap-1 bg-black/60 px-2 py-0.5 rounded-full border border-amber-500/30">
-                    <MapPin className="w-3 h-3" /> Ija HQ
+                    <MapPin className="w-3 h-3" /> Food, Data
                   </span>
                 )}
 
-                {banner.id === 'game-of-codes' && (
+                {banner.id === "game-of-codes" && (
                   <span className="text-[10px] font-bold text-emerald-400 flex items-center gap-1 bg-black/60 px-2 py-0.5 rounded-full border border-emerald-500/30">
-                    <Calendar className="w-3 h-3" /> Last Wkend Dec
+                    <Calendar className="w-3 h-3" /> Age 3+
                   </span>
                 )}
               </div>
 
               {/* Banner Body Content */}
-              <div className="relative z-10 space-y-1 my-2">
-                <h2 className="text-xl font-black text-white leading-tight tracking-tight">
+              <div className="flex justify-between" >
+                
+                <div className="relative z-10 space-y-1 w-50 my-2">
+<h2 className="text-xl font-black text-white leading-tight tracking-tight">
                   {banner.title}
                 </h2>
                 <p className="text-xs text-gray-300 line-clamp-2 leading-relaxed">
                   {banner.subtitle}
                 </p>
+                </div>
+                <div className="absolute right-0">
+                  <Image 
+                  src={banner.bgImage}
+                  alt="brand"
+                  width={150}
+                  height={150}
+                  />
+                </div>
               </div>
 
               {/* Banner Bottom CTA */}
@@ -156,7 +183,9 @@ export default function HeroBannerCarousel() {
             key={idx}
             onClick={() => scrollToIndex(idx)}
             className={`h-1.5 rounded-full transition-all duration-300 ${
-              currentIndex === idx ? 'w-6 bg-amber-500' : 'w-1.5 bg-zinc-700 hover:bg-zinc-500'
+              currentIndex === idx
+                ? "w-6 bg-amber-500"
+                : "w-1.5 bg-zinc-700 hover:bg-zinc-500"
             }`}
             aria-label={`Go to slide ${idx + 1}`}
           />

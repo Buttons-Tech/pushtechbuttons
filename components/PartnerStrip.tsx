@@ -31,7 +31,7 @@ export default function PartnerStrip() {
   const duplicatedPartners = [...PARTNERS, ...PARTNERS];
 
   return (
-    <section className="bg-black border-y border-zinc-800 py-3 overflow-hidden">
+    <section className="bg-[#030630] border-y border-zinc-800 py-3 overflow-hidden">
       <div className="max-w-md mx-auto relative">
         
         {/* Subtle Fade Gradients on edges */}
@@ -49,7 +49,7 @@ export default function PartnerStrip() {
           {duplicatedPartners.map((partner, index) => (
             <div
               key={`${partner.name}-${index}`}
-              className="flex items-center gap-2.5 bg-zinc-900/90 border border-zinc-800 px-3.5 py-1.5 rounded-full shrink-0"
+              className="flex items-center gap-2.5 bg-blue-900/90 border border-zinc-800 px-3.5 py-1.5 rounded-full shrink-0"
             >
               <img
                 src={partner.imageUrl}

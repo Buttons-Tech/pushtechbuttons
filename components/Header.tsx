@@ -15,29 +15,28 @@ export default function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 bg-amber-800 text-white px-4 py-3 shadow-md border-b border-zinc-800">
+      <header className="sticky top-0 z-40 bg-[#023b26] text-white px-4 py-3 shadow-md border-b border-zinc-800">
         <div className="max-w-md mx-auto flex items-center justify-between">
           {/* Logo */}
           <a href="/" className="flex h-1 items-center gap-1 group">
-            <span className="text-[11px] text-lime-600 absolute top-1 left-14">
-              Push-Tech
-            </span>
-            <span className="text-[11px] text-lime-600 absolute bottom-0 left-53">
-              .com
-            </span>
+            
+           
             {/* <span className="text-[11px] text-black absolute bottom-0 right-7">
               REG No: 9362896
             </span> */}
 
-            <span className="text-xl font-black text-white tracking-tight group-hover:text-amber-500 transition-colors">
+            
               {/* Buttns<span className="text-amber-500">.</span> */}
-              {/* <Image
-                src="/brand/buttn2.png"
-                width={150}
-                height={100}
+              <Image
+                src="/brand/buttons_logo.png"
+                width={50}
+                height={50}
                 alt="push"
                 className="w-auto h-auto mt-4 overflow-y-hidden"
-              /> */}
+              />
+            
+ <span className="text-[11px] bottom-0 text-white ">
+              .com
             </span>
           </a>
 
@@ -65,18 +64,18 @@ export default function Header() {
             ) : (
               <button
                 onClick={() => signIn("google")}
-                className="flex items-center gap-1.5 bg-amber-500 hover:bg-amber-400 text-black px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider transition-transform active:scale-95 shadow-md  border border-lime-200
+                className="flex items-center gap-1.5 bg-amber-500 hover:bg-lime-300 text-black px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider transition-transform active:scale-95 shadow-md  border border-lime-300
                 shadow-amber-500/20"
               >
                 {/* <Sparkles className="w-3.5 h-3.5 fill-black" /> */}
-                <span>TAP IN!</span>
+                <span>PUSH</span>
               </button>
             )}
 
             {/* Menu Trigger */}
             <button
               onClick={() => setIsMenuOpen(true)}
-              className="p-1.5 text-lime-300 hover:text-amber-500 hover:bg-zinc-900 rounded-xl transition"
+              className="p-1.5 text-lime-300 hover:text-amber-500 hover:bg-zinc-800 rounded-xl transition"
               aria-label="Open Navigation Menu"
             >
               <Menu className="w-6 h-6" />

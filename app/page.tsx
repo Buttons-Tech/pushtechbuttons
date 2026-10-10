@@ -51,7 +51,7 @@ export default function HomePage() {
           {/* 4. Vital Estate Services */}
           <EstateUtilitiesGrid />
 
-          <ButtnsTab/>
+          {/* <ButtnsTab/> */}
 
           <VendorStorefronts />
 

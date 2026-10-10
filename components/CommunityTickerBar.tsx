@@ -53,7 +53,7 @@ export default function CommunityTickerBar() {
   const marqueeItems = [...allItems, ...allItems, ...allItems];
 
   return (
-    <div className="bg-black text-white border-b border-zinc-800 py-2 overflow-hidden text-xs">
+    <div className="bg-[#030630] text-white border-b border-zinc-800 py-2 overflow-hidden text-xs">
       <div className="continuous-slider flex items-center gap-8 px-4">
         {marqueeItems.map((item, idx) => {
           const Icon = item.icon;

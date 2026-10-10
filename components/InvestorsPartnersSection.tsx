@@ -35,7 +35,7 @@ const BUTTNS_PILLARS = [
   },
   {
     id: "ziig",
-    name: "3. Ziig",
+    name: "3. Buttns Dispatch",
     desc: "Last-mile estate delivery network",
     icon: Truck,
     color: "text-emerald-600 bg-emerald-50 border-emerald-100",
@@ -227,7 +227,7 @@ export default function InvestorsPartnersSection() {
                     Ecosystem Development Support
                   </p>
                   <p className="text-[10px] text-purple-700 font-medium">
-                    Fund The Cave hub, Ziig logistics & Portals signage
+                    Fund The Cave hub, Buttns logistics & Buttns app Development
                   </p>
                 </div>
                 <ArrowRight className="w-4 h-4 text-purple-600 group-hover:translate-x-0.5 transition-transform" />
@@ -235,7 +235,7 @@ export default function InvestorsPartnersSection() {
 
               {/* Option 2: Portals & Ads Sponsorship */}
               <a
-                href="https://wa.me/2348012345678?text=Hello,%20I%20want%20to%20sponsor%20Portals%20signage%20and%20Ads%20on%20Buttns."
+                href="https://wa.me/2349033811883?text=Hello,%20I%20want%20to%20sponsor%20Portals%20signage%20and%20Ads%20on%20Buttns."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-between p-3 rounded-2xl border border-amber-200 bg-amber-50/50 hover:bg-amber-50 transition-colors group"
@@ -253,7 +253,7 @@ export default function InvestorsPartnersSection() {
 
               {/* Option 3: Pre-Seed Equity & Strategic Partnerships */}
               <a
-                href="mailto:founder@buttns.app?subject=Equity%20%26%20Partnership%20Inquiry%20-%20Buttns"
+                href="mailto:buttonsafrotech@gmail.com?subject=Equity%20%26%20Partnership%20Inquiry%20-%20Buttns"
                 className="flex items-center justify-between p-3 rounded-2xl border border-zinc-200 bg-zinc-950 text-white hover:bg-zinc-900 transition-colors group"
               >
                 <div>

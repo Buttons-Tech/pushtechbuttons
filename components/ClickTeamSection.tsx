@@ -23,7 +23,7 @@ export default function ClickTeamSection() {
       </div>
 
       {/* Main Feature Container */}
-      <div className="bg-white rounded-3xl border border-gray-200 p-3.5 shadow-sm space-y-3.5">
+      <div className="bg-purple-100 rounded-3xl border border-gray-200 p-3.5 shadow-sm space-y-3.5">
         
         {/* 1. Unobstructed Hero Image */}
         <div className="relative w-full h-44 rounded-2xl overflow-hidden bg-gray-100 border border-gray-200">
@@ -43,7 +43,7 @@ export default function ClickTeamSection() {
         {/* 2. Clear Description & Talent Breakdown */}
         <div className="space-y-2">
           <p className="text-xs font-semibold text-gray-700 leading-relaxed">
-            Powered by a hybrid taskforce of active <strong className="text-purple-700 font-extrabold">NYSC Corpers</strong> and skilled <strong className="text-amber-600 font-extrabold">local tech talents</strong> maintaining the Buttns App, monitoring dispatches, and offering customer support.
+            Powered by a hybrid taskforce of active <strong className="text-purple-700 font-extrabold">NYSC Corpers</strong> and trained <strong className="text-amber-800 font-extrabold">local tech talents</strong> maintaining the Buttns App
           </p>
 
           <div className="grid grid-cols-2 gap-2 pt-1">
