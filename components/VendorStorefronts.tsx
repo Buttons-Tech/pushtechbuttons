@@ -7,7 +7,7 @@ import { Store, CheckCircle2, MessageCircle, Video, ShieldCheck } from 'lucide-r
 const VERIFIED_VENDORS = [
    {
     id: "ire-pearl",
-    businessName: "Hire-pear Catering Services",
+    businessName: "Hireh-pearl Catering Services",
     ownerName: "@hireh_pearl",
     category: "food",
     whatsapp: "+2349080440701",
@@ -62,7 +62,7 @@ const VERIFIED_VENDORS = [
     category: "Drink",
     whatsapp: "+2349033811883",
     tiktok: "@rhema_tigernut",
-    imageUrl: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=600&q=80",
+    imageUrl: "/brand/tigernut-drink.jpg",
     badgeColor: "bg-lime-500/20 text-lime-400 border-lime-500/30",
   },
    {

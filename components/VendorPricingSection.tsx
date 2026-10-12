@@ -127,7 +127,7 @@ export default function VendorPricingSection() {
         </span>
       </div>
       {/* Main Pricing Box */}
-      <div className="bg-amber-500 rounded-3xl border border-gray-600 p-4 shadow-sm space-y-4">
+      <div className="bg-amber-100 rounded-3xl border border-gray-600 p-4 shadow-sm space-y-4">
         <div className="text-center space-y-1 max-w-xs mx-auto">
           <h3 className="text-sm font-black text-gray-900">
             Get Your Business Online in the Egan
@@ -138,7 +138,7 @@ export default function VendorPricingSection() {
           </p>
         </div>
         {/* Footer info */}
-        <div className="pt-2 border-t border-gray-100 flex items-center justify-between text-[10px] text-gray-800 font-medium">
+        <div className="pt-2 border-t border-gray-400 flex items-center justify-between text-[10px] text-gray-800 font-medium">
           <div className="flex items-center gap-1">
             <ShieldCheck className="w-3.5 h-3.5 text-black" />
             <span>Automated Paystack Billing</span>
@@ -237,7 +237,7 @@ export default function VendorPricingSection() {
           onClick={handleMore}
           className="bg-amber-300 px-3 border rounded relative right-0 "
         >
-           {toggle ? "Tap in!" :  "Hide"}
+           {toggle ? "Vendors" :  "Hide"}
         </button>
     </section>
   );
