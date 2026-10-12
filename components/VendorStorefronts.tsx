@@ -60,7 +60,7 @@ const VERIFIED_VENDORS = [
     businessName: "Rhema Tigernut Juice",
     ownerName: "Sister Rhema",
     category: "Drink",
-    whatsapp: "+2349033811883",
+    whatsapp: "+2348149221611",
     tiktok: "@rhema_tigernut",
     imageUrl: "/brand/tigernut-drink.jpg",
     badgeColor: "bg-lime-500/20 text-lime-400 border-lime-500/30",
