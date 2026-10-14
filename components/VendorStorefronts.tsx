@@ -12,7 +12,7 @@ const VERIFIED_VENDORS = [
     category: "food",
     whatsapp: "+2349080440701",
     tiktok: "Hirehpearlcateringservices",
-    imageUrl: "/brand/ire_pearl.jpg",
+    imageUrl: "/brand/ire_pearl.jpeg",
     badgeColor: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
   },
   {

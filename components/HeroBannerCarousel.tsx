@@ -21,7 +21,7 @@ const BANNERS = [
     subtitle:
       "Chop Food, Wash anything, Style Yourself & More | Exact Prices | 10 Mins Delivery |",
     ctaText: "PUSH",
-    ctaHref: "#services",
+    ctaHref: "/get-started",
     bgImage: "/banner/screensht.png",
     overlayGradient: "from-[#030630] via-[#030630] to-green-500",
   },
@@ -34,7 +34,7 @@ const BANNERS = [
     subtitle: "Push the button and win yourself a spin on the wheel of furtune",
     ctaText: "PUSH",
     ctaHref: "/dispatch",
-    bgImage: "/banner/activate.jpeg",
+    bgImage: "/food/food.jpeg",
     overlayGradient: "from-[#5f4704] via-amber-950/90 to-amber-300",
   },
   {

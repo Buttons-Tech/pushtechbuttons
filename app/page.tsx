@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '@/components/Header';
 import HeroBannerCarousel from '@/components/HeroBannerCarousel';
 import CoreButtonsGrid from '@/components/CoreButtonsGrid';
@@ -21,6 +21,25 @@ import ButtnsTab from '@/components/ButtnsTab';
 
 
 export default function HomePage() {
+ 
+  // Onboarding & User State
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [authMode, setAuthMode] = useState('login'); // 'login' or 'signup'
+  const [studentData, setStudentData] = useState({
+    username: 'Toluwalase Adebayo',
+    phone: '09033811883',
+    email: 'parent@dreambox.ng',
+    location: 'Tiny Treasures School',
+    usedButtn: ['eat', 'style']
+  });
+
+
+  // Payment Modal State
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [selectedCourseForPayment, setSelectedCourseForPayment] = useState(null);
+
+
   return (
     <div className="relative min-h-screen bg-white text-gray-900 pb-24 overflow-hidden">
       {/* Subtle Pattern Layer on White */}
