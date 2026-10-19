@@ -1,10 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import { useSession, signIn } from "next-auth/react";
+import { useSession, signIn, signOut } from "next-auth/react";
 import { Menu, Sparkles } from "lucide-react";
 import NavMenuDrawer from "./NavMenuDrawer";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Header() {
   const { data: session, status } = useSession();
@@ -18,27 +19,16 @@ export default function Header() {
       <header className="sticky top-0 z-40 bg-[#023b26] text-white px-4 py-3 shadow-md border-b border-zinc-800">
         <div className="max-w-md mx-auto flex items-center justify-between">
           {/* Logo */}
-          <a href="/" className="flex h-1 items-center gap-1 group">
-            
-           
-            {/* <span className="text-[11px] text-black absolute bottom-0 right-7">
-              REG No: 9362896
-            </span> */}
-
-            
-              {/* Buttns<span className="text-amber-500">.</span> */}
-              <Image
-                src="/brand/buttons_logo.png"
-                width={50}
-                height={50}
-                alt="push"
-                className="w-auto h-auto mt-4 overflow-y-hidden"
-              />
-            
- <span className="text-[11px] bottom-0 text-white ">
-              .com
-            </span>
-          </a>
+          <Link href="/" className="flex h-1 items-center gap-1 group">
+            <Image
+              src="/brand/buttons_logo.png"
+              width={50}
+              height={50}
+              alt="push"
+              className="w-auto h-auto mt-4 overflow-y-hidden"
+            />
+            <span className="text-[11px] bottom-0 text-white ">.com</span>
+          </Link>
 
           {/* Controls */}
           <div className="flex items-center gap-2.5">
@@ -58,18 +48,17 @@ export default function Header() {
                   className="w-7 h-7 rounded-full border border-amber-500 object-cover"
                 />
                 <span className="text-xs font-bold text-amber-500">
-                  Tapped In
+                  {user.role === "vendor" ? "Vendor Active" : "Tapped In"}
                 </span>
               </button>
             ) : (
-              <button
-                onClick={() => signIn("google")}
-                className="flex items-center gap-1.5 bg-amber-500 hover:bg-lime-300 text-black px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider transition-transform active:scale-95 shadow-md  border border-lime-300
-                shadow-amber-500/20"
+              /* Replaced direct Google sign-in with redirect to /auth/signin */
+              <Link
+                href="/auth/signin"
+                className="flex items-center gap-1.5 bg-amber-500 hover:bg-lime-300 text-black px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider transition-transform active:scale-95 shadow-md border border-lime-300 shadow-amber-500/20"
               >
-                {/* <Sparkles className="w-3.5 h-3.5 fill-black" /> */}
                 <span>PUSH</span>
-              </button>
+              </Link>
             )}
 
             {/* Menu Trigger */}

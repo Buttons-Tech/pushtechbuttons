@@ -17,6 +17,7 @@ import PortalsSection from '@/components/PortalsSection';
 import VendorPricingSection from '@/components/VendorPricingSection';
 import Footer from '@/components/Footer';
 import ButtnsTab from '@/components/ButtnsTab';
+import InstallPWAButton from '@/components/InstallPWAButton';
 // import {Footer} from '@/components/shared/Footer';
 
 
@@ -50,6 +51,7 @@ export default function HomePage() {
       {/* Foreground Content */}
       <div className="relative z-10">
         <Header />
+        <InstallPWAButton />
 
 
           {/* Community Ticker Bar */}

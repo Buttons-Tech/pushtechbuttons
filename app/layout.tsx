@@ -18,11 +18,18 @@ export const metadata: Metadata = {
       : "https://pushtechbuttons.com", // Replace with your actual domain later
   ),
 
-  title: "Buttns: Egan | Tap in!",
+  title: "Buttns | Estate Super App",
   description:
     "Connecting Communities to Local Businesses. Tap in to discover, support, and engage with your neighborhood's offerings.",
   openGraph: {
     images: ["/brand/signup.avif"], // The image people see when you share on Social Media
+  },
+  manifest: '/manifest.json',
+  themeColor: '#000000',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'Buttns',
   },
 };
 

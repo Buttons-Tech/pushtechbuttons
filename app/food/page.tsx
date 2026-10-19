@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useMemo, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
+import Image from 'next/image';
 
 // --- Type Definitions ---
 export interface FoodItem {
@@ -203,10 +204,19 @@ function FoodMenuContent() {
               ← Back
             </button>
             <div>
-              <h1 className="text-lg font-extrabold tracking-tight">ULTRA-KITCHEN</h1>
+              <h1 className="text-lg font-extrabold tracking-tight">Hireh-Pearl Catering Service</h1>
               <p className="text-[10px] text-emerald-100">Select items for your order</p>
             </div>
+            
           </div>
+          <div>
+              <Image 
+              src="/food/ire_pearl.jpeg"
+              width={400}
+              height={200}
+              alt='Hire-pearl'
+              />
+            </div>
           <button
             onClick={() => fetchMenuItems()}
             className="text-[10px] bg-emerald-800 hover:bg-emerald-900 text-emerald-100 px-2.5 py-1 rounded-full font-medium"

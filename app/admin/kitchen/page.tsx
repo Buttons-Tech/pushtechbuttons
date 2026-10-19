@@ -7,6 +7,8 @@ import React, { useState, useEffect } from "react";
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL ||
   "https://kitchen-server-d763.onrender.com/food";
+    // "https://kitchen-server-d763.onrender.com/gas";
+
 const CLOUDINARY_CLOUD_NAME =
   process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || "demo";
 const CLOUDINARY_UPLOAD_PRESET =
