@@ -204,17 +204,17 @@ function FoodMenuContent() {
               ← Back
             </button>
             <div>
-              <h1 className="text-lg font-extrabold tracking-tight">Hireh-Pearl Catering Service</h1>
+              <h1 className="text-lg font-extrabold tracking-tight">Global Taste Restaurant</h1>
               <p className="text-[10px] text-emerald-100">Select items for your order</p>
             </div>
             
           </div>
           <div>
               <Image 
-              src="/food/ire_pearl.jpeg"
+              src="/food/global_taste.jpeg"
               width={400}
               height={200}
-              alt='Hire-pearl'
+              alt='Global Taste'
               />
             </div>
           <button

@@ -1,7 +1,7 @@
 // src/app/layout.tsx
 import { SessionProvider } from "next-auth/react";
 import { Providers } from './providers';
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Montserrat, Outfit } from "next/font/google"; // Modern, premium feel
 import "./globals.css";
 
@@ -31,6 +31,11 @@ export const metadata: Metadata = {
     statusBarStyle: 'black-translucent',
     title: 'Buttns',
   },
+};
+
+// Move themeColor and viewport settings here:
+export const viewport: Viewport = {
+  themeColor: '#000000',
 };
 
 export default function RootLayout({
