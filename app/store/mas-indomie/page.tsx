@@ -20,7 +20,7 @@ export interface TrayItem {
   quantity: number;
 }
 
-const API_URL = 'https://kitchen-server-d763.onrender.com/mas-indomie'; // Replace or use local endpoint
+// const API_URL = 'https://kitchen-server-d763.onrender.com/mas-indomie'; // Replace or use local endpoint
 const VENDOR_WHATSAPP_NUMBER = '2348012345678'; // Replace with MAS-indomie WhatsApp number
 const FIRSTBANK_ACCOUNT = '2043436716';
 const FIRSTBANK_NAME = 'PAATEE by First Bank Ltd';
