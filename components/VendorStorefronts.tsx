@@ -6,6 +6,16 @@ import { Store, CheckCircle2, MessageCircle, Video, ShieldCheck } from 'lucide-r
 // Replace imageUrls with your exact Cloudinary vendor storefront or product photos
 const VERIFIED_VENDORS = [
    {
+    id: "mas-indomie",
+    businessName: "MAS Indomie & Noodles",
+    ownerName: "@Anike",
+    category: "food",
+    whatsapp: "+2347085372595",
+    tiktok: "mas_indomie",
+    imageUrl: "/food/mas-indmie.jpeg",
+    badgeColor: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
+  },
+   {
     id: "ire-pearl",
     businessName: "Hireh-pearl Catering Services",
     ownerName: "@hireh_pearl",
