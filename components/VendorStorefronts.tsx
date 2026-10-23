@@ -5,6 +5,16 @@ import { Store, CheckCircle2, MessageCircle, Video, ShieldCheck } from 'lucide-r
 
 // Replace imageUrls with your exact Cloudinary vendor storefront or product photos
 const VERIFIED_VENDORS = [
+  {
+    id: "Ultra-food",
+    businessName: "Ultra Food & Snacks",
+    ownerName: "@MercyJohn",
+    category: "food",
+    whatsapp: "+2347073932905",
+    tiktok: "ultra_eventz",
+    imageUrl: "/food/ultra.jpeg",
+    badgeColor: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
+  },
    {
     id: "mas-indomie",
     businessName: "MAS Indomie & Noodles",
