@@ -51,7 +51,7 @@ export default function HomePage() {
       {/* Foreground Content */}
       <div className="relative z-10">
         <Header />
-        <InstallPWAButton />
+        {/* <InstallPWAButton /> */}
 
 
           {/* Community Ticker Bar */}
@@ -62,12 +62,14 @@ export default function HomePage() {
           {/* 1. Sliding Hero Banners */}
           <HeroBannerCarousel />
 
+            {/* 3. Partners Marquee */}
+          <PartnerStrip />
+
           {/* 2. Core 4 Buttns Grid */}
           <CoreButtonsGrid />
          
 
-          {/* 3. Partners Marquee */}
-          <PartnerStrip />
+        
 
           {/* 4. Vital Estate Services */}
           <EstateUtilitiesGrid />
@@ -76,16 +78,16 @@ export default function HomePage() {
 
           <VendorStorefronts />
 
-          <VendorPricingSection />
- <ZiigDeliverySection />
+          {/* <VendorPricingSection /> */}
+ {/* <ZiigDeliverySection /> */}
           {/* Estate Security Section */}
 <section className="bg-white p-4 rounded-3xl border border-gray-200/80 shadow-sm">
-  <SecuritySection />
+  {/* <SecuritySection /> */}
 </section>
 
 {/* The Click Team Section */}
 <ClickTeamSection />
-          <InvestorsPartnersSection />
+          {/* <InvestorsPartnersSection /> */}
           <Footer/>
           {/* <Footer/> */}
          

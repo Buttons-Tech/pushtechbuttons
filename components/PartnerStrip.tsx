@@ -9,7 +9,7 @@ const PARTNERS = [
     imageUrl: "https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg", 
   },
   {
-    name: "NNPC",
+    name: "MAS",
     imageUrl: "https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg",
   },
   {
@@ -38,11 +38,7 @@ export default function PartnerStrip() {
         <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
         <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
 
-        <div className="flex items-center gap-2 px-4 mb-1.5">
-          <span className="text-[9px] font-black uppercase text-amber-500 tracking-widest">
-            Key Partners
-          </span>
-        </div>
+        
 
         {/* Scrolling Track */}
         <div className="flex w-max animate-marquee space-x-6 items-center">

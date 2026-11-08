@@ -14,41 +14,46 @@ import Image from "next/image";
 const BANNERS = [
   {
     id: "intro-buttns",
-    badge: "Hello Egan",
+    badge: "BUTTNS",
     badgeIcon: Sparkles,
+    // badgeBg: "bg-green-300 text-black",
     badgeBg: "bg-green-300 text-black",
-    title: "Introducing BUTTNS.",
+    title: "What can we get you?",
     subtitle:
-      "Chop Food, Wash anything, Style Yourself & More | Exact Prices | 10 Mins Delivery |",
-    ctaText: "PUSH",
+      "Order for Food, Refill, Laundry & More | Our Community | Our App",
+    ctaText: "Sign up",
     ctaHref: "/get-started",
-    bgImage: "/banner/screensht.png",
-    overlayGradient: "from-[#030630] via-[#030630] to-green-500",
+    textColor: "black",
+    bgImage: "/banner/egan.jpg",
+    // overlayGradient: "from-[#030630] via-[#030630] to-green-500",
+    overlayGradient: "from-white via-white to-green-500",
   },
   {
     id: "ija-ember",
-    badge: "Ija Activation!",
+    badge: "Lagos Activation!",
     badgeIcon: Flame,
     badgeBg: "bg-amber-500 text-black",
-    title: "WIN Free food, data & recharge!",
-    subtitle: "Push the button and win yourself a spin on the wheel of furtune",
-    ctaText: "PUSH",
+    title: "#FeedTheStreetsEps3",
+    subtitle: "Its time to give back to the streets",
+    ctaText: "Register",
     ctaHref: "/dispatch",
-    bgImage: "/food/food.jpeg",
-    overlayGradient: "from-[#5f4704] via-amber-950/90 to-amber-300",
+    textColor: "black",
+    bgImage: "/banner/feedthestreet.jpeg",
+    overlayGradient: "from-amber-300 via-amber-300 to-white",
   },
   {
     id: "game-of-codes",
-    badge: "SATURDAYS",
+    badge: "DREAMBOX club",
     badgeIcon: Gamepad2,
     badgeBg: "bg-purple-300 text-black",
-    title: "DreamBox School Club",
+    title: "A TECHY Christmas",
     subtitle:
-      "Join the ultimate tech & talent club in Egan . Create Rockets & Robots!",
+      "Explore the exciting world christmas with Robo-Santa",
     ctaText: "Register",
     ctaHref: "/tournaments/Egan-Got-Talents",
-    bgImage: "/banner/dreambx.jpg",
-    overlayGradient: "from-[#030630] via-purple-950/90 to-purple-500",
+    textColor: "green",
+    bgImage: "/banner/techyxmas.jpg",
+    overlayGradient: "from-purple-500 via-black to-black",
   },
 ];
 
@@ -129,13 +134,13 @@ export default function HeroBannerCarousel() {
 
                 {banner.id === "ija-ember" && (
                   <span className="text-[10px] font-bold text-amber-400 flex items-center gap-1 bg-black/60 px-2 py-0.5 rounded-full border border-amber-500/30">
-                    <MapPin className="w-3 h-3" /> Food, Data
+                    <MapPin className="w-3 h-3" />DEC, 1st
                   </span>
                 )}
 
                 {banner.id === "game-of-codes" && (
                   <span className="text-[10px] font-bold text-emerald-400 flex items-center gap-1 bg-black/60 px-2 py-0.5 rounded-full border border-emerald-500/30">
-                    <Calendar className="w-3 h-3" /> Age 3+
+                    <Calendar className="w-3 h-3" />Pry & Sec
                   </span>
                 )}
               </div>
@@ -144,10 +149,10 @@ export default function HeroBannerCarousel() {
               <div className="flex justify-between" >
                 
                 <div className="relative z-10 space-y-1 w-50 my-2">
-<h2 className="text-xl font-black text-white leading-tight tracking-tight">
+<h2 className={`text-xl font-black text-${banner.textColor} leading-tight tracking-tight`}>
                   {banner.title}
                 </h2>
-                <p className="text-xs text-gray-300 line-clamp-2 leading-relaxed">
+                <p className={`text-xs text-${banner.textColor} line-clamp-2 leading-relaxed`}>
                   {banner.subtitle}
                 </p>
                 </div>
@@ -165,7 +170,8 @@ export default function HeroBannerCarousel() {
               <div className="relative z-10 flex items-center justify-between pt-1">
                 <a
                   href={banner.ctaHref}
-                  className="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-4 py-2 rounded-xl text-xs font-black transition-colors"
+                  className={`inline-flex items-center gap-2 bg-${banner.textColor} hover:bg-amber-400 text-black px-4 py-2 rounded-xl text-xs font-black transition-colors`}
+                  style={{backgroundColor: "orange"}}
                 >
                   <span>{banner.ctaText}</span>
                   <ArrowRight className="w-3.5 h-3.5" />

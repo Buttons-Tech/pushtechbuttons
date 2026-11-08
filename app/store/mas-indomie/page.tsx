@@ -598,6 +598,19 @@ function MasIndomieContent() {
                   </div>
                 </div>
 
+                {/* Pay with Paatee */}
+                <button
+                    type="button"
+                    onClick={() => setOrderType('pickup')}
+                    className={`py-2 px-2 rounded-xl text-xs font-bold transition-all ${
+                      orderType === 'pickup'
+                        ? 'bg-orange-600 text-white shadow-sm'
+                        : 'text-slate-600 hover:text-slate-900'
+                    }`}
+                  >
+                    🏪 Pay with Paatee
+                  </button>
+
                 {/* Price Breakdown */}
                 <div className="bg-slate-100 p-3 rounded-2xl space-y-1 text-xs">
                   <div className="flex justify-between text-slate-600">

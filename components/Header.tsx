@@ -1,11 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
+import navart from "../public/nav/navart.jpg"
 import { useSession, signIn, signOut } from "next-auth/react";
 import { Menu, Sparkles } from "lucide-react";
 import NavMenuDrawer from "./NavMenuDrawer";
 import Image from "next/image";
 import Link from "next/link";
+import { url } from "inspector";
+import { URL } from "url";
 
 export default function Header() {
   const { data: session, status } = useSession();
@@ -16,18 +19,21 @@ export default function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 bg-[#023b26] text-white px-4 py-3 shadow-md border-b border-zinc-800">
+      <header className="sticky top-0 z-40  px-4 py-3 shadow-md border-b border-zinc-800"
+      style={{ backgroundImage: `url(${navart})` }}
+      >
         <div className="max-w-md mx-auto flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex h-1 items-center gap-1 group">
             <Image
-              src="/brand/buttons_logo.png"
+              src="/brand/buttn22.png"
               width={50}
               height={50}
               alt="push"
-              className="w-auto h-auto mt-4 overflow-y-hidden"
+              className="w-auto h-7 mt-4 "
             />
-            <span className="text-[11px] bottom-0 text-white ">.com</span>
+            <span className="text-2xl font-black bottom-0  ">BUTTNS</span>
+            <span className="text-l">Community App</span>
           </Link>
 
           {/* Controls */}
@@ -57,14 +63,14 @@ export default function Header() {
                 href="/auth/signin"
                 className="flex items-center gap-1.5 bg-amber-500 hover:bg-lime-300 text-black px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider transition-transform active:scale-95 shadow-md border border-lime-300 shadow-amber-500/20"
               >
-                <span>PUSH</span>
+                <span>Sign up</span>
               </Link>
             )}
 
             {/* Menu Trigger */}
             <button
               onClick={() => setIsMenuOpen(true)}
-              className="p-1.5 text-lime-300 hover:text-amber-500 hover:bg-zinc-800 rounded-xl transition"
+              className="p-1.5  hover:text-amber-500 hover:bg-zinc-800 rounded-xl transition"
               aria-label="Open Navigation Menu"
             >
               <Menu className="w-6 h-6" />

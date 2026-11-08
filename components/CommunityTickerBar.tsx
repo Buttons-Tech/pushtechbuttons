@@ -1,31 +1,53 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { CloudSun, Megaphone, Flame, Clock } from 'lucide-react';
+import { CloudSun, Megaphone, Flame, Clock,  } from 'lucide-react';
 
 const TICKER_ITEMS = [
   {
     id: "news",
     icon: Megaphone,
     colorClass: "text-amber-400 font-bold",
-    label: "NEWS",
-    value: "CDA General Meeting this Saturday @ 10 AM (Gatehouse Hall)",
+    label: "TRENDS",
+    value: "Another Gospel Singer Dies",
   },
   {
     id: "weather",
     icon: CloudSun,
     colorClass: "text-lime-400 font-bold",
     label: "WEATHER",
-    value: "Ija: 28°C • Partly Cloudy",
+    value: "Igando: 28°C • Rain Expected",
   },
   {
     id: "gas",
     icon: Flame,
     colorClass: "text-orange-400 font-bold",
-    label: "GAS PRICE",
+    label: "Total GAS PRICE",
     value: "Cooking Gas @ ₦1,340 / kg",
   },
+  {
+    id: "rice",
+    icon: Flame,
+    colorClass: "text-orange-400 font-bold",
+    label: "RICE PRICE",
+    value: "Rice @ ₦4,500 / paint",
+  },
+  {
+    id: "beans",
+    icon: Flame,
+    colorClass: "text-orange-400 font-bold",
+    label: "BEANS PRICE",
+    value: "Rice @ ₦5,500 / paint",
+  },
+  {
+    id: "garri",
+    icon: Flame,
+    colorClass: "text-orange-400 font-bold",
+    label: "GARRI PRICE",
+    value: "Rice @ ₦1,400 / paint",
+  },
 ];
+
 
 export default function CommunityTickerBar() {
   const [time, setTime] = useState<string>('');
@@ -45,7 +67,7 @@ export default function CommunityTickerBar() {
       id: "time",
       icon: Clock,
       colorClass: "text-cyan-400 font-bold",
-      label: "ESTATE TIME",
+      label: "Egan TIME",
       value: time || "12:00 PM",
     },
   ];

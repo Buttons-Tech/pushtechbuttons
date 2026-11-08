@@ -3,7 +3,8 @@
 import React from "react";
 import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
-import { User, Store, MapPin, Phone, ShieldCheck, LogOut, ArrowRight, Package } from "lucide-react";
+import { User, Store, MapPin, Phone, ShieldCheck, LogOut, ArrowRight, Package, Wallet } from "lucide-react";
+import BottomNavbar from "@/components/BottomNavbar";
 
 export default function UserProfilePage() {
   const { data: session } = useSession();
@@ -101,6 +102,24 @@ export default function UserProfilePage() {
         </div>
       </div>
 
+
+      {/* Paatee Wallet */}
+      <div className="bg-amber-300 border border-white rounded-3xl p-4 flex items-center justify-between">
+        <div className="flex items-center gap-2.5">
+          <div className="w-8 h-8 rounded-xl bg-purple-500/20 border border-purple-500/40 flex items-center justify-center text-black">
+            <Wallet className="w-4 h-4" />
+          </div>
+          <div>
+            <h4 className="text-xs font-black text-amber-800">N10,500,000.00</h4>
+            <p className="text-[10px] text-black">Current Ballance</p>
+          </div>
+        </div>
+        <Link href="/user/orders" className="text-xs font-bold text-red-800 hover:underline">
+          Top-up
+        </Link>
+      </div>
+
+
       {/* Orders Link */}
       <div className="bg-zinc-950 border border-zinc-800 rounded-3xl p-4 flex items-center justify-between">
         <div className="flex items-center gap-2.5">
@@ -125,6 +144,8 @@ export default function UserProfilePage() {
         <LogOut className="w-4 h-4" />
         <span>Sign Out from Device</span>
       </button>
+
+      <BottomNavbar />
     </div>
   );
 }

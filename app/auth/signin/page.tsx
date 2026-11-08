@@ -28,7 +28,7 @@ export default function SignInPage() {
 
     if (res?.ok) {
       if (role === "vendor") {
-        router.push("/vendor/dashboard");
+        router.push("/business/dashboard");
       } else {
         router.push("/");
       }

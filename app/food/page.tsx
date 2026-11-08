@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useMemo, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
+import { MENU_ITEMS } from '@/data/menuData';
 
 // --- Type Definitions ---
 export interface FoodItem {

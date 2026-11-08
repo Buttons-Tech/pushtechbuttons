@@ -11,30 +11,39 @@ export default function EstateUtilitiesGrid() {
           Estate Services
         </h2>
       </div>
-      <div className="grid grid-cols-3 gap-1 text-center">
+      <div className="grid grid-cols-4 gap-1 text-center">
         <button className="flex flex-col items-center gap-1.5 group">
-          <div className="border border-dashed border-green-800  w-26 h-12 rounded-2xl border  text-green-800 flex items-center justify-center group-hover:bg-amber-500 group-hover:text-black transition-all">
+          <div className="border border-dashed border-green-800  px-2  h-12 rounded-2xl border  text-green-800 flex items-center justify-center group-hover:bg-amber-500 group-hover:text-black transition-all">
+            
             <Car className="w-5 h-5" />
             <span className="text-[10px] pl-2 font-bold text-green-800 leading-tight">
-              Auto Care
+              Auto 
             </span>
           </div>
         </button>
 
         <button className="flex flex-col items-center gap-1.5 group">
-          <div className="border border-dashed border-green-800   w-26 h-12 rounded-2xl text-green-800 flex items-center justify-center group-hover:bg-amber-500 group-hover:text-black transition-all">
+          <div className="border border-dashed border-green-800   px-2 h-12 rounded-2xl text-green-800 flex items-center justify-center group-hover:bg-amber-500 group-hover:text-black transition-all">
             <Zap className="w-5 h-5" />
             <span className="text-[10px] pl-2  font-bold text-green-800 leading-tight">
-              Solar & CCTV
+              Charge
             </span>
           </div>
         </button>
 
         <button className="flex flex-col items-center gap-1.5 group">
-          <div className="border border-dashed border-green-800 w-26 h-12 rounded-2xl  text-green-800 flex items-center justify-around group-hover:bg-amber-500 group-hover:text-black transition-all">
+          <div className="border border-dashed border-green-800 px-2 h-12 rounded-2xl  text-green-800 flex items-center justify-around group-hover:bg-amber-500 group-hover:text-black transition-all gap-1">
             <BatteryCharging className="w-5 h-5" />
             <span className="text-[10px]  font-bold text-green-800 leading-tight">
-              Device Charge
+              Recharge
+            </span>
+          </div>
+        </button>
+        <button className="flex flex-col items-center gap-1.5 group">
+          <div className="border border-dashed border-green-800 px-2 h-12 rounded-2xl  text-green-800 flex items-center justify-around group-hover:bg-amber-500 group-hover:text-black transition-all gap-1">
+            {/* <BatteryCharging className="w-5 h-5" /> */}
+            <span className="text-[10px]  font-bold text-green-800 leading-tight">
+              Store
             </span>
           </div>
         </button>

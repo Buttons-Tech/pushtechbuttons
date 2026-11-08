@@ -7,6 +7,8 @@ import {
   Smartphone,
   Building2,
   Truck,
+  CreditCard,
+  X,
   Layout,
   Code2,
   Megaphone,
@@ -65,6 +67,7 @@ const BUTTNS_PILLARS = [
 
 export default function InvestorsPartnersSection() {
   const [showFundModal, setShowFundModal] = useState(false);
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [isClicked, setIsCLicked] = useState(false);
   const handleHide = () => {
     setIsCLicked((prev) => !prev);
@@ -180,6 +183,7 @@ export default function InvestorsPartnersSection() {
           {/* Direct Support / Invest CTA */}
           <button
             onClick={() => setShowFundModal(true)}
+
             className="flex items-center justify-center gap-1.5 bg-purple-700 hover:bg-purple-800 text-white py-2.5 rounded-xl text-xs font-black transition-all shadow-md shadow-purple-600/20 active:scale-95"
           >
             <DollarSign className="w-3.5 h-3.5" />
@@ -189,94 +193,147 @@ export default function InvestorsPartnersSection() {
       </div>
 
       {/* Fund / Partner Modal */}
-      {showFundModal && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-end sm:items-center justify-center p-4">
-          <div className="bg-white w-full max-w-md rounded-3xl p-5 space-y-4 animate-in fade-in slide-in-from-bottom-5">
-            <div className="flex items-center justify-between border-b border-gray-100 pb-3">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center text-purple-700 font-black text-sm">
-                  ₦
-                </div>
-                <div>
-                  <h3 className="text-sm font-black text-gray-900">
-                    Fund Buttns Growth
-                  </h3>
-                  <p className="text-[10px] text-gray-500 font-bold">
-                    Select an investment or sponsorship route
-                  </p>
-                </div>
+      {
+      // showFundModal && (
+
+      //   <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-end sm:items-center justify-center p-4">
+      //     <div className="bg-white w-full max-w-md rounded-3xl p-5 space-y-4 animate-in fade-in slide-in-from-bottom-5">
+      //       <div className="flex items-center justify-between border-b border-gray-100 pb-3">
+      //         <div className="flex items-center gap-2">
+      //           <div className="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center text-purple-700 font-black text-sm">
+      //             ₦
+      //           </div>
+      //           <div>
+      //             <h3 className="text-sm font-black text-gray-900">
+      //               Fund Buttns Growth
+      //             </h3>
+      //             <p className="text-[10px] text-gray-500 font-bold">
+      //               Select an investment or sponsorship route
+      //             </p>
+      //           </div>
+      //         </div>
+      //         <button
+      //           onClick={() => setShowFundModal(false)}
+      //           className="w-7 h-7 rounded-full bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-xs"
+      //         >
+      //           ✕
+      //         </button>
+      //       </div>
+
+      //       <div className="space-y-2.5">
+      //         {/* Option 1: Back the 6 Pillars (Grants / Contributions) */}
+      //         <a
+      //           href="https://paystack.com/pay/buttns-ecosystem-fund"
+      //           target="_blank"
+      //           rel="noopener noreferrer"
+      //           className="flex items-center justify-between p-3 rounded-2xl border border-purple-200 bg-purple-50/50 hover:bg-purple-50 transition-colors group"
+      //         >
+      //           <div>
+      //             <p className="text-xs font-black text-purple-950">
+      //               Ecosystem Development Support
+      //             </p>
+      //             <p className="text-[10px] text-purple-700 font-medium">
+      //               Fund The Cave hub, Buttns logistics & Buttns app Development
+      //             </p>
+      //           </div>
+      //           <ArrowRight className="w-4 h-4 text-purple-600 group-hover:translate-x-0.5 transition-transform" />
+      //         </a>
+
+      //         {/* Option 2: Portals & Ads Sponsorship */}
+      //         <a
+      //           href="https://wa.me/2349033811883?text=Hello,%20I%20want%20to%20sponsor%20Portals%20signage%20and%20Ads%20on%20Buttns."
+      //           target="_blank"
+      //           rel="noopener noreferrer"
+      //           className="flex items-center justify-between p-3 rounded-2xl border border-amber-200 bg-amber-50/50 hover:bg-amber-50 transition-colors group"
+      //         >
+      //           <div>
+      //             <p className="text-xs font-black text-amber-950">
+      //               Portals & Ads Sponsorship
+      //             </p>
+      //             <p className="text-[10px] text-amber-700 font-medium">
+      //               Sponsor physical billboards & digital ad networks
+      //             </p>
+      //           </div>
+      //           <ArrowRight className="w-4 h-4 text-amber-600 group-hover:translate-x-0.5 transition-transform" />
+      //         </a>
+
+      //         {/* Option 3: Pre-Seed Equity & Strategic Partnerships */}
+      //         <a
+      //           href="mailto:buttonsafrotech@gmail.com?subject=Equity%20%26%20Partnership%20Inquiry%20-%20Buttns"
+      //           className="flex items-center justify-between p-3 rounded-2xl border border-zinc-200 bg-zinc-950 text-white hover:bg-zinc-900 transition-colors group"
+      //         >
+      //           <div>
+      //             <p className="text-xs font-black text-white">
+      //               Equity & Angel Investor Desk
+      //             </p>
+      //             <p className="text-[10px] text-gray-300 font-medium">
+      //               Pre-seed equity, convertible notes & founder call
+      //             </p>
+      //           </div>
+      //           <ArrowRight className="w-4 h-4 text-amber-400 group-hover:translate-x-0.5 transition-transform" />
+      //         </a>
+      //       </div>
+
+      //       <button
+      //         onClick={() => setShowFundModal(false)}
+      //         className="w-full py-2.5 rounded-xl bg-gray-100 text-gray-700 text-xs font-bold"
+      //       >
+      //         Close
+      //       </button>
+      //     </div>
+      //   </div>
+
+
+      // )
+
+      // {
+        showFundModal
+
+         && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+          <div className="bg-white rounded-3xl max-w-lg w-full p-8 shadow-2xl border-4 border-orange-100 relative animate-scaleUp">
+            <button onClick={() => setShowFundModal(false)}  className="absolute top-6 right-6 p-2 rounded-xl bg-orange-100 text-orange-600 hover:bg-orange-200">
+              <X className="w-6 h-6" />
+            </button>
+            <div className="text-center mb-6">
+              <div className="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-3 text-orange-600">
+                <CreditCard className="w-8 h-8" />
               </div>
-              <button
-                onClick={() => setShowFundModal(false)}
-                className="w-7 h-7 rounded-full bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-xs"
-              >
-                ✕
-              </button>
+              <h3 className="text-2xl font-black text-slate-900">Investment & Contributions</h3>
+              <p className="text-orange-600 font-bold text-lg mt-1">From ₦10,000/ month</p>
             </div>
 
-            <div className="space-y-2.5">
-              {/* Option 1: Back the 6 Pillars (Grants / Contributions) */}
-              <a
-                href="https://paystack.com/pay/buttns-ecosystem-fund"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-between p-3 rounded-2xl border border-purple-200 bg-purple-50/50 hover:bg-purple-50 transition-colors group"
-              >
-                <div>
-                  <p className="text-xs font-black text-purple-950">
-                    Ecosystem Development Support
-                  </p>
-                  <p className="text-[10px] text-purple-700 font-medium">
-                    Fund The Cave hub, Buttns logistics & Buttns app Development
-                  </p>
-                </div>
-                <ArrowRight className="w-4 h-4 text-purple-600 group-hover:translate-x-0.5 transition-transform" />
-              </a>
-
-              {/* Option 2: Portals & Ads Sponsorship */}
-              <a
-                href="https://wa.me/2349033811883?text=Hello,%20I%20want%20to%20sponsor%20Portals%20signage%20and%20Ads%20on%20Buttns."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-between p-3 rounded-2xl border border-amber-200 bg-amber-50/50 hover:bg-amber-50 transition-colors group"
-              >
-                <div>
-                  <p className="text-xs font-black text-amber-950">
-                    Portals & Ads Sponsorship
-                  </p>
-                  <p className="text-[10px] text-amber-700 font-medium">
-                    Sponsor physical billboards & digital ad networks
-                  </p>
-                </div>
-                <ArrowRight className="w-4 h-4 text-amber-600 group-hover:translate-x-0.5 transition-transform" />
-              </a>
-
-              {/* Option 3: Pre-Seed Equity & Strategic Partnerships */}
-              <a
-                href="mailto:buttonsafrotech@gmail.com?subject=Equity%20%26%20Partnership%20Inquiry%20-%20Buttns"
-                className="flex items-center justify-between p-3 rounded-2xl border border-zinc-200 bg-zinc-950 text-white hover:bg-zinc-900 transition-colors group"
-              >
-                <div>
-                  <p className="text-xs font-black text-white">
-                    Equity & Angel Investor Desk
-                  </p>
-                  <p className="text-[10px] text-gray-300 font-medium">
-                    Pre-seed equity, convertible notes & founder call
-                  </p>
-                </div>
-                <ArrowRight className="w-4 h-4 text-amber-400 group-hover:translate-x-0.5 transition-transform" />
-              </a>
+            <div className="bg-orange-50 p-6 rounded-2xl border border-orange-200 space-y-4 mb-6">
+              <h4 className="font-black text-slate-800 uppercase text-xs tracking-wider">Bank Transfer Instructions</h4>
+              <div className="flex justify-between items-center bg-white p-3 rounded-xl border border-orange-100">
+                <span className="text-xs font-bold text-slate-500">Bank Name</span>
+                <span className="font-black text-slate-800">Firstbank</span>
+              </div>
+              <div className="flex justify-between items-center bg-white p-3 rounded-xl border border-orange-100">
+                <span className="text-xs font-bold text-slate-500">Account Number</span>
+                <span className="font-black text-orange-600 text-lg">2043436716</span>
+              </div>
+              <div className="flex justify-between items-center bg-white p-3 rounded-xl border border-orange-100">
+                <span className="text-xs font-bold text-slate-500">Account Name</span>
+                <span className="font-black text-slate-800">Paatee Nig Ltd</span>
+              </div>
             </div>
 
-            <button
-              onClick={() => setShowFundModal(false)}
-              className="w-full py-2.5 rounded-xl bg-gray-100 text-gray-700 text-xs font-bold"
+            <button 
+              onClick={() => {
+                alert("Payment instruction noted! Please upload proof of transfer on your profile.");               
+               
+              }}
+              className="w-full bg-purple-700 hover:bg-purple-800 text-white font-black py-4 rounded-2xl shadow-lg transition"
             >
-              Close
+              I Have Made The Transfer
             </button>
           </div>
         </div>
       )}
+      
+      
+      {/* } */}
     </section>
   );
 }

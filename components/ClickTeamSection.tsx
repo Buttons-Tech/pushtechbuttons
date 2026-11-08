@@ -6,6 +6,38 @@ import { Sparkles, ArrowRight, Code2, Users, Briefcase } from 'lucide-react';
 // Replace with your exact Cloudinary team photo link
 const CLICK_TEAM_IMAGE = "/images/click.jpeg";
 
+const CLICK = [
+  {
+    name: "Chigozie",
+    role: "Software Engineer I",
+
+  },
+  {
+    name: "Angel",
+    role: "Virtual Assistant II"
+  },
+  {
+    name: "Adeola",
+    role: "Product Manager"
+  },
+  {
+    name: "Nuel",
+    role: "Software Engineer II"
+  },
+  {
+    name: "Goodluck",
+    role: "Designer II"
+  },
+  {
+    name: "Great",
+    role: "Designer I"
+  },
+  {
+    name: "Loju",
+    role: "Virtual Assistant I"
+  }
+]
+
 export default function ClickTeamSection() {
   return (
     <section className="space-y-3">
@@ -18,7 +50,7 @@ export default function ClickTeamSection() {
           </h2>
         </div>
         <span className="text-[10px] font-bold text-purple-700 bg-purple-100 px-2 py-0.5 rounded-full">
-          Egan Tech Force
+          MainLand
         </span>
       </div>
 
@@ -43,23 +75,30 @@ export default function ClickTeamSection() {
         {/* 2. Clear Description & Talent Breakdown */}
         <div className="space-y-2">
           <p className="text-xs font-semibold text-gray-700 leading-relaxed">
-            Powered by a hybrid taskforce of active <strong className="text-purple-700 font-extrabold">NYSC Corpers</strong> and trained <strong className="text-amber-800 font-extrabold">local tech talents</strong> maintaining the Buttns App
+            Powered by active <strong className="text-purple-700 font-extrabold">NYSC Corpers</strong> and <strong className="text-amber-800 font-extrabold">street talents</strong> 
           </p>
 
-          <div className="grid grid-cols-2 gap-2 pt-1">
-            <div className="flex items-center gap-2 p-2 rounded-xl bg-purple-50 border border-purple-100">
-              <Briefcase className="w-4 h-4 text-purple-600 shrink-0" />
+          <div className="grid grid-cols-4 gap-2 pt-1">
+            {
+              CLICK.map((click, index) => (
+                <div className="flex items-center gap-2 p-2 rounded-xl bg-purple-50 border border-purple-100" key={index} >
+              
+<Users className="w-4 h-4 text-amber-600 shrink-0" />
               <div>
-                <p className="text-[10px] font-black uppercase text-purple-950">The CAVE</p>
-                <p className="text-[9px] text-purple-700 font-medium">1, Buttns Street, Ija, Egan, Lagos</p>
+                <p className="text-[10px] font-black uppercase text-purple-950">{click.name}</p>
+                <p className="text-[9px] text-purple-700 font-medium">{click.role}</p>
               </div>
             </div>
+              ))
+            }
+            
 
             <div className="flex items-center gap-2 p-2 rounded-xl bg-amber-50 border border-amber-100">
-              <Users className="w-4 h-4 text-amber-600 shrink-0" />
+              
+              <Briefcase className="w-4 h-4 text-purple-600 shrink-0" />
               <div>
-                <p className="text-[10px] font-black uppercase text-amber-950">CYBERVERSE</p>
-                <p className="text-[9px] text-amber-700 font-medium">2 Loftybrum street, orchid, Lekki 11, Lagos</p>
+                <p className="text-[10px] font-black uppercase text-amber-950">HQ</p>
+                <p className="text-[9px] text-amber-700 font-medium">1 Buttns street, Ija, Egan</p>
               </div>
             </div>
           </div>
@@ -73,7 +112,7 @@ export default function ClickTeamSection() {
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             <span className="text-xs font-black uppercase tracking-wider">
-              Join The Click Team
+              Join Us
             </span>
           </div>
           
