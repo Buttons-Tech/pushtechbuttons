@@ -4,6 +4,7 @@ import { Providers } from './providers';
 import type { Metadata, Viewport } from "next";
 import { Montserrat, Outfit } from "next/font/google"; // Modern, premium feel
 import "./globals.css";
+import { AuthProvider } from "../context/AuthContext";
 
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
 const montserrat = Montserrat({
@@ -48,8 +49,9 @@ export default function RootLayout({
       <body
         className={`${outfit.variable} ${montserrat.variable} antialiased font-sans bg-white`}
       >
-        <Providers>{children}</Providers>
-        
+        <AuthProvider>
+          <Providers>{children}</Providers>
+        </AuthProvider>
       </body>
     </html>
   );

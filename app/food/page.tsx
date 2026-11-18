@@ -1,9 +1,12 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect, useMemo, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
-import Image from 'next/image';
-import { MENU_ITEMS } from '@/data/menuData';
+import React, { useState, useEffect, useMemo, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
+import Image from "next/image";
+import { MENU_ITEMS } from "@/data/menuData";
+import { CategorySwitcher } from "@/components/vendors/CategorySwitcher";
+import { ShareBillButton } from "@/components/vendors/ShareBillButton";
+import { QuickAuthModal } from "@/components/auth/QuickAuthModal";
 
 // --- Type Definitions ---
 export interface FoodItem {
@@ -21,43 +24,43 @@ export interface TrayItem {
   quantity: number;
 }
 
-const API_URL = 'https://kitchen-server-d763.onrender.com/food';
-const KITCHEN_WHATSAPP_NUMBER = '2349033811883';
-const MONIEPOINT_ACCOUNT = '2043436716';
-const MONIEPOINT_BANK = 'First Bank PLC';
+const API_URL = "https://kitchen-server-d763.onrender.com/food";
+const KITCHEN_WHATSAPP_NUMBER = "2349033811883";
+const MONIEPOINT_ACCOUNT = "2043436716";
+const MONIEPOINT_BANK = "First Bank PLC";
 const DISPATCH_FEE = 500;
 
-
-
 const CATEGORIES = [
-  'All',
-  'Swallow',
-  'Rice & Spaghetti',
-  'Proteins',
-  'Sides',
-  'Drinks',
-  'Snacks',
+  "All",
+  "Swallow",
+  "Rice & Spaghetti",
+  "Proteins",
+  "Sides",
+  "Drinks",
+  "Snacks",
 ] as const;
 
 function FoodMenuContent() {
   const searchParams = useSearchParams();
-  const initialCategory = searchParams.get('category') || 'All';
+  const initialCategory = searchParams.get("category") || "All";
 
   // --- State ---
   const [menuItems, setMenuItems] = useState<FoodItem[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory);
+  const [selectedCategory, setSelectedCategory] =
+    useState<string>(initialCategory);
   const [tray, setTray] = useState<TrayItem[]>([]);
   const [isTrayOpen, setIsTrayOpen] = useState<boolean>(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(false);
 
   // --- Revised Checkout Form State ---
-  const [orderType, setOrderType] = useState<'delivery' | 'pickup'>('delivery');
-  const [deliveryAddress, setDeliveryAddress] = useState<string>('');
-  const [customerName, setCustomerName] = useState<string>('');
-  const [customerPhone, setCustomerPhone] = useState<string>('');
-  const [notes, setNotes] = useState<string>('');
+  const [orderType, setOrderType] = useState<"delivery" | "pickup">("delivery");
+  const [deliveryAddress, setDeliveryAddress] = useState<string>("");
+  const [customerName, setCustomerName] = useState<string>("");
+  const [customerPhone, setCustomerPhone] = useState<string>("");
+  const [notes, setNotes] = useState<string>("");
   const [receiptImage, setReceiptImage] = useState<File | null>(null);
   const [copied, setCopied] = useState<boolean>(false);
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
@@ -75,17 +78,22 @@ function FoodMenuContent() {
       const data: FoodItem[] = await res.json();
       setMenuItems(data);
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'Failed to fetch food items');
+      setError(
+        err instanceof Error ? err.message : "Failed to fetch food items",
+      );
     } finally {
       setIsLoading(false);
     }
   };
 
-  const getItemId = (item: FoodItem): string => item._id || item.id || item.name;
+  const getItemId = (item: FoodItem): string =>
+    item._id || item.id || item.name;
 
   const filteredItems = useMemo(() => {
-    if (selectedCategory === 'All') return menuItems;
-    return menuItems.filter((item) => item.category?.toLowerCase() === selectedCategory.toLowerCase());
+    if (selectedCategory === "All") return menuItems;
+    return menuItems.filter(
+      (item) => item.category?.toLowerCase() === selectedCategory.toLowerCase(),
+    );
   }, [selectedCategory, menuItems]);
 
   const totalItemsCount = useMemo(() => {
@@ -98,7 +106,7 @@ function FoodMenuContent() {
 
   // Final Total calculation including Isuti delivery fee
   const finalTotalPrice = useMemo(() => {
-    return subtotalPrice + (orderType === 'delivery' ? DISPATCH_FEE : 0);
+    return subtotalPrice + (orderType === "delivery" ? DISPATCH_FEE : 0);
   }, [subtotalPrice, orderType]);
 
   const addToTray = (item: FoodItem): void => {
@@ -106,7 +114,11 @@ function FoodMenuContent() {
     setTray((prev) => {
       const existing = prev.find((t) => getItemId(t.item) === targetId);
       if (existing) {
-        return prev.map((t) => (getItemId(t.item) === targetId ? { ...t, quantity: t.quantity + 1 } : t));
+        return prev.map((t) =>
+          getItemId(t.item) === targetId
+            ? { ...t, quantity: t.quantity + 1 }
+            : t,
+        );
       }
       return [...prev, { item, quantity: 1 }];
     });
@@ -115,8 +127,10 @@ function FoodMenuContent() {
   const removeFromTray = (itemId: string): void => {
     setTray((prev) =>
       prev
-        .map((t) => (getItemId(t.item) === itemId ? { ...t, quantity: t.quantity - 1 } : t))
-        .filter((t) => t.quantity > 0)
+        .map((t) =>
+          getItemId(t.item) === itemId ? { ...t, quantity: t.quantity - 1 } : t,
+        )
+        .filter((t) => t.quantity > 0),
     );
   };
 
@@ -139,21 +153,23 @@ function FoodMenuContent() {
   };
 
   // Submit Order via WhatsApp with Receipt
-  const handleCompleteOrder = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+  const handleCompleteOrder = async (
+    e: React.FormEvent<HTMLFormElement>,
+  ): Promise<void> => {
     e.preventDefault();
 
     if (!customerName || !customerPhone) {
-      alert('Please fill in your Name and Phone Number.');
+      alert("Please fill in your Name and Phone Number.");
       return;
     }
 
-    if (orderType === 'delivery' && !deliveryAddress) {
-      alert('Please enter your delivery address in Isuti area.');
+    if (orderType === "delivery" && !deliveryAddress) {
+      alert("Please enter your delivery address in Isuti area.");
       return;
     }
 
     if (!receiptImage) {
-      alert('Please upload your payment receipt screenshot before submitting.');
+      alert("Please upload your payment receipt screenshot before submitting.");
       return;
     }
 
@@ -161,8 +177,11 @@ function FoodMenuContent() {
 
     try {
       const orderItemsText = tray
-        .map((t) => `• ${t.quantity}x ${t.item.name} - ₦${(t.item.price * t.quantity).toLocaleString()}`)
-        .join('\n');
+        .map(
+          (t) =>
+            `• ${t.quantity}x ${t.item.name} - ₦${(t.item.price * t.quantity).toLocaleString()}`,
+        )
+        .join("\n");
 
       const orderRef = `REF-${Date.now().toString().slice(-6)}`;
 
@@ -171,22 +190,27 @@ function FoodMenuContent() {
         `🔖 *Order Ref:* ${orderRef}\n` +
         `👤 *Customer Name:* ${customerName}\n` +
         `📞 *Phone:* ${customerPhone}\n` +
-        (orderType === 'delivery'
+        (orderType === "delivery"
           ? `📍 *Delivery Address (Isuti):* ${deliveryAddress}\n`
           : `🛵 *Order Type:* Pickup at Restaurant\n`) +
         `\n📋 *ORDER ITEMS:*\n${orderItemsText}\n\n` +
         `💵 *Subtotal:* ₦${subtotalPrice.toLocaleString()}\n` +
-        (orderType === 'delivery' ? `🚚 *Dispatch Fee (Isuti):* ₦${DISPATCH_FEE.toLocaleString()}\n` : '') +
+        (orderType === "delivery"
+          ? `🚚 *Dispatch Fee (Isuti):* ₦${DISPATCH_FEE.toLocaleString()}\n`
+          : "") +
         `💰 *TOTAL PAID:* ₦${finalTotalPrice.toLocaleString()}\n` +
         `🏦 *Payment Method:* Bank Transfer (PAATEE by First Bank Ltd)\n` +
-        (notes ? `📝 *Notes:* ${notes}\n` : '') +
+        (notes ? `📝 *Notes:* ${notes}\n` : "") +
         `\n📌 *Note:* Payment receipt attached/uploaded.`;
 
       // Open WhatsApp window with pre-filled message
-      window.open(`https://wa.me/${KITCHEN_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
+      window.open(
+        `https://wa.me/${KITCHEN_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`,
+        "_blank",
+      );
     } catch (err) {
       console.error(err);
-      alert('Something went wrong. Please try again.');
+      alert("Something went wrong. Please try again.");
     } finally {
       setIsProcessing(false);
     }
@@ -205,19 +229,22 @@ function FoodMenuContent() {
               ← Back
             </button>
             <div>
-              <h1 className="text-lg font-extrabold tracking-tight">Global Taste Restaurant</h1>
-              <p className="text-[10px] text-emerald-100">Select items for your order</p>
+              <h1 className="text-lg font-extrabold tracking-tight">
+                Global Taste Restaurant
+              </h1>
+              <p className="text-[10px] text-emerald-100">
+                Select items for your order
+              </p>
             </div>
-            
           </div>
           <div>
-              <Image 
+            <Image
               src="/food/global_taste.jpeg"
               width={400}
               height={200}
-              alt='Global Taste'
-              />
-            </div>
+              alt="Global Taste"
+            />
+          </div>
           <button
             onClick={() => fetchMenuItems()}
             className="text-[10px] bg-emerald-800 hover:bg-emerald-900 text-emerald-100 px-2.5 py-1 rounded-full font-medium"
@@ -225,6 +252,8 @@ function FoodMenuContent() {
             🔄 Refresh
           </button>
         </div>
+
+        <CategorySwitcher activeSlug="food" />
 
         {/* Categories Bar */}
         <div className="flex overflow-x-auto gap-2 px-4 py-2.5 bg-emerald-800 no-scrollbar">
@@ -234,8 +263,8 @@ function FoodMenuContent() {
               onClick={() => setSelectedCategory(cat)}
               className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
                 selectedCategory === cat
-                  ? 'bg-amber-400 text-emerald-950 shadow-sm'
-                  : 'bg-emerald-700/60 text-white hover:bg-emerald-700'
+                  ? "bg-amber-400 text-emerald-950 shadow-sm"
+                  : "bg-emerald-700/60 text-white hover:bg-emerald-700"
               }`}
             >
               {cat}
@@ -247,8 +276,12 @@ function FoodMenuContent() {
       {/* Main Container */}
       <main className="max-w-3xl mx-auto px-4 py-4">
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-base font-bold text-slate-800">{selectedCategory}</h2>
-          <span className="text-xs text-slate-500">{filteredItems.length} items</span>
+          <h2 className="text-base font-bold text-slate-800">
+            {selectedCategory}
+          </h2>
+          <span className="text-xs text-slate-500">
+            {filteredItems.length} items
+          </span>
         </div>
 
         {/* Loading */}
@@ -278,8 +311,9 @@ function FoodMenuContent() {
             {filteredItems.map((food) => {
               const itemId = getItemId(food);
               const qty = getItemQuantity(itemId);
-              const rawImg = food.image || (food as any).imageUrl || (food as any).img;
-              const resolvedImg = typeof rawImg === 'string' ? rawImg : '';
+              const rawImg =
+                food.image || (food as any).imageUrl || (food as any).img;
+              const resolvedImg = typeof rawImg === "string" ? rawImg : "";
 
               return (
                 <div
@@ -289,14 +323,14 @@ function FoodMenuContent() {
                   <div className="relative w-32 h-32 flex-shrink-0 bg-slate-100">
                     {resolvedImg ? (
                       <img
-                        src={resolvedImg.replace('http://', 'https://')}
+                        src={resolvedImg.replace("http://", "https://")}
                         alt={food.name}
                         className="w-full h-full object-cover"
                         onError={(e) => {
                           const target = e.target as HTMLImageElement;
                           target.onerror = null;
                           target.src =
-                            'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80';
+                            "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80";
                         }}
                       />
                     ) : (
@@ -308,8 +342,12 @@ function FoodMenuContent() {
 
                   <div className="p-3 flex flex-col justify-between flex-1 min-w-0">
                     <div>
-                      <h3 className="font-bold text-sm text-slate-900 truncate">{food.name}</h3>
-                      <p className="text-xs text-slate-500 line-clamp-2 mt-0.5">{food.description}</p>
+                      <h3 className="font-bold text-sm text-slate-900 truncate">
+                        {food.name}
+                      </h3>
+                      <p className="text-xs text-slate-500 line-clamp-2 mt-0.5">
+                        {food.description}
+                      </p>
                     </div>
 
                     <div className="flex items-center justify-between mt-2">
@@ -332,7 +370,9 @@ function FoodMenuContent() {
                           >
                             -
                           </button>
-                          <span className="text-xs font-bold text-slate-800">{qty}</span>
+                          <span className="text-xs font-bold text-slate-800">
+                            {qty}
+                          </span>
                           <button
                             onClick={() => addToTray(food)}
                             className="w-6 h-6 bg-emerald-600 rounded-lg flex items-center justify-center font-bold text-white text-xs shadow-xs"
@@ -355,8 +395,12 @@ function FoodMenuContent() {
         <div className="fixed bottom-0 inset-x-0 bg-white border-t border-slate-200 p-3 z-30 shadow-2xl">
           <div className="max-w-3xl mx-auto flex items-center justify-between">
             <div>
-              <p className="text-xs text-slate-500">Tray Total ({totalItemsCount} items)</p>
-              <p className="text-lg font-black text-emerald-700">₦{finalTotalPrice.toLocaleString()}</p>
+              <p className="text-xs text-slate-500">
+                Tray Total ({totalItemsCount} items)
+              </p>
+              <p className="text-lg font-black text-emerald-700">
+                ₦{finalTotalPrice.toLocaleString()}
+              </p>
             </div>
 
             <button
@@ -373,12 +417,13 @@ function FoodMenuContent() {
       {isTrayOpen && (
         <div className="fixed inset-0 bg-black/60 z-50 flex justify-end flex-col sm:justify-center items-center p-0 sm:p-4 backdrop-blur-xs">
           <div className="bg-white w-full max-w-md rounded-t-3xl sm:rounded-3xl max-h-[92vh] flex flex-col overflow-hidden">
-            
             {/* Header */}
             <div className="p-4 bg-emerald-700 text-white flex items-center justify-between">
               <div>
                 <h3 className="font-bold text-base">Complete Your Order</h3>
-                <p className="text-xs text-emerald-100">Pay via transfer & upload receipt</p>
+                <p className="text-xs text-emerald-100">
+                  Pay via transfer & upload receipt
+                </p>
               </div>
               <button
                 onClick={() => setIsTrayOpen(false)}
@@ -389,40 +434,50 @@ function FoodMenuContent() {
             </div>
 
             <div className="p-4 overflow-y-auto flex-1 space-y-4">
-              
               {/* Order Summary */}
               <div className="bg-slate-50 p-3 rounded-2xl border border-slate-200 space-y-2">
-                <p className="text-xs font-bold text-slate-700 uppercase tracking-wider">Order Items</p>
+                <p className="text-xs font-bold text-slate-700 uppercase tracking-wider">
+                  Order Items
+                </p>
                 {tray.map(({ item, quantity }) => (
-                  <div key={getItemId(item)} className="flex justify-between text-xs">
-                    <span className="text-slate-800">{quantity}x {item.name}</span>
-                    <span className="font-semibold text-slate-900">₦{(item.price * quantity).toLocaleString()}</span>
+                  <div
+                    key={getItemId(item)}
+                    className="flex justify-between text-xs"
+                  >
+                    <span className="text-slate-800">
+                      {quantity}x {item.name}
+                    </span>
+                    <span className="font-semibold text-slate-900">
+                      ₦{(item.price * quantity).toLocaleString()}
+                    </span>
                   </div>
                 ))}
               </div>
 
               {/* 1. Delivery vs Pickup Toggle */}
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">Fulfillment Type</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                  Fulfillment Type
+                </label>
                 <div className="grid grid-cols-2 gap-2 bg-slate-100 p-1 rounded-2xl border border-slate-200">
                   <button
                     type="button"
-                    onClick={() => setOrderType('delivery')}
+                    onClick={() => setOrderType("delivery")}
                     className={`py-2 rounded-xl text-xs font-bold transition-all ${
-                      orderType === 'delivery'
-                        ? 'bg-emerald-600 text-white shadow-sm'
-                        : 'text-slate-600 hover:text-slate-900'
+                      orderType === "delivery"
+                        ? "bg-emerald-600 text-white shadow-sm"
+                        : "text-slate-600 hover:text-slate-900"
                     }`}
                   >
                     🛵 Delivery (+₦500)
                   </button>
                   <button
                     type="button"
-                    onClick={() => setOrderType('pickup')}
+                    onClick={() => setOrderType("pickup")}
                     className={`py-2 rounded-xl text-xs font-bold transition-all ${
-                      orderType === 'pickup'
-                        ? 'bg-emerald-600 text-white shadow-sm'
-                        : 'text-slate-600 hover:text-slate-900'
+                      orderType === "pickup"
+                        ? "bg-emerald-600 text-white shadow-sm"
+                        : "text-slate-600 hover:text-slate-900"
                     }`}
                   >
                     🏪 Pickup at Shop
@@ -431,10 +486,16 @@ function FoodMenuContent() {
               </div>
 
               {/* Customer Info Form */}
-              <form id="checkout-form" onSubmit={handleCompleteOrder} className="space-y-3">
+              <form
+                id="checkout-form"
+                onSubmit={handleCompleteOrder}
+                className="space-y-3"
+              >
                 <div className="grid grid-cols-2 gap-2">
                   <div>
-                    <label className="block text-xs font-semibold text-slate-600 mb-1">Your Name *</label>
+                    <label className="block text-xs font-semibold text-slate-600 mb-1">
+                      Your Name *
+                    </label>
                     <input
                       type="text"
                       required
@@ -445,7 +506,9 @@ function FoodMenuContent() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-slate-600 mb-1">Phone Number *</label>
+                    <label className="block text-xs font-semibold text-slate-600 mb-1">
+                      Phone Number *
+                    </label>
                     <input
                       type="tel"
                       required
@@ -458,7 +521,7 @@ function FoodMenuContent() {
                 </div>
 
                 {/* Delivery Address */}
-                {orderType === 'delivery' && (
+                {orderType === "delivery" && (
                   <div>
                     <label className="block text-xs font-semibold text-slate-600 mb-1">
                       Delivery Address (Isuti Area) *
@@ -475,7 +538,9 @@ function FoodMenuContent() {
                 )}
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-600 mb-1">Special Notes</label>
+                  <label className="block text-xs font-semibold text-slate-600 mb-1">
+                    Special Notes
+                  </label>
                   <input
                     type="text"
                     placeholder="e.g. Extra pepper, no onions..."
@@ -498,7 +563,9 @@ function FoodMenuContent() {
 
                   <div className="flex items-center justify-between bg-white p-2.5 rounded-xl border border-amber-200">
                     <div>
-                      <p className="text-[10px] text-slate-500">Account Number</p>
+                      <p className="text-[10px] text-slate-500">
+                        Account Number
+                      </p>
                       <p className="text-base font-black text-slate-900 font-mono tracking-wider">
                         {MONIEPOINT_ACCOUNT}
                       </p>
@@ -508,7 +575,7 @@ function FoodMenuContent() {
                       onClick={handleCopyAccount}
                       className="bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition-transform active:scale-95"
                     >
-                      {copied ? 'Copied! ✓' : 'Copy'}
+                      {copied ? "Copied! ✓" : "Copy"}
                     </button>
                   </div>
 
@@ -534,12 +601,16 @@ function FoodMenuContent() {
                       <span className="text-lg">🧾</span>
                       <p className="text-xs text-slate-600 font-medium">
                         {receiptImage ? (
-                          <span className="text-emerald-700 font-bold">{receiptImage.name}</span>
+                          <span className="text-emerald-700 font-bold">
+                            {receiptImage.name}
+                          </span>
                         ) : (
-                          'Tap to select or upload payment screenshot'
+                          "Tap to select or upload payment screenshot"
                         )}
                       </p>
-                      <p className="text-[10px] text-slate-400">PNG, JPG, or JPEG up to 5MB</p>
+                      <p className="text-[10px] text-slate-400">
+                        PNG, JPG, or JPEG up to 5MB
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -550,7 +621,7 @@ function FoodMenuContent() {
                     <span>Food Subtotal</span>
                     <span>₦{subtotalPrice.toLocaleString()}</span>
                   </div>
-                  {orderType === 'delivery' && (
+                  {orderType === "delivery" && (
                     <div className="flex justify-between text-slate-600">
                       <span>Dispatch Fee (Isuti Area)</span>
                       <span>₦{DISPATCH_FEE.toLocaleString()}</span>
@@ -558,14 +629,16 @@ function FoodMenuContent() {
                   )}
                   <div className="flex justify-between text-sm font-black text-slate-900 border-t border-slate-200 pt-1.5 mt-1">
                     <span>Total Amount to Pay</span>
-                    <span className="text-emerald-700">₦{finalTotalPrice.toLocaleString()}</span>
+                    <span className="text-emerald-700">
+                      ₦{finalTotalPrice.toLocaleString()}
+                    </span>
                   </div>
                 </div>
               </form>
             </div>
 
-            {/* Submit Button */}
-            <div className="p-4 bg-slate-50 border-t border-slate-200">
+            {/* Submit & Share Buttons */}
+            <div className="p-4 bg-slate-50 border-t border-slate-200 space-y-2.5">
               <button
                 type="submit"
                 form="checkout-form"
@@ -573,20 +646,51 @@ function FoodMenuContent() {
                 className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-2xl shadow-lg text-sm flex items-center justify-center gap-2 transition-all disabled:opacity-50"
               >
                 {isProcessing
-                  ? 'Submitting Order...'
+                  ? "Submitting Order..."
                   : `Send Order & Receipt (₦${finalTotalPrice.toLocaleString()})`}
               </button>
+
+              {/* Share Bill ("Ask Someone to Pay") Button directly below */}
+              <ShareBillButton
+                vendorId="global-taste-restaurant"
+                vendorName="Global Taste Restaurant"
+                category="food"
+                items={tray.map((t) => ({
+                  name: t.item.name,
+                  quantity: t.quantity,
+                  unitPrice: t.item.price,
+                }))}
+                totalAmount={finalTotalPrice}
+                deliveryLocation={
+                  orderType === "delivery"
+                    ? deliveryAddress || "Isuti Area, Lagos"
+                    : "Pickup at Global Taste Restaurant"
+                }
+                onRequireAuth={() => setIsAuthModalOpen(true)}
+              />
             </div>
           </div>
         </div>
       )}
+
+      {/* Quick Auth Modal for Guest Users Sharing Bills */}
+      <QuickAuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+      />
     </div>
   );
 }
 
 export default function FoodPage() {
   return (
-    <Suspense fallback={<div className="p-8 text-center text-xs text-slate-500">Loading page...</div>}>
+    <Suspense
+      fallback={
+        <div className="p-8 text-center text-xs text-slate-500">
+          Loading page...
+        </div>
+      }
+    >
       <FoodMenuContent />
     </Suspense>
   );
